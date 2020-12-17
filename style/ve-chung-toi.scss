@@ -1,0 +1,148 @@
+@import "node_modules/progress-tracker/src/styles/progress-tracker.scss";
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.container__ve-chung-toi {
+    padding: 100px 100px;
+    padding-bottom: 50px !important;
+    background-color: #fff;
+}
+
+.card-search {
+    padding: 50px 30px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-introduce {
+    width: 100%;
+    max-height: 600px;
+    object-fit: scale-down;
+}
+
+.progress-step {
+    .progress-marker {
+        color: #10846F;
+    }
+
+    .progress-marker.active {
+        &::before {
+            width: 36px;
+            height: 36px;
+            top: -6px;
+            left: 12px;
+        }
+    }
+}
+
+.card-lichsu {
+    width: 350px;
+    height: 350px;
+}
+
+.progress-step {
+    .progress-marker::after {
+        background: none;
+        background-image: linear-gradient(to right, #10846F 0%, #10846F 50%, transparent 50%);
+        background-size: 40px 1px;
+        z-index: 4000;
+    }
+
+    .progress-marker::before {
+        background-color: #10846F;
+    }
+
+    .progress-marker::before::hover {
+        background-color: #10846F !important;
+    }
+}
+
+.progress-step:hover .progress-marker::before {
+    background-color: #10846F !important;
+}
+
+.progress-marker::before {
+    cursor: pointer;
+    z-index: 7000;
+}
+
+.card__lich-su {
+    padding-left: 10px;
+    padding-right: 10px;
+    flex: 1 0 25%;
+    width: 350px;
+
+    .card-img-top {
+        border-radius: 50%;
+        object-fit: scale-down;
+    }
+}
+
+.card__doi-tac {
+    margin: 10px;
+}
+
+.container__lich-su-cong-ty {
+    background-color: #FFDDEA;
+}
+
+.text-color {
+    color: #10846F !important;
+}
+
+.container__lich-su {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.text-title {
+    font-family: "Dancing Script";
+    position: relative;
+    transform: skewY(-10deg);
+    color: #10846F !important;
+    margin-bottom: 20px;
+}
+
+.active-text {
+    font-size: 28px;
+    margin-bottom: 0px;
+    top: -20px;
+    font-weight: 900;
+}
+
+.img-vechungtoi {
+    width: 65% !important;
+}
+
+@media only screen and (max-width: 992px) {
+    .container__ve-chung-toi {
+        padding: 100px;
+        padding-top: 100px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        background-color: #FFDDEA;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card__lich-su {
+        flex: 1 0 100% !important;
+    }
+
+    .card-img-top {
+        max-width: 375px;
+    }
+
+    .progress-step {
+        min-width: 50px;
+    }
+
+    .card-search {
+        padding: 50px 0px;
+        width: 100%;
+    }
+
+    .img-vechungtoi {
+        width: 90% !important;
+    }
+}

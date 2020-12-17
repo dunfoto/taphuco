@@ -1,0 +1,777 @@
+/* ensure all pages have Bootstrap CSS */
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~react-image-gallery/styles/css/image-gallery.css";
+@import "./admin.css";
+@import "./homepage.css";
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+input {
+    color: #10846F !important;
+}
+
+.text-color {
+    color: #10846F !important;
+}
+
+#__next-prerender-indicator {
+    display: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.font-18 {
+    font-size: 18px !important;
+}
+
+.font-16 {
+    font-size: 16px !important;
+}
+
+.font-20 {
+    font-size: 20px !important;
+}
+
+.styles_scroll-to-top__2A70v {
+    left: 20px !important;
+    border-radius: 0px !important;
+    border: 1px solid #BDBDBD !important;
+}
+
+/*
+    Base color using in this project
+*/
+
+.bg-orange {
+    background-color: #FF9543 !important;
+}
+
+.bg-pink {
+    background-color: #E2117B !important;
+}
+
+.bg-turquoise {
+    background-color: #0AC6B8 !important;
+}
+
+.bg-blue {
+    background-color: #3015FF !important;
+}
+
+.bg-white {
+    background-color: #FFF !important;
+}
+
+.text-orange {
+    color: #FF9543 !important;
+}
+
+.text-pink {
+    color: #E2117B !important;
+}
+
+.text-turquoise {
+    color: #0AC6B8 !important;
+}
+
+.text-blue {
+    color: #3015FF !important;
+}
+
+.text-black {
+    color: #000 !important;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+
+/*
+    End base color using in this project
+*/
+
+.md-container {
+    max-width: 800px;
+    padding-top: 2rem;
+}
+
+.sml-card {
+    width: 22rem;
+    margin: 1rem 0;
+}
+
+.cntr-footer {
+    height: 80px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #ccc;
+}
+
+.sml-logo {
+    height: 1em;
+    margin-left: 10px;
+}
+
+.thongdiep {
+    background-color: #FFDDEA;
+    padding: 170px 0px;
+    position: relative;
+}
+
+.thongdiep>.text-center>img {
+    margin-right: 200px;
+}
+
+.noidungthongdiep {
+    background-color: #FFFFFF;
+    padding: 106px 50px;
+    top: 50%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+}
+
+
+@media screen and (max-width: 768px) {
+    .thongdiep {
+        padding-top: 50px;
+        padding-bottom: 300px;
+    }
+
+    .thongdiep>.text-center>img {
+        margin-right: 100px;
+        width: 75%;
+    }
+
+    .noidungthongdiep {
+        width: 60%;
+        padding: 40px;
+        top: 55%;
+        left: 65%;
+    }
+}
+
+.textthongdiep {
+    font-size: 45px;
+    color: #10846F !important;
+    margin-bottom: 50px;
+    font-family: 'Dancing Script', cursive;
+    font-style: bold;
+    -moz-transform: skewY(-6deg);
+    -ms-transform: skewY(-6deg);
+    -webkit-transform: skewY(-6deg);
+    -o-transform: skewY(-6deg);
+    transform: skewY(-6deg)
+}
+
+.textnguonluc {
+    font-size: 40px;
+    margin-bottom: 20px;
+    font-family: 'Dancing Script', cursive;
+    -moz-transform: skewY(-6deg);
+    -ms-transform: skewY(-6deg);
+    -webkit-transform: skewY(-6deg);
+    -o-transform: skewY(-6deg);
+    transform: skewY(-6deg)
+}
+
+.container__img {
+    position: relative;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
+
+.container__home.container__img {
+    width: 100% !important;
+}
+
+.container__img:hover {
+    background-color: #000;
+    opacity: 0.6;
+}
+
+.container__img:hover .image {
+    opacity: 0.3;
+}
+
+.container__img:hover .middle {
+    opacity: 1;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100% !important;
+    height: 100%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    object-fit: cover;
+}
+
+.middle {
+    width: 100%;
+    height: 100%;
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    justify-content: center;
+}
+
+.middle>.textimage {
+    margin-bottom: 40px;
+    line-height: 47px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.img {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.text {
+    color: #FFFFFF;
+    border: 1px solid white;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.text::hover {
+    color: #FFFFFF !important;
+}
+
+.container__ung-dung {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.container__giai-phap {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.flex__ung-dung {
+    display: flex;
+    display: -webkit-flex;
+    /* Safari */
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.flex__ung-dung>.card__ung-dung {
+    flex: 1 0 21%;
+    width: 300px;
+    height: auto;
+    margin: 10px;
+}
+
+
+@media only screen and (max-width: 992px) {
+    .flex__ung-dung>.card__ung-dung {
+        flex: 1 0 32%;
+        width: 300px;
+        height: auto;
+        margin: 10px;
+    }
+}
+
+.flex__ung-dung>.page__card__ung-dung {
+    flex: 1 0 32%;
+    height: 700px;
+    margin: 10px;
+}
+
+.flex__ung-dung>.card__giai-phap {
+    flex: 1 0 21%;
+    width: 300px;
+    margin: 20px;
+    margin-top: 30px;
+}
+
+.flex__trai-nghiem-khach-hang {
+    display: flex;
+    width: 75%;
+    flex-wrap: wrap;
+    height: 100%;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.card__trainghiem {
+    flex: 1 0 50%;
+    width: auto;
+    max-width: 500px;
+    padding: 20px;
+    padding-top: 30px;
+}
+
+.card>.card-img-top {
+    margin: 0px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card>.card-body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.card>.card-body>p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.card__ung-dung>img {
+    width: 100%;
+}
+
+.card-body__ung-dung {
+    position: absolute;
+    bottom: 0px;
+    background-color: #FFF;
+    width: 100%;
+}
+
+.card__giai-phap {
+    border: none;
+    width: 300px;
+}
+
+.card__giai-phap>img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+p.card-text {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 106.9%;
+}
+
+.container__trainghiemkhachhang {
+    width: 100%;
+    min-height: 300px;
+    margin-top: 50px;
+    position: relative;
+    align-items: center;
+    color: black;
+    background-image: url("/trainghiemkhachhang.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    vertical-align: middle;
+    padding: 100px 20px;
+}
+
+.container__trainghiemkhachhang>.content {
+    width: 50%;
+    background-color: #FFF;
+    padding: 70px;
+    min-height: 300px;
+}
+
+.carousel-control-next-icon {
+    background-color: black;
+}
+
+.carousel-control-prev-icon {
+    background-color: black;
+}
+
+.carousel-item {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-right: auto;
+}
+
+.carousel-indicators {
+    bottom: -20px;
+}
+
+.carousel-indicators ol {
+    margin-right: auto;
+}
+
+.carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #10846F;
+    opacity: 0.2;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+.carousel-indicators>li>.active {
+    background-color: #10846F;
+}
+
+.text-giai-phap {
+    color: #10846F !important;
+    font-size: 25px;
+    font-weight: 600 !important;
+    padding: 10px;
+    line-height: 47px;
+}
+
+.text-trai-nghiem {
+    color: #10846F !important;
+    font-size: 20px;
+    font-weight: 100 !important;
+    padding: 10px;
+}
+
+.text-nguon-luc {
+    color: #10846F !important;
+    font-size: 22px;
+    padding: 10px
+}
+
+.lienhe {
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 20px;
+    background-color: #FFDDEA;
+}
+
+.lienhe>.bg-light {
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.lienhe>.m-4 {
+    margin-left: 60px !important;
+    margin-right: 60px !important;
+}
+
+.lienheheader {
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 160.9%;
+    color: #10846F;
+    margin-bottom: 0px !important;
+}
+
+.lienhecontent {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 160.9%;
+    color: #10846F;
+    margin-bottom: 0px !important;
+}
+
+.container__contact {
+    padding: 50px 100px;
+}
+
+.btn-contact {
+    border: 1px solid #10846F !important;
+    border-radius: 0px;
+    padding: 10px 50px;
+    color: #10846F;
+}
+
+input.form-control {
+    border-radius: 0px;
+    padding: 20px;
+    background: transparent;
+    border: 1px solid #3015FF;
+}
+
+input.form-control:focus,
+input.form-control:active {
+    background: transparent;
+}
+
+.image-gallery-icon:hover {
+    color: #FF9543;
+}
+
+.input-lienhe {
+    border: 2px solid #10846F !important;
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.tooltip-inner {
+    background: transparent;
+    color: black;
+}
+
+.tooltip-inner>.card>.card-body {
+    color: black;
+    opacity: 1;
+}
+
+.card {
+    border: 0px;
+}
+
+.card-title {
+    color: white;
+}
+
+.card-body>.title {
+    padding-top: 10px !important;
+    background-color: #10846F;
+    padding-bottom: 10px !important;
+}
+
+.card-body>.title>h5 {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.arrow::before {
+    display: none;
+}
+
+div[role="tooltip"] {
+    min-width: 300px;
+}
+
+div[role="tooltip"]>.tooltip-inner {
+    min-width: 300px;
+}
+
+
+.carousel__dot {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px;
+    border: 0px !important;
+    background-color: #10846F;
+    margin-left: 10px;
+    margin-right: 10px;
+    opacity: 0.2;
+}
+
+.carousel__dot.carousel__dot--selected {
+    opacity: 1 !important;
+}
+
+.carousel__inner-slide {
+    height: auto !important;
+}
+
+.carousel__slide--visible {
+    padding-bottom: 50px !important;
+}
+
+.image-footer {
+    display: block;
+    width: auto;
+    max-height: 184px;
+    object-fit: scale-down;
+}
+
+.container__image-footer {
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.overlay {
+    position: absolute;
+    left: -60px;
+    top: 0px;
+    background: none;
+    color: #f1f1f1;
+    width: 70%;
+    transition: .5s ease;
+    opacity: 1;
+    color: white;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.overlay>img {
+    width: 100%;
+}
+
+
+.card__category {
+    max-width: 500px;
+    height: 100%;
+    max-height: 400px;
+    background: transparent;
+}
+
+input.form-control {
+    border: 1px solid #10846F !important;
+}
+
+.text-header {
+    font-weight: bold !important;
+}
+
+.img-wrap {
+    position: relative;
+    width: fit-content;
+}
+
+.img-wrap>.close {
+    position: absolute;
+    top: -2px;
+    right: 10px;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.img-wrap>.close:hover {
+    color: gray;
+}
+
+
+.btn-border {
+    border: 1px solid #10846F !important;
+}
+
+.awssld__content>div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 9000;
+}
+
+.awssld__content>div.awssld__timer.awssld__timer--run {
+    background-color: transparent !important;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    width: 5% !important;
+}
+
+
+@media screen and (max-width: 768px) {
+    .overlay {
+        display: none;
+    }
+
+    div[role="tooltip"] {
+        min-width: 200px;
+    }
+
+    div[role="tooltip"]>.tooltip-inner {
+        min-width: 200px;
+    }
+
+    .card-body>.title>h5 {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .card-body>.title>p {
+        font-size: 13px;
+    }
+
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .container__trainghiemkhachhang>.content {
+        width: 80%;
+        padding: 70px 20px;
+        min-height: 300px;
+    }
+
+    .flex__ung-dung>.card__giai-phap {
+        flex: 1 0 39%;
+        width: 300px;
+        margin: 20px;
+        margin-top: 30px;
+    }
+
+    .flex__ung-dung>.card__giai-phap>.card-body {
+        margin-bottom: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    .text-giai-phap {
+        font-size: 16px;
+    }
+
+    .lienheheader {
+        font-size: 16px;
+        text-align: center !important;
+    }
+
+    .lienhecontent {
+        font-size: 14px;
+        text-align: center !important;
+    }
+
+    .lienhe {
+        padding-top: 50px;
+    }
+
+    .copyright>.lienheheader {
+        margin-top: 30px;
+        font-size: 14px;
+    }
+
+    .container__contact {
+        padding: 50px 20px;
+    }
+
+    .flex__trai-nghiem-khach-hang {
+        width: 100%;
+    }
+
+    .flex__trai-nghiem-khach-hang>.card__trainghiem {
+        width: 100%;
+        flex: 100%;
+    }
+
+    .lienhe>.bg-light {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .container__img {
+        width: 100%;
+    }
+}

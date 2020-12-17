@@ -1,0 +1,41 @@
+.nav-bar-top {
+    background: linear-gradient(180deg, #B1D3CD 21.35%, rgba(177, 211, 205, 0) 100%);
+    z-index: 9900;
+}
+
+#basic-nav-dropdown.dropdown-toggle.nav-link::after {
+    content: "" !important;
+    color: white;
+}
+
+.active-header {
+    color: #10846F !important;
+}
+
+#basic-nav-dropdown-active.dropdown-toggle.nav-link::after {
+    color: #10846F !important;
+}
+
+.icon-close-navbar {
+    width: 60px;
+    height: 60px;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.side-bar {
+    width: 100%;
+    padding: 30px;
+    background-color: #E5E5E5;
+    height: 100vh;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+}
+
+.icon-menu {
+    width: 35px;
+    height: 5px;
+    background-color: #fff;
+    margin: 6px 0;
+}

@@ -5,7 +5,7 @@ const client = axios.create({
     responseType: "json"
 })
 client.interceptors.request.use(config => {
-    config.headers["Authorization"] = JSON.parse(localStorage.getItem(`${process.env.KEY_PERSIST}:persist`)).token
+    config.headers["Authorization"] = JSON.parse(localStorage.getItem(`${process.env.KEY_PERSIST}:persist`))?.token
     return config
 })
 export default client

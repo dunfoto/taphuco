@@ -1,7 +1,7 @@
 import "style/hotSpots.scss"
 import 'cropperjs/dist/cropper.css'
 import "react-input-range/lib/css/index.css"
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { v4 } from "uuid"
 import Cropper from 'react-cropper'
 import { Spinner } from "react-bootstrap"
@@ -9,7 +9,6 @@ import SweetAlert from "react-bootstrap-sweetalert"
 import InputRange from 'react-input-range'
 import { useRouter } from "next/router"
 import axios from "utils/axios"
-import fileUpload from "fuctbase64"
 
 const initContent = {
     title: "",
@@ -23,17 +22,48 @@ const AddBannerComponent = React.memo(props => {
     const router = useRouter(),
         { query: { id } } = router,
         cropper = useRef(),
-        [originalImg, setOriginalImg] = useState(null),
+        [originalImg, setOriginalImg] = useState('/assets/img/banner-2.png'),
         [editImg, setEditImg] = useState(false),
-        [img, setImg] = useState(null),
+        [img, setImg] = useState('/assets/img/banner-2.png'),
         [show, setShow] = useState(null),
         [left, setLeft] = useState(50),
         [bottom, setBottom] = useState(50),
         [content, setContent] = useState(initContent),
-        [nodes, setNodes] = useState([]),
+        [nodes, setNodes] = useState([
+            {
+                _id: "123123123123123",
+                left: 20,
+                bottom: 20,
+                openDefault: true,
+                content: {}
+            },
+            {
+                _id: "asdfagbjidashvlasd",
+                left: 60,
+                bottom: 60,
+                openDefault: false,
+                content: {}
+            }
+        ]),
         [isWait, setIsWait] = useState(false),
         [alert, setAlert] = useState(false)
 
+
+    useEffect(() => {
+        getDetail()
+    }, [id])
+
+    const getDetail = async () => {
+        try {
+            const res = await axios.get(`/banner/${id}`),
+                { data: { data: { img, nodes } } } = res
+            setOriginalImg(img)
+            setImg(img)
+            setNodes(nodes)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+    }
     const addNode = () => {
         const temp = [...nodes, { _id: v4(), left: 50, bottom: 50, openDefault: false }]
         setNodes(temp)
@@ -92,15 +122,16 @@ const AddBannerComponent = React.memo(props => {
     const onSubmitBanner = async () => {
         setIsWait(true)
         try {
+            console.log(nodes)
             const newNodes = nodes.map(node => {
                 delete node._id
                 return node
             }),
                 data = {
                     img,
-                    nodes
+                    nodes: newNodes
                 },
-                res = await axios.post("/banner", data)
+                res = await axios.put(`/banner/${id}`, data)
             if (res.status === 200) {
                 setAlert(true)
                 setIsWait(false)
@@ -121,38 +152,28 @@ const AddBannerComponent = React.memo(props => {
         }
     }
 
-    const onChangeImg = async event => {
-        const newImg = "data:image/png;base64," + (await fileUpload(event, true)).base64
-        setOriginalImg(newImg)
-        setImg(newImg)
-        setEditImg(true)
+    const onChangeOpenDefault = () => {
+        setNodes(nodes.map(node => {
+            if (node._id === show) {
+                node.openDefault = true
+            } else {
+                node.openDefault = false
+            }
+            return node
+        }))
     }
 
     return (
         <React.Fragment>
             <i onClick={() => router.push("/admin/trang-chu")} className="far fa-arrow-alt-circle-left fa-2x"></i>
-            {originalImg ? (
-                <div className="my-2">
-                    <button type="button" onClick={() => editButtonImage(true)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">{editImg ? "Xác nhận" : "Sửa hình ảnh"}</button>
-                    {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">Huỷ sửa hình ảnh</button>)}
-                    {!editImg && (<button type="button" onClick={() => addNode()} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">Thêm bảng thông tin</button>)}
-                </div>
-            ) : (
-                    <div className="custom-file form-group col-12">
-                        <input
-                            id="icon"
-                            name="icon"
-                            className="custom-file-input"
-                            accept=".jpeg, .png"
-                            type="file"
-                            onChange={onChangeImg}
-                        />
-                        <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
-                    </div>
-                )}
+            <div className="my-2">
+                <button type="button" onClick={() => editButtonImage(true)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">{editImg ? "Xác nhận" : "Sửa hình ảnh"}</button>
+                {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">Huỷ sửa hình ảnh</button>)}
+                {!editImg && (<button type="button" onClick={() => addNode()} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">Thêm bảng thông tin</button>)}
+            </div>
             <div className="text-right">Tổng số bảng thông tin: {nodes.length}</div>
             <div className="context">
-                {img && (<img src={img} alt={`img-banner`} style={{ cursor: "auto" }} />)}
+                <img src={img} alt="Snow" style={{ cursor: "auto" }} />
                 {nodes.length > 0 && nodes.map((node, i) => (
                     <div key={i}>
                         <span className="btn" style={{ bottom: `${node.bottom}%`, left: `${node.left}%` }}>
@@ -226,6 +247,10 @@ const AddBannerComponent = React.memo(props => {
                                 <label htmlFor="link" className="form-label">Đường dẫn <b>Xem thêm</b></label>
                                 <input type="string" id="link" className="form-control" value={content.link ? content.link : ""} onChange={e => onChangeContent('link', e)} />
                             </div>
+                            <div className="form-group form-check">
+                                <input type="checkbox" checked={Boolean(nodes.find(node => node._id === show)?.openDefault)} onChange={() => onChangeOpenDefault()} className="form-check-input" id="openDefault" />
+                                <label className="form-check-label" htmlFor="openDefault">Tự động hiển thị bảng thông báo</label>
+                            </div>
                         </div>
                         <div className="col-6 form-group">
                             <label>Xem trước bảng thông tin</label>
@@ -253,7 +278,7 @@ const AddBannerComponent = React.memo(props => {
                     </div>
                 </div>
             )}
-            {Boolean(originalImg) && !Boolean(editImg) && (
+            {!editImg && (
                 <div className="my-3">
                     <button type="button" onClick={() => onSubmitBanner()} disabled={isWait} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">{isWait && (<Spinner size="sm" animation="border" />)} Lưu lại</button>
                     {alert && (

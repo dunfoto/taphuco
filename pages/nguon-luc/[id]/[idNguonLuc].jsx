@@ -56,79 +56,61 @@ const DetailUngDungComponent = React.memo(props => {
                     <div className="card__ref">
                         <div className="container__img">
                             <img src="/poly.png" alt="Avatar" className="image" />
-                            <div className="middle">
-                                <h4 className="textimage">Vải Poly</h4>
-                                <Link href="/ung-dung/poly">
-                                    <p className="text">
-                                        Xem thêm
-                                </p>
-                                </Link>
-                            </div>
+                            <Link href="/ung-dung/poly">
+                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                    <h4 className="textimage">Vải Poly</h4>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="card__ref">
                         <div className="container__img">
                             <img src="/bikini.png" alt="Avatar" className="image" />
-                            <div className="middle">
-                                <h4 className="textimage">Vải đồ tắm, thể thao</h4>
-                                <Link href="/ung-dung/bikini">
-                                    <p className="text">
-                                        Xem thêm
-                                </p>
-                                </Link>
-                            </div>
+                            <Link href="/ung-dung/bikini">
+                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                    <h4 className="textimage">Vải đồ tắm, thể thao</h4>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="card__ref">
                         <div className="container__img">
                             <img src="/jean.png" alt="Avatar" className="image" />
-                            <div className="middle">
-                                <h4 className="textimage">Vải Jeans</h4>
-                                <Link href="/ung-dung/jean">
-                                    <p className="text">
-                                        Xem thêm
-                                </p>
-                                </Link>
-                            </div>
+                            <Link href="/ung-dung/jean">
+                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                    <h4 className="textimage">Vải Jeans</h4>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="card__ref">
                         <div className="container__img">
                             <img src="/baby.png" alt="Avatar" className="image" />
-                            <div className="middle">
-                                <h4 className="textimage">Vải an toàn cho baby</h4>
-                                <Link href="/ung-dung/baby">
-                                    <p className="text">
-                                        Xem thêm
-                                </p>
-                                </Link>
-                            </div>
+                            <Link href="/ung-dung/baby">
+                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                    <h4 className="textimage">Vải an toàn cho baby</h4>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="card__ref">
                         <div className="container__img">
                             <img src="/baby.png" alt="Avatar" className="image" />
-                            <div className="middle">
-                                <h4 className="textimage">Vải an toàn cho baby</h4>
-                                <Link href="/ung-dung/baby">
-                                    <p className="text">
-                                        Xem thêm
-                                </p>
-                                </Link>
-                            </div>
+                            <Link href="/ung-dung/baby">
+                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                    <h4 className="textimage">Vải an toàn cho baby</h4>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     <div className="card__ref">
                         <div className="container__img">
                             <img src="/khac.png" alt="Avatar" className="image" />
-                            <div className="middle">
-                                <h4 className="textimage">Vải khác</h4>
-                                <Link href="/ung-dung/khac">
-                                    <p className="text">
-                                        Xem thêm
-                                </p>
-                                </Link>
-                            </div>
+                            <Link href="/ung-dung/khac">
+                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                    <h4 className="textimage">Vải khác</h4>
+                                </div>
+                            </Link>
                         </div>
                     </div>
 

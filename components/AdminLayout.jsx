@@ -2,6 +2,7 @@ import Sidebar from "./SideBar"
 import { connect } from "react-redux"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
+import { Waiter } from "react-wait"
 
 const AdminLayout = props => {
     const { toggled, onToggled, token } = props,
@@ -14,14 +15,14 @@ const AdminLayout = props => {
         }
     }, [token])
     return (
-        <React.Fragment>
+        <Waiter>
             <div className={`d-flex ${toggled ? "" : "toggled"}`} id="wrapper">
                 {!router.asPath.includes("/dang-nhap") && (
                     <Sidebar toggled={toggled} onToggled={onToggled} />
                 )}
-                <div className="w-100 p-4">{props.children}</div>
+                <div className="w-100 p-4" style={{ height: "100vh", overflowY: "auto" }}>{props.children}</div>
             </div>
-        </React.Fragment>
+        </Waiter>
     )
 }
 

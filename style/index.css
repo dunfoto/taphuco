@@ -410,13 +410,11 @@ p.card-text {
 }
 
 .carousel-item {
-    margin-bottom: 20px;
-    margin-top: 20px;
     margin-right: auto;
 }
 
 .carousel-indicators {
-    bottom: -20px;
+    bottom: -40px;
 }
 
 .carousel-indicators ol {

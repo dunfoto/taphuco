@@ -1,4 +1,3 @@
-import 'cropperjs/dist/cropper.css'
 import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"

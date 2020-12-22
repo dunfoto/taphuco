@@ -1,6 +1,4 @@
 import "style/hotSpots.scss"
-import 'cropperjs/dist/cropper.css'
-import "react-input-range/lib/css/index.css"
 import React, { useState, useRef } from "react"
 import { v4 } from "uuid"
 import Cropper from 'react-cropper'

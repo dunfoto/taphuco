@@ -1,4 +1,3 @@
-import 'cropperjs/dist/cropper.css'
 import React, { useState, useEffect, useRef } from "react"
 import axios from "utils/axios"
 import Select from "react-select"

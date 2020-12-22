@@ -4,6 +4,9 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 @import "./admin.css";
 @import "./homepage.css";
+@import '~suneditor/dist/css/suneditor.min.css';
+@import '~cropperjs/dist/cropper.css';
+@import '~react-input-range/lib/css/index.css';
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
 
@@ -678,6 +681,11 @@ input.form-control {
 
 .custom-file-label {
     border: 1px solid #10846F !important;
+}
+
+.editImageGiaiPhap>div {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 

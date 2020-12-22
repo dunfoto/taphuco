@@ -61,9 +61,15 @@ const Sidebar = React.memo(props => {
                             </Link>
                         </div>
                     </Collapse>
-                    <a href="#" className={`list-group-item list-group-item-action bg-light`}>Giải pháp</a>
-                    <a href="#" className={`list-group-item list-group-item-action bg-light`}>Điều khách hàng nói</a>
-                    <a href="#" className={`list-group-item list-group-item-action bg-light`}>Nguồn lực</a>
+                    <Link href="/admin/giai-phap">
+                        <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/giai-phap") ? "active-admin" : ""}`}>Giải pháp</a>
+                    </Link>
+                    <Link href="/admin/trai-nghiem-khach-hang">
+                        <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/trai-nghiem-khach-hang") ? "active-admin" : ""}`}>Điều khách hàng nói</a>
+                    </Link>
+                    <Link href="/admin/nguon-luc">
+                        <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/nguon-luc") ? "active-admin" : ""}`}>Nguồn lực</a>
+                    </Link>
                     <a href="#" className={`list-group-item list-group-item-action bg-light`}>Về chúng tôi</a>
                     <a href="#" className={`list-group-item list-group-item-action bg-light`} onClick={() => logout()}>Thoát ra</a>
                 </div>

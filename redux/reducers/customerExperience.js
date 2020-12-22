@@ -1,7 +1,7 @@
 import axios from "../../utils/axios"
 
-export const GET_BANNERS = "GET_BANNERS"
-export const UPDATE_PAGINATION = "BANNER:UPDATE_PAGINATION"
+export const GET_CUSTOMER_EXPERIENCE = "GET_CUSTOMER_EXPERIENCE"
+export const UPDATE_PAGINATION = "CUSTOMER_EXPERIENCE:UPDATE_PAGINATION"
 
 const initial = {
     data: [],
@@ -14,7 +14,7 @@ const initial = {
 
 const reducer = (state = initial, action) => {
     switch (action.type) {
-        case GET_BANNERS:
+        case GET_CUSTOMER_EXPERIENCE:
             return { ...state, data: action.data, pagination: action.pagination }
         case UPDATE_PAGINATION:
             return { ...state, pagination: action.data }
@@ -26,11 +26,12 @@ const reducer = (state = initial, action) => {
 export default reducer;
 
 
-export const getBanners = () => async dispatch => {
+export const getCustomerExperiences = () => async dispatch => {
     try {
-        const res = await axios.get("/banners")
+        const res = await axios.get("/customer-experiences")
+        console.log(res)
         dispatch({
-            type: GET_BANNERS,
+            type: GET_CUSTOMER_EXPERIENCE,
             data: res.data.data,
             pagination: res.data.pagination
         })

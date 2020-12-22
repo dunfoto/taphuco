@@ -1,24 +1,24 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import axios from "utils/axios"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import { getCategories, updatePagination } from "redux/reducers/category"
+import { getPower, updatePagination } from "redux/reducers/power"
+import axios from "utils/axios"
 
 const DashBoard = props => {
     const router = useRouter(),
-        { categories, getCategories, pagination, updatePagination } = props,
+        { power, getPower, pagination, updatePagination } = props,
         { limit, total, page } = pagination
 
     useEffect(() => {
-        getCategories()
-    }, [getCategories, page, limit])
+        getPower()
+    }, [getPower, page, limit])
 
-    const deleteCategory = async id => {
+    const deletePower = async id => {
         try {
-            const res = await axios.delete(`/category/${id}`)
+            const res = await axios.delete(`/power/${id}`)
             if (res.status === 200) {
-                getCategories()
+                getPower()
             }
         } catch (err) {
             return Promise.reject(err)
@@ -30,38 +30,33 @@ const DashBoard = props => {
         updatePagination(newPagination)
     }
 
-
     return (
         <React.Fragment>
             <div className="w-100">
-                <h3>Danh mục sản phẩm</h3>
+                <h3>Nguồn lực</h3>
                 <div className="w-100">
                     <table className="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Tên danh mục</th>
-                                <th scope="col">Hình ảnh</th>
-                                <th scope="col">
-                                    <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc/new`)}>
+                                <th scope="col">Tiêu đề</th>
+                                <th className="text-center" scope="col">
+                                    <button className="btn" onClick={() => router.push(`/admin/nguon-luc/new`)}>
                                         <i className="fas fa-plus"></i>
                                     </button>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.map((category, index) => (
-                                <tr key={category._id}>
+                            {power.map((solution, index) => (
+                                <tr key={solution._id}>
                                     <td>{index}</td>
-                                    <td>{category.title}</td>
-                                    <td>
-                                        <img src={category.img} alt={`${category._id}`} height={100} />
-                                    </td>
-                                    <td>
-                                        <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc/${category._id}`)}>
+                                    <td>{solution.title}</td>
+                                    <td className="text-center">
+                                        <button className="btn" onClick={() => router.push(`/admin/nguon-luc/${solution._id}`)}>
                                             <i className="fas fa-edit"></i>
                                         </button>
-                                        <button className="btn" onClick={() => deleteCategory(category._id)}>
+                                        <button className="btn" onClick={() => deletePower(solution._id)}>
                                             <i className="fas fa-trash"></i>
                                         </button>
                                     </td>
@@ -93,11 +88,11 @@ const DashBoard = props => {
 }
 
 const mapStateToProps = state => ({
-    categories: state.category.data,
-    pagination: state.category.pagination
+    power: state.power.data,
+    pagination: state.power.pagination
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getCategories,
+    getPower,
     updatePagination
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoard)

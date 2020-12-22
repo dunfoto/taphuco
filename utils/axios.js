@@ -6,6 +6,7 @@ const client = axios.create({
 })
 client.interceptors.request.use(config => {
     config.headers["Authorization"] = JSON.parse(localStorage.getItem(`${process.env.KEY_PERSIST}:persist`))?.token
+    config.headers['Access-Control-Allow-Origin'] = "*"
     return config
 })
 export default client

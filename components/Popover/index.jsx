@@ -18,13 +18,13 @@ const PopoverComponent = React.memo(props => {
             if (bottom >= 50) {
                 return ['bottom', 'left', 'right', 'top']
             } else {
-                return ['left', 'top', 'right', 'bottom']
+                return ['top', 'left', 'right', 'bottom']
             }
         } else {
             if (bottom >= 50) {
                 return ['bottom', 'right', 'left', 'top']
             } else {
-                return ['right', 'top', 'left', 'bottom']
+                return ['top', 'right', 'left', 'bottom']
             }
         }
     }

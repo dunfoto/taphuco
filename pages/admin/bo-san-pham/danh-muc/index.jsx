@@ -43,7 +43,7 @@ const DashBoard = props => {
                                 <th scope="col">Tên danh mục</th>
                                 <th scope="col">Hình ảnh</th>
                                 <th scope="col">
-                                    <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc`)}>
+                                    <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc/new`)}>
                                         <i className="fas fa-plus"></i>
                                     </button>
                                 </th>

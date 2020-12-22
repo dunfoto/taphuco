@@ -13,12 +13,28 @@ const PopoverComponent = React.memo(props => {
         }
     }, [showSelected])
 
+    const checkPlacement = (left, bottom) => {
+        if (left >= 50) {
+            if (bottom >= 50) {
+                return ['bottom', 'left', 'right', 'top']
+            } else {
+                return ['left', 'top', 'right', 'bottom']
+            }
+        } else {
+            if (bottom >= 50) {
+                return ['bottom', 'right', 'left', 'top']
+            } else {
+                return ['right', 'top', 'left', 'bottom']
+            }
+        }
+    }
+
     return (
         <Popover
             isOpen={show}
-            position={['top', 'right', 'left', 'bottom']}
-            padding={10}
-            disableReposition
+            positions={checkPlacement(left, bottom)}
+            padding={0}
+            align={left >= 50 ? 'end' : 'start'}
             onClickOutside={() => setShow(false)}
             content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (popup)}
         >

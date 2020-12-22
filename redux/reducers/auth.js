@@ -26,16 +26,17 @@ const reducer = (state = initial, action) => {
 export default reducer;
 
 
-export const login = data => async dispatch => {
+export const login = (data, cb) => async dispatch => {
     try {
         const res = await axios.post("/login/admin", data)
-        dispatch({
+        await dispatch({
             type: GET_AUTHENTICATION,
             token: res.data.token,
             current: res.data.data
         })
+        cb(null, res.data)
     } catch (err) {
-        return Promise.reject(err)
+        return cb(err, null)
     }
 }
 

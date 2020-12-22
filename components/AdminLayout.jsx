@@ -11,7 +11,11 @@ const AdminLayout = props => {
         if (!token) {
             router.push("/admin/dang-nhap")
         } else {
-            router.push(router.asPath)
+            if (!router.asPath.includes('/admin/dang-nhap')) {
+                router.push(router.asPath)
+            }else{
+                router.push('/admin/trang-chu')
+            }
         }
     }, [token])
     return (

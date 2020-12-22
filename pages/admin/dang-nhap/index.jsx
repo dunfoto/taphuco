@@ -2,14 +2,19 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import { login } from "redux/reducers/auth"
+import { login, logout } from "redux/reducers/auth"
+import { useRouter } from "next/router"
 
 const LoginComponent = React.memo(props => {
-    const { login } = props
-    const { register, handleSubmit } = useForm()
+    const { login } = props,
+        { register, handleSubmit } = useForm(),
+        router = useRouter()
 
-    const onSubmit = data => {
-        login(data)
+    const onSubmit = async data => {
+        login(data, (err, result) => {
+            if (err) throw err
+            router.push("/admin/trang-chu")
+        })
     }
 
     return (

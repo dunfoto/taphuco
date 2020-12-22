@@ -151,109 +151,119 @@ const AddBannerComponent = React.memo(props => {
                     </div>
                 )}
             <div className="text-right">Tổng số bảng thông tin: {nodes.length}</div>
-            <div className="context">
-                {img && (<img src={img} alt={`img-banner`} style={{ cursor: "auto" }} />)}
-                {nodes.length > 0 && nodes.map((node, i) => (
-                    <div key={i}>
-                        <span className="btn" style={{ bottom: `${node.bottom}%`, left: `${node.left}%` }}>
-                            <div className="loader-6 center text-center" onClick={() => clickHotSpot(node._id)} >
-                                <span>
-                                    {show === node._id ? <div>&#45;</div> : <div style={{ paddingBottom: 2 }}>&#43;</div>}
+            <div className="row">
+                <div className="col-6">
+                    <div className="context">
+                        <img src={img} alt="Snow" style={{ cursor: "auto" }} />
+                        {nodes.length > 0 && nodes.map((node, i) => (
+                            <div key={i}>
+                                <span className="btn" style={{ bottom: `${node.bottom}%`, left: `${node.left}%` }}>
+                                    <div className="loader-6 center text-center" onClick={() => clickHotSpot(node._id)} >
+                                        <span>
+                                            {show === node._id ? <div>&#45;</div> : <div style={{ paddingBottom: 2 }}>&#43;</div>}
+                                        </span>
+                                    </div>
                                 </span>
                             </div>
-                        </span>
+                        ))}
                     </div>
-                ))}
-            </div>
-            {editImg && (
-                <Cropper
-                    ref={cropper}
-                    src={originalImg}
-                    aspectRatio={16 / 9}
-                    zoomOnWheel={false}
-                />
-            )}
-            {show && (
-                <div className="w-100 mt-4">
-                    <h3>Chỉnh sửa</h3>
-                    <div className="row">
-                        <div className="col-6 form-group">
-                            <label>Khoảng cách với cạnh trái:</label>
-                            <div className="form-control border-0 my-2">
-                                <InputRange
-                                    maxValue={100}
-                                    minValue={0}
-                                    value={left}
-                                    onChange={value => onChangeLeft(value)}
-                                />
-                            </div>
-                        </div>
-                        <div className="col-6 form-group">
-                            <label>Khoảng cách với cạnh dưới:</label>
-                            <div className="form-control border-0 my-2">
-                                <InputRange
-                                    maxValue={100}
-                                    minValue={0}
-                                    value={bottom}
-                                    onChange={value => onChangeBottom(value)}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-6">
-                            <div className="form-group">
-                                <label htmlFor="title" className="form-label">Tiêu đề</label>
-                                <input type="string" id="title" className="form-control" value={content.title ? content.title : ""} onChange={e => onChangeContent('title', e)} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="subTitleÏ" className="form-label">Tiêu đề phụ</label>
-                                <input type="string" id="subTitleÏ" className="form-control" value={content.subTitle ? content.subTitle : ""} onChange={e => onChangeContent('subTitle', e)} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="color" className="form-label">Màu sắc</label>
-                                <input type="string" id="color" className="form-control" value={content.color ? content.color : ""} onChange={e => onChangeContent('color', e)} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="requirement" className="form-label">Yêu cầu</label>
-                                <input type="string" id="requirement" className="form-control" value={content.requirement ? content.requirement : ""} onChange={e => onChangeContent('requirement', e)} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="product" className="form-label">Dòng sản phẩm</label>
-                                <input type="string" id="product" className="form-control" value={content.product ? content.product : ""} onChange={e => onChangeContent('product', e)} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="link" className="form-label">Đường dẫn <b>Xem thêm</b></label>
-                                <input type="string" id="link" className="form-control" value={content.link ? content.link : ""} onChange={e => onChangeContent('link', e)} />
-                            </div>
-                        </div>
-                        <div className="col-6 form-group">
-                            <label>Xem trước bảng thông tin</label>
-                            <div className="card p-0 text-left w-75 ml-auto mr-auto hotspot-homepage">
-                                <div className="card-body m-0 p-0" style={{ width: 301, border: "1px solid #10846F" }}>
-                                    <div className="card-title title p-2 px-4 rounded-top">
-                                        <div className="w-100 text-right">
-                                            <button className="btn p-0 m-0 text-white">&times;</button>
-                                        </div>
-                                        <h5>{content.title ? content.title : ""}</h5>
-                                        <p className="text-white">{content.subTitle ? content.subTitle : ""}</p>
+                </div>
+                <div className="col-6">
+                    {editImg && (
+                        <Cropper
+                            ref={cropper}
+                            src={originalImg}
+                            aspectRatio={16 / 9}
+                            zoomOnWheel={false}
+                        />
+                    )}
+                    {show && (
+                        <div className="w-100 mt-4">
+                            <h3>Chỉnh sửa</h3>
+                            <div className="row">
+                                <div className="col-6 form-group">
+                                    <label>Khoảng cách với cạnh trái:</label>
+                                    <div className="form-control border-0 my-2">
+                                        <InputRange
+                                            maxValue={100}
+                                            minValue={0}
+                                            value={left}
+                                            onChange={value => onChangeLeft(value)}
+                                        />
                                     </div>
-                                    <div className="content p-2 px-4">
-                                        <p className="title">Màu sắc</p>
-                                        <p className="sub-content">{content.color ? content.color : ""}</p>
-                                        <p className="title">Yêu cầu</p>
-                                        <p className="sub-content">{content.requirement ? content.requirement : ""}</p>
-                                        <p className="title">Dòng Sản Phẩm</p>
-                                        <p className="sub-content">{content.product ? content.product : ""}</p>
-                                        <a href={content.link ? content.link : ""} className="btn border rounded-pill px-4" style={{ pointerEvents: "none" }}>Xem thêm</a>
+                                </div>
+                                <div className="col-6 form-group">
+                                    <label>Khoảng cách với cạnh dưới:</label>
+                                    <div className="form-control border-0 my-2">
+                                        <InputRange
+                                            maxValue={100}
+                                            minValue={0}
+                                            value={bottom}
+                                            onChange={value => onChangeBottom(value)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-6">
+                                    <div className="form-group">
+                                        <label htmlFor="title" className="form-label">Tiêu đề</label>
+                                        <input type="string" id="title" className="form-control" value={content.title ? content.title : ""} onChange={e => onChangeContent('title', e)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="subTitleÏ" className="form-label">Tiêu đề phụ</label>
+                                        <input type="string" id="subTitleÏ" className="form-control" value={content.subTitle ? content.subTitle : ""} onChange={e => onChangeContent('subTitle', e)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="color" className="form-label">Màu sắc</label>
+                                        <input type="string" id="color" className="form-control" value={content.color ? content.color : ""} onChange={e => onChangeContent('color', e)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="requirement" className="form-label">Yêu cầu</label>
+                                        <input type="string" id="requirement" className="form-control" value={content.requirement ? content.requirement : ""} onChange={e => onChangeContent('requirement', e)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="product" className="form-label">Dòng sản phẩm</label>
+                                        <input type="string" id="product" className="form-control" value={content.product ? content.product : ""} onChange={e => onChangeContent('product', e)} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="link" className="form-label">Đường dẫn <b>Xem thêm</b></label>
+                                        <input type="string" id="link" className="form-control" value={content.link ? content.link : ""} onChange={e => onChangeContent('link', e)} />
+                                    </div>
+                                    <div className="form-group form-check">
+                                        <input type="checkbox" checked={Boolean(nodes.find(node => node._id === show)?.openDefault)} onChange={() => onChangeOpenDefault()} className="form-check-input" id="openDefault" />
+                                        <label className="form-check-label" htmlFor="openDefault">Tự động hiển thị bảng thông báo</label>
+                                    </div>
+                                </div>
+                                <div className="col-6 form-group">
+                                    <label>Xem trước bảng thông tin</label>
+                                    <div className="card p-0 text-left w-75 ml-auto mr-auto hotspot-homepage">
+                                        <div className="card-body m-0 p-0" style={{ width: 301, border: "1px solid #10846F" }}>
+                                            <div className="card-title title p-2 px-4 rounded-top">
+                                                <div className="w-100 text-right">
+                                                    <button className="btn p-0 m-0 text-white">&times;</button>
+                                                </div>
+                                                <h5>{content.title ? content.title : ""}</h5>
+                                                <p className="text-white">{content.subTitle ? content.subTitle : ""}</p>
+                                            </div>
+                                            <div className="content p-2 px-4">
+                                                <p className="title">Màu sắc</p>
+                                                <p className="sub-content">{content.color ? content.color : ""}</p>
+                                                <p className="title">Yêu cầu</p>
+                                                <p className="sub-content">{content.requirement ? content.requirement : ""}</p>
+                                                <p className="title">Dòng Sản Phẩm</p>
+                                                <p className="sub-content">{content.product ? content.product : ""}</p>
+                                                <a href={content.link ? content.link : ""} className="btn border rounded-pill px-4" style={{ pointerEvents: "none" }}>Xem thêm</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
-            )}
-            {Boolean(originalImg) && !Boolean(editImg) && (
+            </div>
+            {!editImg && (
                 <div className="my-3">
                     <button type="button" onClick={() => onSubmitBanner()} disabled={isWait} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">{isWait && (<Spinner size="sm" animation="border" />)} Lưu lại</button>
                     {alert && (

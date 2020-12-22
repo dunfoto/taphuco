@@ -676,6 +676,11 @@ input.form-control {
 }
 
 
+.custom-file-label {
+    border: 1px solid #10846F !important;
+}
+
+
 @media screen and (max-width: 768px) {
     .overlay {
         display: none;

@@ -2,40 +2,33 @@ import React, { useEffect, useState } from 'react'
 import { Popover } from 'react-tiny-popover'
 
 const PopoverComponent = React.memo(props => {
-    const { _id, popup, bottom, left, showSelected, onSelect } = props,
-        [show, setShow] = useState(false)
+    const { _id, popup, bottom, left, showSelected, onSelect } = props
 
-    useEffect(() => {
-        if (showSelected === _id) {
-            setShow(true)
-        } else {
-            setShow(false)
-        }
-    }, [showSelected])
-
-    const checkPlacement = (left, bottom) => {
+    const checkPlacement = left => {
         if (left >= 50) {
-            if (bottom >= 50) {
-                return ['bottom', 'left', 'right', 'top']
-            } else {
-                return ['top', 'left', 'right', 'bottom']
-            }
+            return ['right', 'left']
         } else {
-            if (bottom >= 50) {
-                return ['bottom', 'right', 'left', 'top']
-            } else {
-                return ['top', 'right', 'left', 'bottom']
-            }
+            return ['left', 'right']
+        }
+    }
+
+    const checkAlign = bottom => {
+        if (bottom >= 75) {
+            return 'start'
+        } else if (bottom <= 25) {
+            return 'end'
+        } else {
+            return 'center'
         }
     }
 
     return (
         <Popover
-            isOpen={show}
-            positions={checkPlacement(left, bottom)}
+            isOpen={showSelected}
+            positions={checkPlacement(left)}
+            positions={['left', 'right']}
             padding={0}
-            align={left >= 50 ? 'end' : 'start'}
-            onClickOutside={() => setShow(false)}
+            align={checkAlign(bottom)}
             content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (popup)}
         >
             <span className="btn" style={{ position: "absolute", bottom: `${bottom}%`, left: `${left}%` }}>
@@ -46,7 +39,7 @@ const PopoverComponent = React.memo(props => {
                     }}
                 >
                     <span>
-                        {show ? <div>&#45;</div> : <div style={{ paddingBottom: 2 }}>&#43;</div>}
+                        {showSelected ? <div>&#45;</div> : <div style={{ paddingBottom: 2 }}>&#43;</div>}
                     </span>
                 </div>
             </span>

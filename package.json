@@ -20,6 +20,7 @@
     "dotenv-load": "^2.0.0",
     "fuctbase64": "^1.4.0",
     "less": "^3.12.2",
+    "lodash": "^4.17.20",
     "next": "latest",
     "next-compose-plugins": "^2.2.1",
     "next-env": "^1.1.1",

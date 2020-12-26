@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
 import axios from "utils/axios"
+import { useRouter } from "next/router"
 
 const FooterComponent = React.memo(props => {
-    const [config, setConfig] = useState(null)
+    const [config, setConfig] = useState(null),
+        { route } = useRouter()
     useEffect(() => {
         loadConfig()
     }, [])
@@ -15,6 +17,7 @@ const FooterComponent = React.memo(props => {
             return Promise.reject(err)
         }
     }
+    if (route === "/404") return <div></div>
 
     return (
         <div className="lienhe">

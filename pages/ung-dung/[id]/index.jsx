@@ -1,17 +1,22 @@
 import "style/ung-dung.css"
 import Link from "next/link"
+import { useRouter } from 'next/router'
+import axiosNoAuth from "axios"
 
 const GiaiPhapComponent = React.memo(props => {
+    const { category } = props,
+        router = useRouter()
+    if (!category) return router.push('/404')
     return (
         <React.Fragment>
             <div className="container__ungdung" style={{ backgroundImage: `url(/page__trai-nghiem-khach-hang.png)`, backgroundSize: "cover" }}>
                 <div className="container">
                     <div className="card-search bg-light text-center">
-                        <h2 className="textthongdiep">Vải cotton</h2>
+                        <h2 className="textthongdiep">{category.title}</h2>
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                                <p>{category.description}</p>
                             </div>
                         </div>
                     </div>
@@ -19,20 +24,6 @@ const GiaiPhapComponent = React.memo(props => {
             </div >
             <div className="container-lg p-4">
                 <div className="row justify-content-center" style={{ marginLeft: 0, marginRight: 0, paddingTop: 90, paddingBottom: 90, paddingLeft: "1.5rem", paddingRight: "1.5rem" }}>
-
-                    {/* <div className="col-md-3 col-xs-6 col-xs-12 my-4 py-2 d-flex align-items-center">
-                    <div className="card card__category mr-auto ml-auto">
-                        <div className="container__img">
-                            <img src="/cotton.png" alt="Avatar" className="image" />
-                            <Link href="/ung-dung/cotton">
-                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                    <h4 className="textimage">Vải Cotton</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    </div>
-                </div> */}
-
                     <div className="col-md-6 col-xs-12 my-4">
                         <div className="card card__category mr-auto ml-auto">
                             <div className="container__img">
@@ -135,4 +126,13 @@ const GiaiPhapComponent = React.memo(props => {
     )
 })
 
+GiaiPhapComponent.getInitialProps = async ctx => {
+    const { query: { id } } = ctx
+    try {
+        const res = await axiosNoAuth.get(`http://localhost:3001/category/${encodeURI(id)}`)
+        return { category: res.data.data }
+    } catch (err) {
+        return { category: null }
+    }
+}
 export default GiaiPhapComponent

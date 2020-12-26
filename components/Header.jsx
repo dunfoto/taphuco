@@ -1,12 +1,12 @@
 import "./Header.css"
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { NavDropdown, Nav, Accordion, Button } from "react-bootstrap"
+import { NavDropdown, Nav, Accordion } from "react-bootstrap"
 import Sidebar from "react-sidebar"
 import { useRouter } from 'next/router'
 
 const Header = props => {
-    const { router: { asPath } } = props,
+    const { router: { asPath, route }, categories } = props,
         { width } = useWindowSize(),
         [w, setW] = useState(null),
         [open, setOpen] = useState(false),
@@ -21,6 +21,7 @@ const Header = props => {
         router.push(url)
     }
 
+    if (route === "/_error") return <div></div>
     return (
         <React.Fragment>
             {w > 768 ? (
@@ -42,46 +43,13 @@ const Header = props => {
                                     id={`${asPath.includes("/ung-dung") ? "basic-nav-dropdown-active" : "basic-nav-dropdown"}`}
                                     alignRight
                                 >
-                                    <Link href="/ung-dung/cotton">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải cotton
-                                        </NavDropdown.Item>
-                                    </Link>
-                                    <Link href="/ung-dung/poly">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải poly
-                                        </NavDropdown.Item>
-                                    </Link>
-                                    <Link href="/ung-dung/bikini">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải đồ tắm, đồ thể thao
-                                        </NavDropdown.Item>
-                                    </Link>
-                                    <Link href="/ung-dung/vaiinhoa">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải in hoa
-                                        </NavDropdown.Item>
-                                    </Link>
-                                    <Link href="/ung-dung/jean">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải jeans
-                                        </NavDropdown.Item>
-                                    </Link>
-                                    <Link href="/ung-dung/baby">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải an toàn cho baby
-                                        </NavDropdown.Item>
-                                    </Link>
-                                    <Link href="/ung-dung/vaitrang">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải trắng
-                                        </NavDropdown.Item>
-                                    </Link>
-                                    <Link href="/ung-dung/khac">
-                                        <NavDropdown.Item as="p" className="text-color">
-                                            Vải khác
-                                        </NavDropdown.Item>
-                                    </Link>
+                                    {categories.map(category => (
+                                        <Link key={category._id} href={`/ung-dung/${encodeURI(category.title)}`}>
+                                            <NavDropdown.Item as="p" className="text-color">
+                                                {category.title}
+                                            </NavDropdown.Item>
+                                        </Link>
+                                    ))}
                                 </NavDropdown>
                                 <Link href="/giai-phap">
                                     <Nav.Link as="a" href="#" className={`text-white text-header ${asPath.includes("/giai-phap") ? "active-header" : ""}`}>

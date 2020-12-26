@@ -3,79 +3,46 @@ import 'react-awesome-slider/dist/custom-animations/scale-out-animation.css'
 import "style/hotSpots.scss"
 import React, { useState, useEffect } from "react"
 import { Container, Carousel } from 'react-bootstrap'
-import AwesomeSlider from 'react-awesome-slider'
 import Popover from "components/Popover"
 import Link from "next/link"
-import axios from "utils/axios"
-
-const images = [
-    {
-        original: '/assets/img/banner-2.png',
-        nodes: [
-            {
-                _id: "123123123123123",
-                left: 20,
-                bottom: 20,
-                openDefault: true
-            },
-            {
-                _id: "asdfagbjidashvlasd",
-                left: 60,
-                bottom: 60,
-                openDefault: false
-            }
-        ]
-    },
-    {
-        original: '/assets/img/banner-3.png',
-        nodes: [
-            {
-                _id: "1231231231231dfs23",
-                left: 50,
-                bottom: 50,
-                openDefault: true
-            }
-        ]
-    },
-    {
-        original: '/assets/img/banner-4.png',
-    },
-]
+import axios from "axios"
+import { connect } from 'react-redux'
+import { GET_CONFIG } from "redux/reducers/config"
 
 const Home = React.memo(props => {
-    const [config, setConfig] = useState(null),
-        [show, setShow] = useState(null),
+    const { banners, categories, config, dispatch } = props,
+        [show, setShow] = useState([]),
         [selected, setSeleted] = useState(0),
         [lengthImage, setLengthImage] = useState(0)
 
     useEffect(() => {
-        loadConfig()
-    }, [])
+        setLengthImage(banners.length - 1)
+    }, [banners])
+
 
     useEffect(() => {
-        setLengthImage(images.length - 1)
-    }, [images])
+        dispatch({
+            type: GET_CONFIG,
+            config
+        })
+    }, [config])
 
     useEffect(() => {
-        setShow(images[selected].nodes?.find(node => node.openDefault)?._id)
+        const nodes = banners[selected].nodes?.filter(node => node.openDefault)
+        setShow(nodes.map(node => node._id))
     }, [selected])
 
-    const loadConfig = async () => {
-        try {
-            const res = await axios.get("/config")
-            setConfig(res.data.data)
-        } catch (err) {
-            return Promise.reject(err)
+    const clickHotSpot = async id => {
+        if (show.includes(id)) {
+            return setShow(show.filter(t => t !== id))
+        } else {
+            return setShow([...show, id])
         }
     }
 
 
-    const clickHotSpot = id => {
-        if (show === id) {
-            return setShow(null)
-        } else {
-            return setShow(id)
-        }
+    const closePopover = id => {
+        setShow(show.filter(t => t !== id))
     }
 
     const previousButton = e => {
@@ -103,8 +70,8 @@ const Home = React.memo(props => {
             <Carousel
                 activeIndex={selected}
                 onSelect={handleSelect}
-                prevIcon={<i onClick={previousButton} className="fas fa-chevron-left"></i>}
-                nextIcon={<i onClick={nextButton} className="fas fa-chevron-right"></i>}
+                prevIcon={<i onClick={previousButton} className="fas fa-chevron-left fa-3x"></i>}
+                nextIcon={<i onClick={nextButton} className="fas fa-chevron-right fa-3x"></i>}
                 indicators={false}
                 fade={true}
                 pause="hover"
@@ -112,37 +79,37 @@ const Home = React.memo(props => {
                 style={{ position: 'relative' }}
                 interval={9000}
             >
-                {images.map((item, index) => (
+                {banners.map((item, index) => (
                     <Carousel.Item key={index}>
-                        <img src={item.original} style={{ position: "relative", width: "100%", objectFit: "cover" }} />
+                        <img src={item.img} style={{ position: "relative", width: "100%", objectFit: "cover" }} />
                         {item.nodes && item.nodes.map((node, i) => (
                             <Popover
                                 key={i}
                                 _id={node._id}
                                 bottom={node.bottom}
                                 left={node.left}
-                                showSelected={show}
-                                onSelect={_id => {
-                                    clickHotSpot(_id)
-                                }}
+                                openDefault={node.openDefault}
+                                closePopover={closePopover}
+                                showSelected={show.includes(node._id)}
+                                onSelect={clickHotSpot}
                                 popup={
-                                    <div className="card p-0 text-left w-75 ml-auto hotspot-homepage" style={{ zIndex: 9000 }}>
-                                        <div className="card-body m-0 p-0">
-                                            <div className="card-title title p-2 px-4 rounded-top">
+                                    <div className="card p-0 text-left w-10 hotspot-homepage" style={{ zIndex: 9000 }}>
+                                        <div className="card-body m-0 p-0" style={{ width: 301 }}>
+                                            <div className="card-title w-100 title p-2 px-4 rounded-top">
                                                 <div className="w-100 text-right">
-                                                    <button onClick={() => setShow(null)} className="btn p-0 m-0 text-white">&times;</button>
+                                                    <button onClick={() => closePopover(node._id)} className="btn p-0 m-0 text-white">&times;</button>
                                                 </div>
-                                                <h5>Cotton</h5>
-                                                <p className="text-white">dùng bộ sản phẩm hoá chất cho ra:</p>
+                                                <h5>{node.content.title}</h5>
+                                                <p className="text-white">{node.content.subTitle}</p>
                                             </div>
-                                            <div className="content p-2 px-4">
+                                            <div className="content w-100 p-2 px-4" style={{ width: 301 }}>
                                                 <p className="title">Màu sắc</p>
-                                                <p className="sub-content">Tươi sáng trên nền vải thoáng mát.</p>
+                                                <p className="sub-content">{node.content.color}</p>
                                                 <p className="title">Yêu cầu</p>
-                                                <p className="sub-content">Độ bền giặt cao.</p>
+                                                <p className="sub-content">{node.content.requirement}</p>
                                                 <p className="title">Dòng Sản Phẩm</p>
-                                                <p className="sub-content">Thuốc nhuộm: Covazol - LC &   HCCB và chất trợ đi kèm.</p>
-                                                <a href="#" className="btn border rounded-pill px-4">Xem thêm</a>
+                                                <p className="sub-content">{node.content.product}</p>
+                                                <a href={node.content.link} className="btn border rounded-pill px-4">Xem thêm</a>
                                             </div>
                                         </div>
                                     </div>
@@ -152,55 +119,6 @@ const Home = React.memo(props => {
                     </Carousel.Item>
                 ))}
             </Carousel>
-            {/* <AwesomeSlider
-                animation="scaleOutAnimation"
-                selected={selected}
-                mobileTouch={true}
-                cancelOnInteraction={false}
-                organicArrows={false}
-                bullets={false}
-                buttonContentLeft={<i onClick={previousButton} className="fas fa-chevron-left"></i>}
-                buttonContentRight={<i onClick={nextButton} className="fas fa-chevron-right"></i>}
-            >
-                {images.map((item, index) => (
-                    <div data-src={item.original} key={index}>
-                        {item.nodes && item.nodes.map((node, i) => (
-                            <Popover
-                                key={i}
-                                _id={node._id}
-                                bottom={node.bottom}
-                                left={node.left}
-                                showSelected={show}
-                                onSelect={_id => {
-                                    clickHotSpot(_id)
-                                }}
-                                popup={
-                                    <div className="card p-0 text-left w-75 ml-auto hotspot-homepage" style={{ zIndex: 9000 }}>
-                                        <div className="card-body m-0 p-0">
-                                            <div className="card-title title p-2 px-4 rounded-top">
-                                                <div className="w-100 text-right">
-                                                    <button onClick={() => setShow(null)} className="btn p-0 m-0 text-white">&times;</button>
-                                                </div>
-                                                <h5>Cotton</h5>
-                                                <p className="text-white">dùng bộ sản phẩm hoá chất cho ra:</p>
-                                            </div>
-                                            <div className="content p-2 px-4">
-                                                <p className="title">Màu sắc</p>
-                                                <p className="sub-content">Tươi sáng trên nền vải thoáng mát.</p>
-                                                <p className="title">Yêu cầu</p>
-                                                <p className="sub-content">Độ bền giặt cao.</p>
-                                                <p className="title">Dòng Sản Phẩm</p>
-                                                <p className="sub-content">Thuốc nhuộm: Covazol - LC &   HCCB và chất trợ đi kèm.</p>
-                                                <a href="#" className="btn border rounded-pill px-4">Xem thêm</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            />
-                        ))}
-                    </div>
-                ))}
-            </AwesomeSlider> */}
             <div className="thongdiep">
                 <div className="text-center">
                     <img className="img-thumbnail" src="/thongdiep.png" width="571" height="757" />
@@ -224,102 +142,20 @@ const Home = React.memo(props => {
             <Container className="container text-center container__ung-dung">
                 <h2 className="textthongdiep">Ứng dụng</h2>
                 <div className="row">
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/cotton.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/cotton">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải Cotton</h4>
-                                    </div>
-                                </Link>
+                    {categories.map(category => (
+                        <div key={category._id} className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 my-4">
+                            <div className="card card__category">
+                                <div className="container__img container__home ">
+                                    <img src={category.img} alt={category._id} className="image" />
+                                    <Link href="/ung-dung/cotton">
+                                        <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                            <h4 className="textimage">{category.title}</h4>
+                                        </div>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/poly.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/poly">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải Poly</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/bikini.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/bikini">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải đồ tắm, thể thao</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/vaiinhoa.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/vaiinhoa">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải In Hoa</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/jean.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/jean">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải Jeans</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/baby.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/baby">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải an toàn cho baby</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/vaitrang.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/vaitrang">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải trắng</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img container__home">
-                                <img src="/khac.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/khac">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải khác</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </Container>
             <div className="container__trainghiemkhachhang text-center">
@@ -353,7 +189,7 @@ const Home = React.memo(props => {
                 <h2 className="textthongdiep">Giải pháp</h2>
                 <div className="row">
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/sanxuatondinh.png" className="card-img-top" />
                             <div className="card-body pb-3 pt-3 text-center">
                                 <p className="card-text text-giai-phap">Sản xuất ổn định</p>
@@ -361,7 +197,7 @@ const Home = React.memo(props => {
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/hieuquasanxuattang.png" className="card-img-top" />
                             <div className="card-body pb-3 pt-3 text-center">
                                 <p className="card-text text-giai-phap">Hiệu quả sản xuất tăng</p>
@@ -369,7 +205,7 @@ const Home = React.memo(props => {
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/hoachatdungtudau.png" className="card-img-top" />
                             <div className="card-body pb-3 pt-3 text-center">
                                 <p className="card-text text-giai-phap">Hoá chất đúng từ đầu</p>
@@ -377,7 +213,7 @@ const Home = React.memo(props => {
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/hoachatcodobenmaucao.png" className="card-img-top" />
                             <div className="card-body pb-3 pt-3 text-center">
                                 <p className="card-text text-giai-phap">Hoá chất có độ bền màu cao</p>
@@ -385,7 +221,7 @@ const Home = React.memo(props => {
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/hoachatdatchuan.png" className="card-img-top" />
                             <div className="card-body p-0 pb-3 pt-3">
                                 <p className="card-text text-giai-phap">Hoá chất đạt OEKOTEX, BLUESIGN, REACH, …</p>
@@ -393,7 +229,7 @@ const Home = React.memo(props => {
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/giaonhandungtiendo.png" className="card-img-top" />
                             <div className="card-body pb-3 pt-3 text-center">
                                 <p className="card-text text-giai-phap">Dịch vụ giao nhận đúng tiến độ</p>
@@ -401,7 +237,7 @@ const Home = React.memo(props => {
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/hoachatchonhieuloaquytrinh.png" className="card-img-top" />
                             <div className="card-body pb-3 pt-3 text-center">
                                 <p className="card-text text-giai-phap">Hoá chất cho nhiều loại quy trình</p>
@@ -409,7 +245,7 @@ const Home = React.memo(props => {
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card">
+                        <div className="card bg-transparent">
                             <img src="/hoachatchoxuongmoi.png" className="card-img-top" />
                             <div className="card-body pb-3 pt-3 text-center">
                                 <p className="card-text text-giai-phap">Hoá chất cho xưởng mới</p>
@@ -422,4 +258,11 @@ const Home = React.memo(props => {
     )
 })
 
-export default Home
+Home.getInitialProps = async (ctx) => {
+    const banners = (await axios.get(`${process.env.API}/banners`)).data.data
+    const categories = (await axios.get(`${process.env.API}/categories`)).data.data
+    const config = (await axios.get(`${process.env.API}/config`)).data.data
+    return { banners, categories, config }
+}
+
+export default connect()(Home)

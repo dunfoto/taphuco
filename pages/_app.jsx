@@ -2,9 +2,9 @@ import '../style/index.css'
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css'
 import 'rsuite/lib/styles/index.less'
 
-import { useStore } from "react-redux";
-import PersistGate from "components/Persistor";
-import { wrapper } from '../redux/store';
+import { useStore } from "react-redux"
+import PersistGate from "components/Persistor"
+import { wrapper } from '../redux/store'
 
 import NextNprogress from 'nextjs-progressbar'
 import HomeLayout from "components/HomeLayout"
@@ -15,13 +15,14 @@ import React, { useState, useEffect } from 'react'
 import Header from "components/Header"
 import Footer from "components/Footer"
 import ScrollTop from "react-scroll-to-top"
+import axios from 'axios'
 
-const App = ({ Component, pageProps, router }) => {
+const App = ({ Component, pageProps, router, categories }) => {
     const store = useStore((state) => state),
         [sidebar, setSideBar] = useState(true)
 
     useEffect(() => {
-        let reallyDocumentTitle;
+        let reallyDocumentTitle
         document.addEventListener('visibilitychange', event => {
             if (event.target.hidden || event.target.webkitHidden) {
                 reallyDocumentTitle = document.title
@@ -52,7 +53,7 @@ const App = ({ Component, pageProps, router }) => {
             if (router.route.includes(item)) {
                 title = Title[item]
             }
-        });
+        })
         return title
     }
 
@@ -75,7 +76,7 @@ const App = ({ Component, pageProps, router }) => {
                     crossOrigin="anonymous" />
             </Head>
             {checkHeader() && (
-                <Header router={router} />
+                <Header categories={categories} router={router} />
             )}
             <ScrollTop
                 smooth
@@ -87,7 +88,7 @@ const App = ({ Component, pageProps, router }) => {
             ) : (
                     <HomeLayout>
                         <Component {...pageProps} />
-                        <Footer />
+                        {router.route !== '/_error' && (<Footer />)}
                     </HomeLayout>
                 )}
         </PersistGate>
@@ -95,15 +96,17 @@ const App = ({ Component, pageProps, router }) => {
 }
 
 App.getInitialProps = async ({ Component, ctx }) => {
-    ctx.store.dispatch({ type: "APP", payload: "was set in _app" });
+    ctx.store.dispatch({ type: "APP", payload: "was set in _app" })
+    const res = await axios.get(`${process.env.API}/categories/all`)
     return {
         pageProps: {
             ...(Component.getInitialProps
                 ? await Component.getInitialProps(ctx)
                 : {}),
             appProp: ctx.pathname
-        }
-    };
-};
+        },
+        categories: res.data.data
+    }
+}
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(App)

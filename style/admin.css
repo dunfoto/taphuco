@@ -1,3 +1,7 @@
+body {
+    background: transparent !important;
+}
+
 .container-should-be-login {
     height: 100vh;
     display: flex;

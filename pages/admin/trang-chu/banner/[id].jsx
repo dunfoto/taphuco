@@ -138,13 +138,7 @@ const AddBannerComponent = React.memo(props => {
     const onChangeOpenDefault = () => {
         setNodes(nodes.map(node => {
             if (node._id === show) {
-                if (node.openDefault) {
-                    node.openDefault = false
-                } else {
-                    node.openDefault = true
-                }
-            } else {
-                node.openDefault = false
+                node.openDefault = !node.openDefault
             }
             return node
         }))

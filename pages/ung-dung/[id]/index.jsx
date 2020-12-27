@@ -6,6 +6,7 @@ import axiosNoAuth from "axios"
 const GiaiPhapComponent = React.memo(props => {
     const { category } = props,
         router = useRouter()
+
     if (!category) return router.push('/404')
     return (
         <React.Fragment>
@@ -129,7 +130,7 @@ const GiaiPhapComponent = React.memo(props => {
 GiaiPhapComponent.getInitialProps = async ctx => {
     const { query: { id } } = ctx
     try {
-        const res = await axiosNoAuth.get(`http://localhost:3001/category/${encodeURI(id)}`)
+        const res = await axiosNoAuth.get(`${process.env.API}/category/${encodeURI(id)}`)
         return { category: res.data.data }
     } catch (err) {
         return { category: null }

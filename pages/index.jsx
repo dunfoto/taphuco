@@ -19,7 +19,6 @@ const Home = React.memo(props => {
         setLengthImage(banners.length - 1)
     }, [banners])
 
-
     useEffect(() => {
         dispatch({
             type: GET_CONFIG,
@@ -28,8 +27,10 @@ const Home = React.memo(props => {
     }, [config])
 
     useEffect(() => {
-        const nodes = banners[selected].nodes?.filter(node => node.openDefault)
-        setShow(nodes.map(node => node._id))
+        if (Boolean(banners.length)) {
+            const nodes = banners[selected].nodes?.filter(node => node.openDefault)
+            setShow(nodes.map(node => node._id))
+        }
     }, [selected])
 
     const clickHotSpot = async id => {

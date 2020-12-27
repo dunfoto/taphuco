@@ -22,6 +22,7 @@ const Header = props => {
     }
 
     if (route === "/_error") return <div></div>
+    
     return (
         <React.Fragment>
             {w > 768 ? (

@@ -33,7 +33,7 @@ const GiaiPhapComponent = React.memo(props => {
                                     <img src={product.imgs[0]} alt={product._id} className="image" />
                                     <Link href={`/ung-dung/${encodeURI(id)}/${encodeURI(product.title)}`}>
                                         <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                            <h4 className="textimage">Vải Cotton</h4>
+                                            <h4 className="textimage">{product.title}</h4>
                                         </div>
                                     </Link>
                                 </div>

@@ -74,7 +74,7 @@ const DetailUngDungComponent = React.memo(props => {
                                     <ul style={{ paddingLeft: 15 }}>
                                         {product.complete.map((temp, index) => (
                                             <li key={index} className="li__ung-dung">{temp}</li>
-                                        ))}`    `
+                                        ))}
                                     </ul>
                                 </div>
                             </div>

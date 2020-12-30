@@ -10,11 +10,12 @@ import { connect } from 'react-redux'
 import { GET_CONFIG } from "redux/reducers/config"
 
 const Home = React.memo(props => {
-    const { banners, categories, config, dispatch } = props,
+    const { banners, categories, config, dispatch, solutions } = props,
         [show, setShow] = useState([]),
         [selected, setSeleted] = useState(0),
         [lengthImage, setLengthImage] = useState(0)
 
+    console.log(solutions)
     useEffect(() => {
         setLengthImage(banners.length - 1)
     }, [banners])
@@ -189,70 +190,16 @@ const Home = React.memo(props => {
             <div className="container text-center container__giai-phap">
                 <h2 className="textthongdiep">Giải pháp</h2>
                 <div className="row">
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/sanxuatondinh.png" className="card-img-top" />
-                            <div className="card-body pb-3 pt-3 text-center">
-                                <p className="card-text text-giai-phap">Sản xuất ổn định</p>
+                    {solutions.map(solution => (
+                        <div key={solution._id} className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
+                            <div className="card bg-transparent">
+                                <img src={solution.img} className="card-img-top" />
+                                <div className="card-body pb-3 pt-3 text-center">
+                                    <p className="card-text text-giai-phap">{solution.showTitle}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/hieuquasanxuattang.png" className="card-img-top" />
-                            <div className="card-body pb-3 pt-3 text-center">
-                                <p className="card-text text-giai-phap">Hiệu quả sản xuất tăng</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/hoachatdungtudau.png" className="card-img-top" />
-                            <div className="card-body pb-3 pt-3 text-center">
-                                <p className="card-text text-giai-phap">Hoá chất đúng từ đầu</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/hoachatcodobenmaucao.png" className="card-img-top" />
-                            <div className="card-body pb-3 pt-3 text-center">
-                                <p className="card-text text-giai-phap">Hoá chất có độ bền màu cao</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/hoachatdatchuan.png" className="card-img-top" />
-                            <div className="card-body p-0 pb-3 pt-3">
-                                <p className="card-text text-giai-phap">Hoá chất đạt OEKOTEX, BLUESIGN, REACH, …</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/giaonhandungtiendo.png" className="card-img-top" />
-                            <div className="card-body pb-3 pt-3 text-center">
-                                <p className="card-text text-giai-phap">Dịch vụ giao nhận đúng tiến độ</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/hoachatchonhieuloaquytrinh.png" className="card-img-top" />
-                            <div className="card-body pb-3 pt-3 text-center">
-                                <p className="card-text text-giai-phap">Hoá chất cho nhiều loại quy trình</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                        <div className="card bg-transparent">
-                            <img src="/hoachatchoxuongmoi.png" className="card-img-top" />
-                            <div className="card-body pb-3 pt-3 text-center">
-                                <p className="card-text text-giai-phap">Hoá chất cho xưởng mới</p>
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
@@ -260,10 +207,12 @@ const Home = React.memo(props => {
 })
 
 Home.getInitialProps = async (ctx) => {
-    const banners = (await axios.get(`${process.env.API}/banners`)).data.data
-    const categories = (await axios.get(`${process.env.API}/categories`)).data.data
-    const config = (await axios.get(`${process.env.API}/config`)).data.data
-    return { banners, categories, config }
+    const banners = (await axios.get(`${process.env.API}/banners/all`)).data.data,
+        categories = (await axios.get(`${process.env.API}/categories/all`)).data.data,
+        config = (await axios.get(`${process.env.API}/config`)).data.data,
+        solutions = (await axios.get(`${process.env.API}/solutions/all`)).data.data
+
+    return { banners, categories, config, solutions }
 }
 
 export default connect()(Home)

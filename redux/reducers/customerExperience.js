@@ -26,14 +26,18 @@ const reducer = (state = initial, action) => {
 export default reducer;
 
 
-export const getCustomerExperiences = () => async dispatch => {
+export const getCustomerExperiences = () => async (dispatch, getState) => {
     try {
-        const res = await axios.get("/customer-experiences")
-        console.log(res)
+        const { customerExperience: { pagination: { page, limit } } } = getState(),
+            res = await axios.get(`/customer-experiences?page=${page}&limit=${limit}`)
         dispatch({
             type: GET_CUSTOMER_EXPERIENCE,
             data: res.data.data,
-            pagination: res.data.pagination
+            pagination: {
+                page: Number(res.data.pagination.page),
+                total: Number(res.data.pagination.total),
+                limit: Number(res.data.pagination.limit)
+            }
         })
     } catch (err) {
         return Promise.reject(err)

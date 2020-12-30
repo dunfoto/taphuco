@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import SunEditor from 'suneditor-react'
 import { useRouter } from 'next/router'
 import axios from 'utils/axios'
+import fileUpload from "fuctbase64"
+import Cropper from 'react-cropper'
 import Select from "react-select"
 
 const NewGiaiPhapComponent = React.memo(props => {
@@ -9,7 +11,11 @@ const NewGiaiPhapComponent = React.memo(props => {
         [title, setTitle] = useState(''),
         [categories, setCategories] = useState([]),
         [lstCategories, setLstCategories] = useState([]),
-        router = useRouter()
+        router = useRouter(),
+        cropper = useRef(),
+        [edit, setEdit] = useState(false),
+        [img, setImg] = useState(null),
+        [original, setOriginal] = useState(null)
 
     useEffect(() => {
         getLstCategory()
@@ -48,6 +54,7 @@ const NewGiaiPhapComponent = React.memo(props => {
         try {
             const data = {
                 title,
+                img,
                 content: editorRef.current.editor.getContents(),
                 categories: categories.map(t => t.value)
             },
@@ -58,6 +65,24 @@ const NewGiaiPhapComponent = React.memo(props => {
         } catch (err) {
             return Promise.reject(err)
         }
+    }
+
+    const onChangeImg = async event => {
+        if (event.target.value !== "") {
+            const newImg = "data:image/png;base64," + (await fileUpload(event, true)).base64
+            setImg(newImg)
+            setOriginal(newImg)
+            setEdit(true)
+        }
+    }
+
+    const onSaveEditImg = () => {
+        try {
+            setImg(cropper.current.cropper.getCroppedCanvas().toDataURL())
+        } catch (err) {
+            console.log(err)
+        }
+        setEdit(false)
     }
 
     return (
@@ -94,6 +119,46 @@ const NewGiaiPhapComponent = React.memo(props => {
                     </div>
                 </div>
             </div>
+            <div className="col-12 row">
+                <div className="form-group col-6 mr-auto ml-auto">
+                    <input
+                        id="icon"
+                        name="icon"
+                        className="custom-file-input"
+                        accept=".jpeg, .png"
+                        type="file"
+                        onChange={onChangeImg}
+                    />
+                    <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
+                </div>
+            </div>
+            {img && original && (
+                <div className="col-12 row">
+                    <div className="col-6">
+                        <img src={img} alt="mew_img" height={250} width="auto" className="img-thumbnail" />
+                    </div>
+                    <div className="col-6">
+                        {edit && (
+                            <Cropper
+                                ref={cropper}
+                                src={original}
+                                initialAspectRatio={1 / 1}
+                                zoomOnWheel={false}
+                            />
+                        )}
+                    </div>
+                    {edit ? (
+                        <div className="col-6">
+                            <button type="button" className="btn btn-transparent btn-border text-color my-4 mr-2" onClick={() => onSaveEditImg()}>Lưu lại thay đổ</button>
+                            <button type="button" className="btn btn-transparent btn-border text-color my-4 ml-2" onClick={() => setEdit(false)}>Huỷ sửa ảnh</button>
+                        </div>
+                    ) : (
+                            <div className="col-6">
+                                <button type="button" className="btn btn-transparent btn-border text-color my-4" onClick={() => setEdit(true)}>Sửa hình ảnh</button>
+                            </div>
+                        )}
+                </div>
+            )}
             <div className="form-group">
                 <label htmlFor="content" className="form-label">Nội dung</label>
                 <SunEditor

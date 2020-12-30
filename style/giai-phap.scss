@@ -1,0 +1,18 @@
+.loadcontent {
+    .sun-editor {
+        border: 0px solid white;
+
+        .se-container {
+            .se-resizing-bar.sun-editor-common.se-resizing-none {
+                display: none;
+            }
+
+            .se-wrapper {
+                .se-wrapper-inner.se-wrapper-wysiwyg.sun-editor-editable {
+                    border: 0px;
+                    padding: 0px
+                }
+            }
+        }
+    }
+}

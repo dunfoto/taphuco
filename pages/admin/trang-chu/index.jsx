@@ -66,9 +66,10 @@ const DashBoard = React.memo(props => {
 
     const updatePosition = async lstPostition => {
         try {
-            console.log(lstPostition)
             const res = await axios.put("/banners/position", lstPostition)
-            console.log(res)
+            if (res.status === 200) {
+                getBanners()
+            }
         } catch (err) {
             return Promise.reject(err)
         }
@@ -88,7 +89,7 @@ const DashBoard = React.memo(props => {
         newBanner.splice(startDrop, 1)
         newBanner.splice(Number(e.currentTarget.dataset.position), 0, oldItem)
         newBanner.map((banner, index) => {
-            banner.position = index
+            banner.position = page * limit + index
             return banner
         })
         setStartDrop(null)
@@ -198,15 +199,15 @@ const DashBoard = React.memo(props => {
                         <nav className="w-100">
                             <ul className="pagination justify-content-center">
                                 <li className={`page-item ${pagination.page === 0 && "disabled"}`} onClick={() => pagination.page > 0 && updatePage(pagination.page - 1)}>
-                                    <button className="page-link">Previous</button>
+                                    <button className="page-link">Trang trước</button>
                                 </li>
                                 {Array.from({ length: (total % limit === 0) ? total / limit : (total - total % limit) / limit + 1 }, () => Math.floor(Math.random() * 40)).map((_, index) => (
                                     <li className={`page-item ${page === index && "active"}`} key={index} onClick={() => updatePage(index)}>
                                         <button className="page-link">{index}</button>
                                     </li>
                                 ))}
-                                <li className={`page-item ${pagination.page === (((total % limit === 0) ? total / limit : (total - total % limit) / limit + 1) - 1) && "disabled"}`} onClick={() => pagination.page < (((total % limit === 0) ? total / limit : (total - total % limit) / limit + 1) - 1) && updatePagePagination(pagination.page + 1)}>
-                                    <button className="page-link">Next</button>
+                                <li className={`page-item ${pagination.page === (((total % limit === 0) ? total / limit : (total - total % limit) / limit + 1) - 1) && "disabled"}`} onClick={() => pagination.page < (((total % limit === 0) ? total / limit : (total - total % limit) / limit + 1) - 1) && updatePage(pagination.page + 1)}>
+                                    <button className="page-link">Trang kế tiếp</button>
                                 </li>
                             </ul>
                         </nav>

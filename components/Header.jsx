@@ -4,6 +4,7 @@ import Link from "next/link"
 import { NavDropdown, Nav, Accordion } from "react-bootstrap"
 import Sidebar from "react-sidebar"
 import { useRouter } from 'next/router'
+import { useWindowSize } from "common/screen"
 
 const Header = props => {
     const { router: { asPath, route }, categories } = props,
@@ -22,7 +23,7 @@ const Header = props => {
     }
 
     if (route === "/_error") return <div></div>
-    
+
     return (
         <React.Fragment>
             {w > 768 ? (
@@ -134,27 +135,5 @@ const Header = props => {
                 )}
         </React.Fragment >
     )
-}
-
-const useWindowSize = () => {
-    const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
-    });
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const handleResize = () => {
-                setWindowSize({
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                });
-            }
-            window.addEventListener("resize", handleResize);
-            handleResize();
-            return () => window.removeEventListener("resize", handleResize);
-        }
-    }, []);
-    return windowSize;
 }
 export default Header

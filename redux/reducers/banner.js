@@ -26,13 +26,18 @@ const reducer = (state = initial, action) => {
 export default reducer;
 
 
-export const getBanners = () => async dispatch => {
+export const getBanners = () => async (dispatch, getState) => {
     try {
-        const res = await axios.get("/banners")
+        const { banner: { pagination: { page, limit } } } = getState(),
+            res = await axios.get(`/banners?page=${page}&limit=${limit}`)
         dispatch({
             type: GET_BANNERS,
             data: res.data.data,
-            pagination: res.data.pagination
+            pagination: {
+                page: Number(res.data.pagination.page),
+                total: Number(res.data.pagination.total),
+                limit: Number(res.data.pagination.limit),
+            }
         })
     } catch (err) {
         return Promise.reject(err)

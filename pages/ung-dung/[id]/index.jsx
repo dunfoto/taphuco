@@ -4,16 +4,17 @@ import { useRouter } from 'next/router'
 import axiosNoAuth from "axios"
 
 const GiaiPhapComponent = React.memo(props => {
-    const { category } = props,
-        router = useRouter()
+    const { category, products } = props,
+        { query: { id }, push } = useRouter()
 
-    if (!category) return router.push('/404')
+    console.log(products)
+    if (!category) return push('/404')
     return (
         <React.Fragment>
-            <div className="container__ungdung" style={{ backgroundImage: `url(/page__trai-nghiem-khach-hang.png)`, backgroundSize: "cover" }}>
+            <div className="container__ungdung" style={{ backgroundImage: `url(${category.img})`, backgroundSize: "cover", backgroundPosition: "center" }}>
                 <div className="container">
                     <div className="card-search bg-light text-center">
-                        <h2 className="textthongdiep">{category.title}</h2>
+                        <h1 className="textthongdiep">{category.title}</h1>
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12">
@@ -25,102 +26,22 @@ const GiaiPhapComponent = React.memo(props => {
             </div >
             <div className="container-lg p-4">
                 <div className="row justify-content-center" style={{ marginLeft: 0, marginRight: 0, paddingTop: 90, paddingBottom: 90, paddingLeft: "1.5rem", paddingRight: "1.5rem" }}>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category mr-auto ml-auto">
-                            <div className="container__img">
-                                <img src="/cotton.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/cotton/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải Cotton</h4>
-                                    </div>
-                                </Link>
+                    {products.length > 0 ? products.map(product => (
+                        <div key={product._id} className="col-md-6 col-xs-12 my-4">
+                            <div className="card card__category mr-auto ml-auto">
+                                <div className="container__img">
+                                    <img src={product.imgs[0]} alt={product._id} className="image" />
+                                    <Link href={`/ung-dung/${encodeURI(id)}/${encodeURI(product.title)}`}>
+                                        <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                            <h4 className="textimage">Vải Cotton</h4>
+                                        </div>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img">
-                                <img src="/poly.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/poly/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải Poly</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img">
-                                <img src="/bikini.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/bikini/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải đồ tắm, thể thao</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img">
-                                <img src="/vaiinhoa.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/vaiinhoa/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải In Hoa</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img">
-                                <img src="/jean.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/jean/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải Jeans</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img">
-                                <img src="/baby.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/baby/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải an toàn cho baby</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img">
-                                <img src="/vaitrang.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/vaitrang/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải trắng</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-6 col-xs-12 my-4">
-                        <div className="card card__category">
-                            <div className="container__img">
-                                <img src="/khac.png" alt="Avatar" className="image" />
-                                <Link href="/ung-dung/khac/demo-detail">
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">Vải khác</h4>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
+                    )) : (
+                            <div>Chưa có sản phẩm!</div>
+                        )}
                 </div>
             </div>
         </React.Fragment>
@@ -130,8 +51,9 @@ const GiaiPhapComponent = React.memo(props => {
 GiaiPhapComponent.getInitialProps = async ctx => {
     const { query: { id } } = ctx
     try {
-        const res = await axiosNoAuth.get(`${process.env.API}/category/${encodeURI(id)}`)
-        return { category: res.data.data }
+        const res = await axiosNoAuth.get(`${process.env.API}/category/${encodeURI(id)}`),
+            products = (await axiosNoAuth.get(`${process.env.API}/product-ref/${encodeURI(id)}`)).data.data
+        return { category: res.data.data, products }
     } catch (err) {
         return { category: null }
     }

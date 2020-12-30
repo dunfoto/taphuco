@@ -4,9 +4,11 @@ import { useRouter } from 'next/router'
 import axios from 'utils/axios'
 import Cropper from 'react-cropper'
 import fileUpload from "fuctbase64"
+import _ from "lodash"
 
 const NewGiaiPhapComponent = React.memo(props => {
     const editorRef = useRef(),
+        [showTitle, setShowTitle] = useState(''),
         [title, setTitle] = useState(''),
         [img, setImg] = useState(null),
         [editImg, setEditImg] = useState(false),
@@ -28,6 +30,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                 editorRef.current.editor.setContents(res.data.data.content)
                 setImg(res.data.data.img)
                 setOriginalImg(res.data.data.img)
+                setShowTitle(res.data.data.showTitle)
             }
         } catch (err) {
             return Promise.reject(err)
@@ -56,11 +59,13 @@ const NewGiaiPhapComponent = React.memo(props => {
     const onSubmit = async e => {
         try {
             const data = {
+                showTitle,
                 title,
-                content: editorRef.current.editor.getContents(),
+                content: _.escape(editorRef.current.editor.getContents()),
                 img
             },
                 res = await axios.put(`/solution/${id}`, data)
+            console.log(data)
             if (res.status === 200) {
                 router.push('/admin/giai-phap')
             }
@@ -74,6 +79,11 @@ const NewGiaiPhapComponent = React.memo(props => {
         setImg(newImg)
         setOriginalImg(newImg)
     }
+
+    const handlePaste = (e, cleanData, maxCharCount) => {
+        editorRef.current.editor.insertHTML(cleanData, true, maxCharCount)
+    }
+
 
     const saveImageEdit = () => {
         if (editImg) {
@@ -90,6 +100,19 @@ const NewGiaiPhapComponent = React.memo(props => {
             <h2>Sửa giải pháp</h2>
             <div className="row">
                 <div className="col-12 row">
+                    <div className="col-12 row">
+                        <div className="form-group col-6">
+                            <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
+                            <input
+                                type="string"
+                                id="showTitle"
+                                data-type="showTitle"
+                                className="form-control"
+                                value={showTitle}
+                                onChange={e => setShowTitle(e.target.value)}
+                            />
+                        </div>
+                    </div>
                     <div className="form-group col-6">
                         <label htmlFor="title" className="form-label">Tiêu đề</label>
                         <input
@@ -109,8 +132,9 @@ const NewGiaiPhapComponent = React.memo(props => {
                 <SunEditor
                     ref={editorRef}
                     autoFocus={true}
-                    height="60vh"
+                    height="90vh"
                     onImageUpload={handleImageUpload}
+                    onPaste={handlePaste}
                     setOptions={{
                         buttonList: [
                             ['undo', 'redo',

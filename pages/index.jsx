@@ -148,7 +148,7 @@ const Home = React.memo(props => {
                             <div className="card card__category">
                                 <div className="container__img container__home ">
                                     <img src={category.img} alt={category._id} className="image" />
-                                    <Link href="/ung-dung/cotton">
+                                    <Link href={`/ung-dung/${encodeURI(category.title)}`}>
                                         <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
                                             <h4 className="textimage">{category.title}</h4>
                                         </div>

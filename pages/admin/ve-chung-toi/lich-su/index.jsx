@@ -1,67 +1,62 @@
+import React, { useEffect } from "react"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
-import axios from "utils/axios"
-import { bindActionCreators } from "redux"
+import { getHistories, updatePagination } from "../../../../redux/reducers/history"
 import { connect } from "react-redux"
-import { getCategories, updatePagination } from "redux/reducers/category"
+import { bindActionCreators } from "redux"
+import axios from "utils/axios"
 
-const DashBoard = props => {
-    const router = useRouter(),
-        { categories, getCategories, pagination, updatePagination } = props,
-        { limit, total, page } = pagination
+const LichSuComponent = React.memo(props => {
+    const { histories, pagination, getHistories, updatePagination } = props,
+        { total, page, limit } = pagination,
+        router = useRouter()
 
     useEffect(() => {
-        getCategories()
-    }, [getCategories, page, limit])
+        getHistories()
+    }, [])
 
-    const deleteCategory = async id => {
+    const deleteHistory = async id => {
         try {
-            const res = await axios.delete(`/category/${id}`)
+            const res = await axios.delete(`/history/${id}`)
             if (res.status === 200) {
-                getCategories()
+                getHistories()
             }
         } catch (err) {
             return Promise.reject(err)
         }
     }
-
     const updatePage = page => {
         const newPagination = { ...pagination, page }
         updatePagination(newPagination)
     }
-
-
     return (
         <React.Fragment>
             <div className="w-100">
-                <h3>Danh mục sản phẩm</h3>
+                <h3>Lịch sử công ty</h3>
                 <div className="w-100">
                     <table className="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Tên danh mục</th>
+                                <th scope="col">Năm</th>
                                 <th scope="col">Hình ảnh</th>
-                                <th scope="col">
-                                    <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc/new`)}>
+                                <th className="text-center" scope="col">
+                                    <button className="btn" onClick={() => router.push(`/admin/ve-chung-toi/lich-su/new`)}>
                                         <i className="fas fa-plus"></i>
                                     </button>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.map((category, index) => (
-                                <tr key={category._id}>
+                            {histories.map((history, index) => (
+                                <tr key={history._id}>
                                     <td>{index}</td>
-                                    <td>{category.title}</td>
-                                    <td>
-                                        <img src={category.img} alt={`${category._id}`} height={100} />
-                                    </td>
-                                    <td>
-                                        <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc/${category._id}`)}>
+                                    <td>{history.year}</td>
+                                    <td><img src={history.img} height={150} width="auto" /></td>
+                                    <td className="text-center">
+                                        <button className="btn" onClick={() => router.push(`/admin/ve-chung-toi/lich-su/${history._id}`)}>
                                             <i className="fas fa-edit"></i>
                                         </button>
-                                        <button className="btn" onClick={() => deleteCategory(category._id)}>
+                                        <button className="btn" onClick={() => deleteHistory(history._id)}>
                                             <i className="fas fa-trash"></i>
                                         </button>
                                     </td>
@@ -90,14 +85,14 @@ const DashBoard = props => {
             )}
         </React.Fragment>
     )
-}
+})
 
 const mapStateToProps = state => ({
-    categories: state.category.data,
-    pagination: state.category.pagination
+    histories: state.history.data,
+    pagination: state.history.pagination
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getCategories,
+    getHistories,
     updatePagination
 }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(DashBoard)
+export default connect(mapStateToProps, mapDispatchToProps)(LichSuComponent)

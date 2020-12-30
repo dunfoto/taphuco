@@ -8,6 +8,8 @@ import banner from "./banner"
 import product from './product'
 import customerExperience from "./customerExperience"
 import power from "./power"
+import history from './history'
+import boardDirector from "./boardDirector"
 
 export default combineReducers({
     auth,
@@ -17,5 +19,7 @@ export default combineReducers({
     banner,
     product,
     customerExperience,
-    power
+    power,
+    history,
+    boardDirector
 })

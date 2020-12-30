@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SunEditor from 'suneditor-react'
 import { useRouter } from 'next/router'
 import axios from 'utils/axios'
@@ -12,8 +12,27 @@ const NewGiaiPhapComponent = React.memo(props => {
         [editImg, setEditImg] = useState(false),
         [originalImg, setOriginalImg] = useState(null),
         cropper = useRef(),
-        router = useRouter()
+        router = useRouter(),
+        { query: { id } } = router
 
+
+    useEffect(() => {
+        getDetailSolution()
+    }, [])
+
+    const getDetailSolution = async () => {
+        try {
+            const res = await axios.get(`/customer-experience/${id}`)
+            if (res.status === 200) {
+                setTitle(res.data.data.title)
+                editorRef.current.editor.setContents(res.data.data.content)
+                setImg(res.data.data.img)
+                setOriginalImg(res.data.data.img)
+            }
+        } catch (err) {
+            return Promise.reject(err)
+        }
+    }
     const handleImageUpload = (targetImgElement, index, state, imageInfo, remainingFilesCount) => {
         console.log(targetImgElement, index, state, imageInfo, remainingFilesCount)
         convertImageToUrl(editorRef.current.editor.getContents().split('"').filter(t => t.includes('data:image/png;base64')))
@@ -41,9 +60,9 @@ const NewGiaiPhapComponent = React.memo(props => {
                 content: editorRef.current.editor.getContents(),
                 img
             },
-                res = await axios.post('/customer-experience', data)
+                res = await axios.put(`/customer-experience/${id}`, data)
             if (res.status === 200) {
-                router.push('/admin/trai-nghiem-khach-hang')
+                router.push('/admin/trai-nghiem-khach-hang/dieu-khach-hang-noi')
             }
         } catch (err) {
             return Promise.reject(err)
@@ -64,10 +83,11 @@ const NewGiaiPhapComponent = React.memo(props => {
             setEditImg(true)
         }
     }
+
     return (
         <React.Fragment>
-            <i onClick={() => router.push("/admin/trai-nghiem-khach-hang")} className="far fa-arrow-alt-circle-left fa-2x"></i>
-            <h2>Tạo trải nghiệm khách hàng</h2>
+            <i onClick={() => router.push("/admin/trai-nghiem-khach-hang/dieu-khach-hang-noi")} className="far fa-arrow-alt-circle-left fa-2x"></i>
+            <h2>Sửa trải nghiệm khách hàng</h2>
             <div className="row">
                 <div className="col-12 row">
                     <div className="form-group col-6">
@@ -81,47 +101,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                             onChange={e => setTitle(e.target.value)}
                         />
                     </div>
-                </div>
-                <div className="col-12 row">
-                    <div className="form-group col-6 text-center">
-                        {img ? (
-                            <React.Fragment>
-                                <img src={img} onClick={() => setEditImg(!editImg)} height={250} alt={`giai-phap`} />
-                                <div className="w-100">
-                                    <button
-                                        type="button"
-                                        onClick={() => saveImageEdit()}
-                                        className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2"
-                                    >
-                                        {editImg ? "Lưu" : "Sửa ảnh"}
-                                    </button>
-                                    {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2">Huỷ</button>)}
-                                </div>
-                            </React.Fragment>
-                        ) : (
-                                <div className="custom-file form-group col-12">
-                                    <input
-                                        id="icon"
-                                        name="icon"
-                                        className="custom-file-input"
-                                        accept=".jpeg, .png"
-                                        type="file"
-                                        onChange={onChangeImg}
-                                    />
-                                    <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
-                                </div>
-                            )}
-                    </div>
-                    <div className="form-group col-6 text-center">
-                        {editImg && (
-                            <Cropper
-                                ref={cropper}
-                                src={originalImg}
-                                aspectRatio={1 / 1}
-                                zoomOnWheel={false}
-                            />
-                        )}
-                    </div>
+
                 </div>
             </div>
             <div className="form-group">
@@ -129,7 +109,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                 <SunEditor
                     ref={editorRef}
                     autoFocus={true}
-                    height="40vh"
+                    height="70vh"
                     onImageUpload={handleImageUpload}
                     setOptions={{
                         buttonList: [
@@ -146,6 +126,46 @@ const NewGiaiPhapComponent = React.memo(props => {
                         ]
                     }}
                 />
+            </div>
+            <div className="col-12  row">
+                <div className="form-group col-6 text-center">
+                    {img ? (
+                        <React.Fragment>
+                            <img src={img} onClick={() => setEditImg(!editImg)} height={250} alt={`trai-nghiem-khach-hang-${id}`} />
+                            <div className="w-100">
+                                <button
+                                    type="button"
+                                    onClick={() => saveImageEdit()}
+                                    className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2"
+                                >
+                                    {editImg ? "Lưu" : "Sửa ảnh"}
+                                </button>
+                                {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2">Huỷ</button>)}
+                            </div>
+                        </React.Fragment>
+                    ) : (
+                            <div className="custom-file form-group col-12">
+                                <input
+                                    id="icon"
+                                    name="icon"
+                                    className="custom-file-input"
+                                    accept=".jpeg, .png"
+                                    type="file"
+                                    onChange={onChangeImg}
+                                />
+                                <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
+                            </div>
+                        )}
+                </div>
+                <div className="form-group col-6 text-center editImageGiaiPhap">
+                    {editImg && (
+                        <Cropper
+                            ref={cropper}
+                            src={originalImg}
+                            zoomOnWheel={false}
+                        />
+                    )}
+                </div>
             </div>
             <button type="button" className="btn btn-transparent btn-border text-color" onClick={onSubmit}>Lưu lại</button>
         </React.Fragment>

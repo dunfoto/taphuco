@@ -7,6 +7,7 @@ import fileUpload from "fuctbase64"
 
 const NewGiaiPhapComponent = React.memo(props => {
     const editorRef = useRef(),
+        [showTitle, setShowTitle] = useState(''),
         [title, setTitle] = useState(''),
         [img, setImg] = useState(null),
         [editImg, setEditImg] = useState(false),
@@ -37,6 +38,7 @@ const NewGiaiPhapComponent = React.memo(props => {
     const onSubmit = async e => {
         try {
             const data = {
+                showTitle,
                 title,
                 content: editorRef.current.editor.getContents(),
                 img
@@ -64,12 +66,30 @@ const NewGiaiPhapComponent = React.memo(props => {
             setEditImg(true)
         }
     }
+
+    const handlePaste = (e, cleanData, maxCharCount) => {
+        editorRef.current.editor.insertHTML(cleanData, true, maxCharCount)
+    }
+
     return (
         <React.Fragment>
             <i onClick={() => router.push("/admin/giai-phap")} className="far fa-arrow-alt-circle-left fa-2x"></i>
             <h2>Tạo giải pháp</h2>
             <div className="row">
                 <div className="col-12 row">
+                    <div className="col-12 row">
+                        <div className="form-group col-6">
+                            <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
+                            <input
+                                type="string"
+                                id="showTitle"
+                                data-type="showTitle"
+                                className="form-control"
+                                value={showTitle}
+                                onChange={e => setShowTitle(e.target.value)}
+                            />
+                        </div>
+                    </div>
                     <div className="form-group col-6">
                         <label htmlFor="title" className="form-label">Tiêu đề</label>
                         <input
@@ -129,8 +149,9 @@ const NewGiaiPhapComponent = React.memo(props => {
                 <SunEditor
                     ref={editorRef}
                     autoFocus={true}
-                    height="40vh"
+                    height="70vh"
                     onImageUpload={handleImageUpload}
+                    onPaste={handlePaste}
                     setOptions={{
                         buttonList: [
                             ['undo', 'redo',
@@ -139,7 +160,9 @@ const NewGiaiPhapComponent = React.memo(props => {
                                 'bold', 'underline', 'italic', 'strike',
                                 'fontColor', 'hiliteColor', 'textStyle',
                                 'removeFormat',
-                                'outdent', 'indent',
+                                'subscript', 'superscript',
+                                'outdent','indent',
+                                'preview',
                                 'align', 'horizontalRule', 'list', 'lineHeight',
                                 'table', 'link', 'image', /** 'math', */ // You must add the 'katex' library at options to use the 'math' plugin.
                                 'fullScreen', 'showBlocks', 'codeView']

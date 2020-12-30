@@ -1,11 +1,12 @@
 import 'react-multi-carousel/lib/styles.css'
-import "../../../style/ung-dung.css"
+import "../../style/ung-dung.css"
+import '../../style/giai-phap.scss'
 import React from "react";
-import { useRouter } from 'next/router'
 import Carousel from 'react-multi-carousel'
 import Link from "next/link"
-import axios from "axios"
 import SunEditor from 'suneditor-react'
+import { useRouter } from "next/router"
+import axios from "axios"
 
 const responsive = {
     desktop: {
@@ -25,27 +26,32 @@ const responsive = {
     }
 };
 
+
 const DetailUngDungComponent = React.memo(props => {
-    const { query: { id } } = useRouter(),
-        { power, powers } = props
+    const { solution, references } = props,
+        { push } = useRouter()
+
+    if (!solution || !references) return push('/404')
     return (
         <React.Fragment>
-            <div className="container__ungdung bg-transparent">
+            <div className="container__ungdung bg-transparent" style={{ paddingTop: 100 }}>
                 <div className="container">
                     <div className="card-search text-center">
-                        <h2 className="textthongdiep">{power.title}</h2>
+                        <h2 className="textthongdiep">{solution.title}</h2>
                         <br className="my-4 py-4" />
-                    </div>
-                    <div className="col-sm-12">
-                        <img src={power.img} className="w-100 my-4" />
                     </div>
                     <div className="col-sm-12 text-left">
                         <div className="loadcontent">
                             <SunEditor
+                                // className="demo"
+                                // showToolbar={false}
+                                // disable={true}
+                                // height="fit-content"
+                                // setContents={solution.content}
                                 disable={true}
                                 enableToolbar={false}
                                 showToolbar={false}
-                                setContents={power.content}
+                                setContents={solution.content}
                                 width="100%" height="100%"
                                 setOptions={{ resizingBar: false, showPathLabel: false }}
                             />
@@ -61,17 +67,15 @@ const DetailUngDungComponent = React.memo(props => {
                     ssr={false}
                     centerMode={true}
                 >
-                    {powers.map(power => (
-                        <div key={power._id} className="card__ref">
-                            <div className="container__img">
-                                <img src={power.img} alt="Avatar" className="image" />
-                                <Link href={`/nguon-luc/${encodeURI(id)}/${encodeURI(power.title)}`}>
-                                    <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                        <h4 className="textimage">{power.title}</h4>
-                                    </div>
-                                </Link>
+                    {references.map(ref => (
+                        <Link key={ref._id} href={`/giai-phap/${encodeURI(ref.title)}`}>
+                            <div className="card__giai-phap card" style={{ background: "transparent" }}>
+                                <img src={ref.img} className="card-img-top" />
+                                <div className="card-body pb-3 pt-3 text-center">
+                                    <p className="card-text text-giai-phap">{ref.showTitle}</p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </Carousel>
             </div>
@@ -81,13 +85,14 @@ const DetailUngDungComponent = React.memo(props => {
 
 DetailUngDungComponent.getInitialProps = async ctx => {
     try {
-        const { query: { id, idNguonLuc } } = ctx,
-            power = (await axios.get(`${process.env.API}/power/${encodeURI(id)}/${encodeURI(idNguonLuc)}`)).data.data,
-            powers = (await axios.get(`${process.env.API}/power-ref/${encodeURI(id)}`)).data.data
-        return { power, powers }
+        const { query: { id } } = ctx,
+            solution = (await axios.get(`${process.env.API}/solution/${encodeURI(id)}`)).data.data,
+            references = (await axios.get(`${process.env.API}/solutions/reference?id=${solution._id}`)).data.data
+        return { solution, references }
     } catch (err) {
         return {}
     }
+
 }
 
 export default DetailUngDungComponent

@@ -1,7 +1,7 @@
 import axios from "../../utils/axios"
 
-export const GET_CATEGORIES = "GET_CATEGORIES"
-export const UPDATE_PAGINATION = "CATEGORY:UPDATE_PAGINATION"
+export const GET_HISTORIES = "GET_HISTORIES"
+export const UPDATE_PAGINATION = "POWER:UPDATE_PAGINATION"
 
 const initial = {
     data: [],
@@ -14,7 +14,7 @@ const initial = {
 
 const reducer = (state = initial, action) => {
     switch (action.type) {
-        case GET_CATEGORIES:
+        case GET_HISTORIES:
             return { ...state, data: action.data, pagination: action.pagination }
         case UPDATE_PAGINATION:
             return { ...state, pagination: action.data }
@@ -26,12 +26,12 @@ const reducer = (state = initial, action) => {
 export default reducer;
 
 
-export const getCategories = () => async (dispatch, getState) => {
+export const getHistories = () => async (dispatch, getState) => {
     try {
-        const { category: { pagination: { page, limit } } } = getState(),
-            res = await axios.get(`/categories?page=${page}&limit=${limit}`)
+        const { history: { pagination: { page, limit } } } = getState(),
+            res = await axios.get(`/histories?page=${page}&limit=${limit}`)
         dispatch({
-            type: GET_CATEGORIES,
+            type: GET_HISTORIES,
             data: res.data.data,
             pagination: {
                 page: Number(res.data.pagination.page),

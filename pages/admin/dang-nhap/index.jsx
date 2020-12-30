@@ -18,34 +18,36 @@ const LoginComponent = React.memo(props => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-                <label htmlFor="email">Email address</label>
-                <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    ref={register({
-                        required: true
-                    })}
-                />
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    name="password"
-                    ref={register({
-                        required: true
-                    })}
-                />
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
+        <div className="d-flex text-center h-100 align-items-center justify-content-center">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-group">
+                    <label htmlFor="email">Email address</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        ref={register({
+                            required: true
+                        })}
+                    />
+                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        ref={register({
+                            required: true
+                        })}
+                    />
+                </div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+        </div>
     )
 })
 

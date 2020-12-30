@@ -16,11 +16,11 @@ const Sidebar = React.memo(props => {
 
     useEffect(() => {
         if (asPath.includes('/admin/bo-san-pham')) {
-            const newCollapse = [...collapse, 'boSanPham']
-            setCollapse(newCollapse)
-        } else {
-            const newCollapse = collapse.filter(temp => temp !== 'boSanPham')
-            setCollapse(newCollapse)
+            setCollapse([...collapse, 'boSanPham'])
+        } else if (asPath.includes('/admin/trai-nghiem-khach-hang')) {
+            setCollapse([...collapse, 'traiNghiemKhachHang'])
+        } else if (asPath.includes('/admin/ve-chung-toi')) {
+            setCollapse([...collapse, 'veChungToi'])
         }
     }, [asPath])
 
@@ -39,8 +39,9 @@ const Sidebar = React.memo(props => {
                     <Link href="/admin/trang-chu">
                         <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/trang-chu") ? "active-admin" : ""}`}>Trang chủ</a>
                     </Link>
-                    {/* <Link href="/admin/bo-san-pham"> */}
-                    <a href="#" onClick={() => onClickCollapse('boSanPham')} className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/bo-san-pham") ? "active-admin" : ""}`}>
+
+
+                    <a href="#" onClick={() => onClickCollapse('boSanPham')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/bo-san-pham") ? "active-admin" : ""}`}>
                         <div className="d-flex">
                             <div className="w-75">Bộ sản phẩm</div>
                             <div className="w-25 text-right">
@@ -48,7 +49,6 @@ const Sidebar = React.memo(props => {
                             </div>
                         </div>
                     </a>
-                    {/* </Link> */}
                     <Collapse isOpened={collapse.includes('boSanPham')}>
                         <div className="pl-4">
                             <Link href="/admin/bo-san-pham/danh-muc">
@@ -64,13 +64,62 @@ const Sidebar = React.memo(props => {
                     <Link href="/admin/giai-phap">
                         <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/giai-phap") ? "active-admin" : ""}`}>Giải pháp</a>
                     </Link>
-                    <Link href="/admin/trai-nghiem-khach-hang">
-                        <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/trai-nghiem-khach-hang") ? "active-admin" : ""}`}>Điều khách hàng nói</a>
-                    </Link>
+
+
+                    <a href="#" onClick={() => onClickCollapse('traiNghiemKhachHang')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/trai-nghiem-khach-hang") ? "active-admin" : ""}`}>
+                        <div className="d-flex">
+                            <div className="w-75">Trải nghiệm khách hàng</div>
+                            <div className="w-25 text-right">
+                                {collapse.includes("traiNghiemKhachHang") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                            </div>
+                        </div>
+                    </a>
+                    <Collapse isOpened={collapse.includes('traiNghiemKhachHang')}>
+                        <div className="pl-4">
+                            <Link href="/admin/trai-nghiem-khach-hang/dieu-khach-hang-noi">
+                                <a href="#" className={`list-group-item list-group-item-action bg-light border-0 ${router.asPath.includes("/admin/trai-nghiem-khach-hang/dieu-khach-hang-noi") ? "active-admin" : ""}`}>Điều khách hàng nói</a>
+                            </Link>
+                        </div>
+                        <div className="pl-4">
+                            <Link href="/admin/trai-nghiem-khach-hang/cac-khach-hang">
+                                <a href="#" className={`list-group-item list-group-item-action bg-light border-0 ${router.asPath.includes("/admin/trai-nghiem-khach-hang/cac-khach-hang") ? "active-admin" : ""}`}>Các khách hàng</a>
+                            </Link>
+                        </div>
+                    </Collapse>
+
+
                     <Link href="/admin/nguon-luc">
                         <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/nguon-luc") ? "active-admin" : ""}`}>Nguồn lực</a>
                     </Link>
-                    <a href="#" className={`list-group-item list-group-item-action bg-light`}>Về chúng tôi</a>
+
+
+                    <a href="#" onClick={() => onClickCollapse('veChungToi')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/ve-chung-toi") ? "active-admin" : ""}`}>
+                        <div className="d-flex">
+                            <div className="w-75">Về chúng tôi</div>
+                            <div className="w-25 text-right">
+                                {collapse.includes("veChungToi") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                            </div>
+                        </div>
+                    </a>
+                    <Collapse isOpened={collapse.includes('veChungToi')}>
+                        <div className="pl-4">
+                            <Link href="/admin/ve-chung-toi/cau-hinh">
+                                <a href="#" className={`list-group-item list-group-item-action bg-light border-0 ${router.asPath.includes("/admin/ve-chung-toi/cau-hinh") ? "active-admin" : ""}`}>Cấu hình</a>
+                            </Link>
+                        </div>
+                        <div className="pl-4">
+                            <Link href="/admin/ve-chung-toi/lich-su">
+                                <a href="#" className={`list-group-item list-group-item-action bg-light border-0 ${router.asPath.includes("/admin/ve-chung-toi/lich-su") ? "active-admin" : ""}`}>Lịch sử công ty</a>
+                            </Link>
+                        </div>
+                        <div className="pl-4">
+                            <Link href="/admin/ve-chung-toi/so-do-to-chuc">
+                                <a href="#" className={`list-group-item list-group-item-action bg-light border-0 ${router.asPath.includes("/admin/ve-chung-toi/so-do-to-chuc") ? "active-admin" : ""}`}>Sơ đồ tổ chức</a>
+                            </Link>
+                        </div>
+                    </Collapse>
+
+
                     <a href="#" className={`list-group-item list-group-item-action bg-light`} onClick={() => logout()}>Thoát ra</a>
                 </div>
             </div>

@@ -9,6 +9,7 @@
 @import '~react-input-range/lib/css/index.css';
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap');
+@import '~react-step-progress/dist/index.css';
 
 body {
     font-family: 'Raleway', sans-serif !important;
@@ -149,6 +150,48 @@ a:hover {
     transform: translate(-50%, -50%);
 }
 
+.fade.modal.show {
+    opacity: 1 !important;
+}
+
+.img-list {
+    height: 200px !important;
+    width: auto !important;
+}
+
+.container__imgs-list {
+    position: relative !important;
+}
+
+.container__imgs-list>.remove {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    opacity: 0.6;
+}
+
+.container__imgs-list>.remove:hover,
+.edit:hover {
+    opacity: 1 !important;
+    cursor: pointer;
+}
+
+.container__imgs-list>.edit {
+    position: absolute;
+    top: 0px;
+    right: 30px;
+    opacity: 0.6;
+}
+
+.box {
+    display: inline-block;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.img-preview {
+    overflow: hidden;
+}
 
 @media screen and (max-width: 768px) {
     .thongdiep {
@@ -175,6 +218,7 @@ a:hover {
     margin-bottom: 50px;
     font-family: 'Dancing Script', cursive;
     font-style: bold;
+    line-height: 120%;
     -moz-transform: skewY(-6deg);
     -ms-transform: skewY(-6deg);
     -webkit-transform: skewY(-6deg);
@@ -301,6 +345,9 @@ a:hover {
     margin: 10px;
 }
 
+.indent-block {
+    text-indent: 30px;
+}
 
 @media only screen and (max-width: 992px) {
     .flex__ung-dung>.card__ung-dung {
@@ -384,7 +431,7 @@ p.card-text {
     color: white;
     font-size: 16px;
     font-weight: 500;
-    line-height: 106.9%;
+    line-height: 130%;
 }
 
 .container__trainghiemkhachhang {
@@ -446,9 +493,9 @@ p.card-text {
 .text-giai-phap {
     color: #10846F !important;
     font-size: 25px;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     padding: 10px;
-    line-height: 47px;
+    line-height: 150%;
 }
 
 .text-trai-nghiem {
@@ -698,6 +745,10 @@ input.form-control {
     margin-right: auto;
 }
 
+
+.loadcontent>.sun-editor {
+    border: 0px solid white;
+}
 
 @media screen and (max-width: 768px) {
     .overlay {

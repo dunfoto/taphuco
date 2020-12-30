@@ -1,7 +1,13 @@
 import "style/ung-dung.css"
 import Link from "next/link"
+import axios from "axios"
+import { getStringInHtml } from "common/html"
+import { useRouter } from "next/router"
 
 const GiaiPhapComponent = React.memo(props => {
+    const { categories, powers } = props,
+        router = useRouter()
+    console.log(powers)
     return (
         <React.Fragment>
             <div className="container__ungdung" style={{ backgroundImage: `url(/detail-trai-nghiem-khach-hang.png)`, backgroundSize: "cover" }}>
@@ -19,119 +25,68 @@ const GiaiPhapComponent = React.memo(props => {
             </div >
             <div className="p-4 mr-auto ml-auto">
                 <div className="container mr-auto ml-auto">
-                    <div className="row my-4 py-4 spacing-y-nguonluc">
-                        <div className="col-sm-6 pr-4 d-flex align-items-center">
-                            <img src="/trainghiemkhachhang1.png" className="card-img-top" />
+                    {powers.map((p, index) => (
+                        <div key={p._id} className="row my-4 py-4 spacing-y-nguonluc">
+                            {index % 2 === 0 ? (
+                                <React.Fragment>
+                                    <div className="col-sm-6 pr-4 d-flex align-items-center">
+                                        <img src={p.img} className="card-img-top" height={250} style={{ maxWidth: 390, objectFit: 'scale-down' }} />
+                                    </div>
+                                    <div className="col-sm-6 pl-4 align-items-center" style={{ marginBottom: "auto", marginTop: "auto" }}>
+                                        <h5 className="card-title text-dark textnguonluc mb-4 pb-4 text-color">{p.title}</h5>
+                                        <p className="card-text text-nguon-luc my-2 py-2 px-0 text-wrap" style={{ overflowWrap: "break-word" }}>{getStringInHtml(p.content).slice(0, 300)}</p>
+                                        <Link href={`/nguon-luc/${encodeURI(p.categories[0].title)}/${encodeURI(p.title)}`}>
+                                            <button className="btn btn-transparent border rounded-0 mt-2 pl-4 btn-border pr-4 text-color">Xem thêm</button>
+                                        </Link>
+                                    </div>
+                                </React.Fragment>
+                            ) : (
+                                    <React.Fragment>
+                                        <div className="col-sm-6 pl-4 align-items-center" style={{ marginBottom: "auto", marginTop: "auto" }}>
+                                            <h5 className="card-title text-dark textnguonluc mb-4 pb-4 text-color">{p.title}</h5>
+                                            <p className="card-text text-nguon-luc my-2 py-2 px-0 text-wrap" style={{ overflowWrap: "break-word" }}>{getStringInHtml(p.content).slice(0, 100)}</p>
+                                            <Link href={`/nguon-luc/${encodeURI(p.categories[0].title)}/${encodeURI(p.title)}`}>
+                                                <button className="btn btn-transparent border rounded-0 mt-2 pl-4 btn-border pr-4 text-color">Xem thêm</button>
+                                            </Link>
+                                        </div>
+                                        <div className="col-sm-6 pr-4 d-flex align-items-center">
+                                            <img src={p.img} className="card-img-top" height={250} style={{ maxWidth: 390, objectFit: 'scale-down' }} />
+                                        </div>
+                                    </React.Fragment>
+                                )}
                         </div>
-                        <div className="col-sm-6 pl-4 align-items-center" style={{ marginBottom: "auto", marginTop: "auto" }}>
-                            <h5 className="card-title text-dark textnguonluc mb-4 pb-4 text-color">A seamless transition</h5>
-                            <p className="card-text text-nguon-luc my-2 py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            <Link href="/nguon-luc/poly/a;klsjdhf">
-                                <button className="btn btn-transparent border rounded-0 mt-2 pl-4 btn-border pr-4 text-color">Xem thêm</button>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="row my-4 py-4 spacing-y-nguonluc">
-                        <div className="col-sm-6 pr-4 align-items-center" style={{ marginBottom: "auto", marginTop: "auto" }}>
-                            <h5 className="card-title text-dark textnguonluc mb-4 pb-4 text-color">A seamless transition</h5>
-                            <p className="card-text text-nguon-luc my-2 py-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            <Link href="/nguon-luc/cotton/a;klsjdhf">
-                                <button className="btn btn-transparent border rounded-0 mt-2 pl-4 btn-border pr-4 text-color">Xem thêm</button>
-                            </Link>
-                        </div>
-                        <div className="col-sm-6 pl-4 d-flex align-items-center">
-                            <img src="/trainghiemkhachhang1.png" className="card-img-top" />
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
             <div className="text-center" style={{ backgroundColor: "#FFECF3", padding: "100px 20px" }}>
                 <h2 className="textthongdiep">Categories</h2>
                 <div className="row">
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
+                    {categories.map(category => (
+                        <div key={category._id} className="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 p-2" style={{ cursor: "pointer" }}>
+                            <Link href={`/nguon-luc/${encodeURI(category.title)}`}>
+                                <div className="card mx-4" style={{ background: "transparent" }}>
+                                    <img src={category.img} className="mr-auto ml-auto" width={250} height={250} alt="..." style={{ borderRadius: "50%", objectFit: "cover" }} />
+                                    <div className="card-body">
+                                        <p className="card-text font-weight-bolder text-color my-4">{category.title}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories1.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories2.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories3.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories4.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories5.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories6.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                    <div className="col-md-3 col-sm-6 col-xs-12 p-2">
-                        <Link href="/nguon-luc/cotton">
-                            <div className="card mx-4" style={{ background: "transparent" }}>
-                                <img src="/categories7.png" className="card-img-top img-nguonluc mr-auto ml-auto" width="100%" height="100%" alt="..." />
-                                <div className="card-body">
-                                    <p className="card-text font-weight-bolder text-color my-4">Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </div>
         </React.Fragment>
     )
 })
+
+GiaiPhapComponent.getInitialProps = async ctx => {
+    try {
+        const categories = (await axios.get(`${process.env.API}/categories/all`)).data.data,
+            powers = (await axios.get(`${process.env.API}/powers/random`)).data.data
+        return { categories, powers }
+    } catch (err) {
+        return {}
+    }
+}
 
 export default GiaiPhapComponent

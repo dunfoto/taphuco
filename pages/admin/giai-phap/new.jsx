@@ -77,18 +77,16 @@ const NewGiaiPhapComponent = React.memo(props => {
             <h2>Tạo giải pháp</h2>
             <div className="row">
                 <div className="col-12 row">
-                    <div className="col-12 row">
-                        <div className="form-group col-6">
-                            <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
-                            <input
-                                type="string"
-                                id="showTitle"
-                                data-type="showTitle"
-                                className="form-control"
-                                value={showTitle}
-                                onChange={e => setShowTitle(e.target.value)}
-                            />
-                        </div>
+                    <div className="form-group col-6">
+                        <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
+                        <input
+                            type="string"
+                            id="showTitle"
+                            data-type="showTitle"
+                            className="form-control"
+                            value={showTitle}
+                            onChange={e => setShowTitle(e.target.value)}
+                        />
                     </div>
                     <div className="form-group col-6">
                         <label htmlFor="title" className="form-label">Tiêu đề</label>
@@ -161,7 +159,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                                 'fontColor', 'hiliteColor', 'textStyle',
                                 'removeFormat',
                                 'subscript', 'superscript',
-                                'outdent','indent',
+                                'outdent', 'indent',
                                 'preview',
                                 'align', 'horizontalRule', 'list', 'lineHeight',
                                 'table', 'link', 'image', /** 'math', */ // You must add the 'katex' library at options to use the 'math' plugin.

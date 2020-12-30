@@ -100,18 +100,16 @@ const NewGiaiPhapComponent = React.memo(props => {
             <h2>Sửa giải pháp</h2>
             <div className="row">
                 <div className="col-12 row">
-                    <div className="col-12 row">
-                        <div className="form-group col-6">
-                            <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
-                            <input
-                                type="string"
-                                id="showTitle"
-                                data-type="showTitle"
-                                className="form-control"
-                                value={showTitle}
-                                onChange={e => setShowTitle(e.target.value)}
-                            />
-                        </div>
+                    <div className="form-group col-6">
+                        <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
+                        <input
+                            type="string"
+                            id="showTitle"
+                            data-type="showTitle"
+                            className="form-control"
+                            value={showTitle}
+                            onChange={e => setShowTitle(e.target.value)}
+                        />
                     </div>
                     <div className="form-group col-6">
                         <label htmlFor="title" className="form-label">Tiêu đề</label>

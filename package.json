@@ -10,6 +10,7 @@
     "@babel/runtime": "^7.12.5",
     "@reach/slider": "^0.12.1",
     "@shwilliam/react-rubber-slider": "^0.1.4",
+    "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "add": "^2.0.6",

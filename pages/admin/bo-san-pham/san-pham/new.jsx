@@ -269,6 +269,7 @@ const NewProductComponent = React.memo(props => {
                                 aspectRatio={1 / 1}
                                 zoomOnWheel={false}
                                 className="img-thumnail"
+                                viewMode={2}
                             />
                         )}
                         {editImg !== null && (

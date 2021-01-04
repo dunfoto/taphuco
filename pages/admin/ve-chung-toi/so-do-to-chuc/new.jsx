@@ -109,6 +109,7 @@ const NewSoDoToChucComponent = React.memo(props => {
                             <div className="col-6">
                                 {edit && (
                                     <Cropper
+                                        viewMode={2}
                                         ref={cropper}
                                         src={original}
                                         aspectRatio={1 / 1}

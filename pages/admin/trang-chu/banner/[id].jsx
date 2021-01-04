@@ -177,6 +177,7 @@ const AddBannerComponent = React.memo(props => {
                             src={originalImg}
                             aspectRatio={16 / 9}
                             zoomOnWheel={false}
+                            viewMode={2}
                         />
                     )}
                     {show && (

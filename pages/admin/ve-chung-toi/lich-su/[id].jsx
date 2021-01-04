@@ -128,6 +128,7 @@ const NewLichSuComponent = React.memo(props => {
                             <div className="col-6">
                                 {edit && (
                                     <Cropper
+                                        viewMode={2}
                                         ref={cropper}
                                         src={original}
                                         initialAspectRatio={1 / 1}

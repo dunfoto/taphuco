@@ -1,6 +1,5 @@
 import '../style/index.css'
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css'
-import 'rsuite/lib/styles/index.less'
 
 import { useStore } from "react-redux"
 import PersistGate from "components/Persistor"

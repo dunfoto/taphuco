@@ -37,7 +37,7 @@ const ImageComponent = React.memo(props => {
                     src={original}
                     aspectRatio={1 / 1}
                     zoomOnWheel={false}
-                    viewMode={1}
+                    viewMode={2}
                 />
             </Modal.Body>
             <Modal.Footer>

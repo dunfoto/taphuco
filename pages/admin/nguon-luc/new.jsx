@@ -144,6 +144,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                                 src={original}
                                 initialAspectRatio={1 / 1}
                                 zoomOnWheel={false}
+                                viewMode={2}
                             />
                         )}
                     </div>

@@ -118,6 +118,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                                 ref={cropper}
                                 src={originalImg}
                                 zoomOnWheel={false}
+                                viewMode={2}
                             />
                         )}
                     </div>

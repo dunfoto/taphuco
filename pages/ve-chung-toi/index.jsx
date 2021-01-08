@@ -59,7 +59,7 @@ const VeChungToiComponent = React.memo(props => {
                                                 <div
                                                     className={`transitionStep ${accomplished ? "accomplished" : null}`}
                                                 >
-                                                    <div className={`text-title ${current === index && 'active-text'}`} style={{ position: "absolute", top: "-30px", right: -2, width: "fit-content", justifyContent: "center", alignItems: "center" }}>{history.year}</div>
+                                                    <div className={`text-title ${current === index && 'active-text'}`} style={{ position: "absolute", top: "-40px", right: -5, width: "fit-content", justifyContent: "center", alignItems: "center"}}>{history.year}</div>
                                                     <i onClick={() => setCurrent(index)} className={`fas fa-circle text-color ${current === index ? 'fa-3x' : 'fa-2x'}`}></i>
                                                 </div>
                                             )}

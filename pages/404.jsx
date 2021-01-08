@@ -1,6 +1,17 @@
 import '../style/404.css'
 import Link from "next/link"
-export default function Custom404() {
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+const ErrorComponent = props => {
+    const { asPath, push } = useRouter()
+    useEffect(() => {
+        if (asPath === "/admin") {
+            push('/admin/trang-chu')
+        }
+    }, [asPath])
+
+    if (asPath === "/admin") return (<div></div>)
+
     return (
         <React.Fragment>
             <h1>404 Error Page</h1>
@@ -18,3 +29,5 @@ export default function Custom404() {
         </React.Fragment>
     )
 }
+
+export default ErrorComponent

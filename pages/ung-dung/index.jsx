@@ -31,11 +31,11 @@ const UngDungComponent = React.memo(props => {
             <div className="container__ungdung">
                 <div className="container">
                     <div className="card-search bg-light text-center">
-                        <h2 className="textthongdiep">Ứng dụng</h2>
+                        <h2 className="textthongdiep">{config.application.title}</h2>
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12 text-color font-16">
-                                <p>{config.applycation}</p>
+                                <p>{config.application.description}</p>
                             </div>
                             <div className="col-sm-12 text-left">
                                 <p className="text-color font-16">Tìm ứng dụng</p>

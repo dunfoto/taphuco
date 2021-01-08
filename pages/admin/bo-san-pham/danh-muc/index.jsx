@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import axios from "utils/axios"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
@@ -8,7 +8,8 @@ import { getCategories, updatePagination } from "redux/reducers/category"
 const DashBoard = props => {
     const router = useRouter(),
         { categories, getCategories, pagination, updatePagination } = props,
-        { limit, total, page } = pagination
+        { limit, total, page } = pagination,
+        [startDrop, setStartDrop] = useState(null)
 
     useEffect(() => {
         getCategories()
@@ -28,6 +29,38 @@ const DashBoard = props => {
     const updatePage = page => {
         const newPagination = { ...pagination, page }
         updatePagination(newPagination)
+    }
+
+    const onDragStart = e => {
+        setStartDrop(Number(e.currentTarget.dataset.position))
+    }
+
+    const onDragOver = e => {
+        e.preventDefault()
+    }
+
+    const onDrop = e => {
+        const newCategories = categories,
+            oldItem = categories[startDrop]
+        newCategories.splice(startDrop, 1)
+        newCategories.splice(Number(e.currentTarget.dataset.position), 0, oldItem)
+        newCategories.map((category, index) => {
+            category.position = page * limit + index
+            return category
+        })
+        setStartDrop(null)
+        updatePosition(newCategories.map(category => ({ _id: category._id, position: category.position })))
+    }
+
+    const updatePosition = async lstPostition => {
+        try {
+            const res = await axios.put("/categories/position", lstPostition)
+            if (res.status === 200) {
+                getCategories()
+            }
+        } catch (err) {
+            return Promise.reject(err)
+        }
     }
 
 
@@ -51,7 +84,14 @@ const DashBoard = props => {
                         </thead>
                         <tbody>
                             {categories.map((category, index) => (
-                                <tr key={category._id}>
+                                <tr
+                                    draggable={true}
+                                    onDragStart={onDragStart}
+                                    onDragOver={onDragOver}
+                                    onDrop={onDrop}
+                                    data-position={index}
+                                    key={category._id}
+                                >
                                     <td>{index + 1}</td>
                                     <td>{category.title}</td>
                                     <td>

@@ -6,19 +6,20 @@ import axios from "axios"
 import { useRouter } from "next/router"
 
 const GiaiPhapComponent = React.memo(props => {
-    const { clients, customerExperiences, references } = props,
+    const { clients, customerExperiences, references, config } = props,
         { push } = useRouter()
     if (!clients || !customerExperiences || !references) return push('/404')
+    console.log(config)
     return (
         <React.Fragment>
-            <div className="container__ungdung" style={{ backgroundImage: `url(/page__trai-nghiem-khach-hang.png)`, backgroundSize: "cover" }}>
+            <div className="container__ungdung" style={{ backgroundImage: `url(${config.customerExperience?.img ? config.customerExperience?.img : '/page__trai-nghiem-khach-hang.png'})`, backgroundSize: "cover" }}>
                 <div className="container">
                     <div className="card-search bg-light text-center">
-                        <h2 className="textthongdiep">Trải nghiệm khách hàng</h2>
+                        <h2 className="textthongdiep">{config.customerExperience?.title ? config.customerExperience?.title : "Trải nghiệm khách hàng"}</h2>
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12 text-color">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                                <p>{config.customerExperience?.description ? config.customerExperience.description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"}</p>
                             </div>
                         </div>
                     </div>
@@ -87,8 +88,9 @@ GiaiPhapComponent.getInitialProps = async ctx => {
     try {
         const clients = (await axios.get(`${process.env.API}/clients`)).data.data,
             customerExperiences = (await axios.get(`${process.env.API}/customer-experiences?limit=4`)).data.data,
-            references = (await axios.get(`${process.env.API}/customer-experiences/reference`)).data.data
-        return { clients, customerExperiences, references }
+            references = (await axios.get(`${process.env.API}/customer-experiences/reference`)).data.data,
+            config = (await axios.get(`${process.env.API}/config`)).data.data
+        return { clients, customerExperiences, references, config }
     } catch (err) {
         return {}
     }

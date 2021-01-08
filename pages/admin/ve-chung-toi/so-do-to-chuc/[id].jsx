@@ -144,7 +144,7 @@ const NewSoDoToChucComponent = React.memo(props => {
                             </div>
                             {edit ? (
                                 <div className="col-6">
-                                    <button type="button" className="btn btn-transparent btn-border text-color my-4 mr-2" onClick={() => onSaveEditImg()}>Lưu lại thay đổi</button>
+                                    <button type="button" className="btn btn-transparent btn-border text-color my-4 mr-2" onClick={() => onSaveEditImg()}>Lưu lại thay đổii</button>
                                     <button type="button" className="btn btn-transparent btn-border text-color my-4 ml-2" onClick={() => setEdit(false)}>Huỷ sửa ảnh</button>
                                 </div>
                             ) : (

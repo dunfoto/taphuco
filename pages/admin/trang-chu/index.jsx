@@ -1,58 +1,21 @@
 import { useEffect, useState } from "react"
-import { useForm, useFieldArray } from "react-hook-form"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { getConfig } from "redux/reducers/config"
-import { Spinner } from "react-bootstrap"
-import SweetAlert from "react-bootstrap-sweetalert"
 import { useRouter } from 'next/router'
 import axios from "utils/axios"
 import { getBanners, updatePagination } from "redux/reducers/banner"
 
 const DashBoard = React.memo(props => {
     const router = useRouter(),
-        { register, setValue, handleSubmit, control } = useForm(),
-        { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
-            control,
-            name: "contentMessage"
-        }),
-        { homePage, getConfig, getBanners, banners, pagination, updatePagination } = props,
+        { getConfig, getBanners, banners, pagination, updatePagination } = props,
         { limit, page, total } = pagination,
-        [isWait, setIsWait] = useState(false),
-        [alert, setAlert] = useState(false),
         [startDrop, setStartDrop] = useState(null)
 
     useEffect(() => {
         getConfig()
         getBanners()
     }, [limit, page])
-
-    useEffect(() => {
-        if (homePage) {
-            setValue("pointMessage", homePage.pointMessage)
-            setValue("contentMessage", homePage.contentMessage.map(item => ({ value: item })))
-        }
-    }, [homePage])
-
-    const onSubmitThongDiep = async data => {
-        setIsWait(true)
-        if (data.contentMessage) {
-            data.contentMessage = data.contentMessage.map(item => item.value)
-        } else {
-            delete data.contentMessage
-        }
-        try {
-            const res = await axios.post("/config/homepage", data)
-            if (res.status === 200) {
-                getConfig()
-                setAlert(true)
-                setIsWait(false)
-            }
-        } catch (err) {
-            setIsWait(false)
-            return Promise.reject(err)
-        }
-    }
 
     const removeBanner = async id => {
         try {
@@ -86,15 +49,12 @@ const DashBoard = React.memo(props => {
 
     const onDrop = e => {
         const newBanner = banners,
-            oldItem = banners[startDrop]
-        newBanner.splice(startDrop, 1)
-        newBanner.splice(Number(e.currentTarget.dataset.position), 0, oldItem)
-        newBanner.map((banner, index) => {
-            banner.position = page * limit + index
-            return banner
-        })
+            a = newBanner[startDrop]
+        newBanner[startDrop] = newBanner[Number(e.currentTarget.dataset.position)]
+        newBanner[Number(e.currentTarget.dataset.position)] = a
+        const lastBanners = banners.map((banner, index) => ({ _id: banner._id, position: page * limit + index }))
         setStartDrop(null)
-        updatePosition(newBanner.map(banner => ({ _id: banner._id, position: banner.position })))
+        updatePosition(lastBanners)
     }
 
     const updatePage = page => {
@@ -104,57 +64,6 @@ const DashBoard = React.memo(props => {
 
     return (
         <React.Fragment>
-            <div className="w-100">
-                <h3>Thông điệp:</h3>
-                <div className="w-50">
-                    <form onSubmit={handleSubmit(onSubmitThongDiep)}>
-                        <div className="form-group">
-                            <label htmlFor="pointMessage">Tiêu đề cho thông điệp</label>
-                            <input
-                                type="string"
-                                className="form-control"
-                                id="pointMessage"
-                                name="pointMessage"
-                                ref={register({
-                                    required: true
-                                })}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="contentMessage">Nội dung thông điệp</label>
-                            {fields.map((field, index) => (
-                                <div className="d-flex" key={field.id}>
-                                    <input
-                                        type="string"
-                                        className="form-control justify-content-center my-2 col-10"
-                                        name={`contentMessage[${index}].value`}
-                                        defaultValue={field.value}
-                                        ref={register({
-                                            required: true
-                                        })}
-                                    />
-                                    <div className="d-flex justify-content-center align-items-center col-2">
-                                        <i className="fas fa-times-circle" onClick={() => remove(index)} style={{ cursor: "pointer" }}></i>
-                                    </div>
-                                </div>
-                            ))}
-                            <div className="d-flex">
-                                <button type="button" className="col-10 btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color w-100" onClick={() => append({ value: "" })}><i className="fas fa-plus-circle"></i></button>
-                            </div>
-                        </div>
-                        <button type="submit" disabled={isWait} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color">{isWait && (<Spinner size="sm" animation="border" />)} Lưu lại</button>
-                    </form>
-                </div>
-                {alert && (
-                    <SweetAlert
-                        success
-                        title="Woot!"
-                        onConfirm={() => setAlert(false)}
-                    >
-                        Update success
-                    </SweetAlert>
-                )}
-            </div>
             <div className="w-100">
                 <h3>Banner</h3>
                 <div className="w-100">

@@ -5,19 +5,19 @@ import { getStringInHtml } from "common/html"
 import { useRouter } from "next/router"
 
 const GiaiPhapComponent = React.memo(props => {
-    const { categories, powers } = props,
+    const { categories, powers, config: { power } } = props,
         router = useRouter()
-    console.log(powers)
+    console.log(power)
     return (
         <React.Fragment>
-            <div className="container__ungdung" style={{ backgroundImage: `url(/detail-trai-nghiem-khach-hang.png)`, backgroundSize: "cover" }}>
+            <div className="container__ungdung" style={{ backgroundImage: `url(${power?.img ? power?.img : 'detail-trai-nghiem-khach-hang.png'})`, backgroundSize: "cover" }}>
                 <div className="container">
                     <div className="card-search bg-light text-center">
-                        <h2 className="textthongdiep">Nguồn lực</h2>
+                        <h2 className="textthongdiep">{power?.title ? power?.title : "Nguồn lực"}</h2>
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12 text-color">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                                <p>{power?.description ? power?.description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"}</p>
                             </div>
                         </div>
                     </div>
@@ -82,8 +82,9 @@ const GiaiPhapComponent = React.memo(props => {
 GiaiPhapComponent.getInitialProps = async ctx => {
     try {
         const categories = (await axios.get(`${process.env.API}/categories/all`)).data.data,
-            powers = (await axios.get(`${process.env.API}/powers/random`)).data.data
-        return { categories, powers }
+            powers = (await axios.get(`${process.env.API}/powers/random`)).data.data,
+            config = (await axios.get(`${process.env.API}/config`)).data.data
+        return { categories, powers, config }
     } catch (err) {
         return {}
     }

@@ -140,6 +140,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                                 'paragraphStyle', 'blockquote',
                                 'bold', 'underline', 'italic', 'strike',
                                 'fontColor', 'hiliteColor', 'textStyle',
+                                'subscript', 'superscript',
                                 'removeFormat',
                                 'outdent', 'indent',
                                 'align', 'horizontalRule', 'list', 'lineHeight',
@@ -149,35 +150,32 @@ const NewGiaiPhapComponent = React.memo(props => {
                     }}
                 />
             </div>
+            <div className="col-12 row my-4">
+                <div className="custom-file form-group col-12">
+                    <input
+                        id="icon"
+                        name="icon"
+                        className="custom-file-input"
+                        accept=".jpeg, .png"
+                        type="file"
+                        onChange={onChangeImg}
+                    />
+                    <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
+                </div>
+            </div>
             <div className="col-12  row">
                 <div className="form-group col-6 text-center">
-                    {img ? (
-                        <React.Fragment>
-                            <img src={img} onClick={() => setEditImg(!editImg)} height={250} alt={`giai-phap-${id}`} />
-                            <div className="w-100">
-                                <button
-                                    type="button"
-                                    onClick={() => saveImageEdit()}
-                                    className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2"
-                                >
-                                    {editImg ? "Lưu" : "Sửa ảnh"}
-                                </button>
-                                {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2">Huỷ</button>)}
-                            </div>
-                        </React.Fragment>
-                    ) : (
-                            <div className="custom-file form-group col-12">
-                                <input
-                                    id="icon"
-                                    name="icon"
-                                    className="custom-file-input"
-                                    accept=".jpeg, .png"
-                                    type="file"
-                                    onChange={onChangeImg}
-                                />
-                                <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
-                            </div>
-                        )}
+                    <img src={img} onClick={() => setEditImg(!editImg)} height={250} alt={`giai-phap-${id}`} />
+                    <div className="w-100">
+                        <button
+                            type="button"
+                            onClick={() => saveImageEdit()}
+                            className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2"
+                        >
+                            {editImg ? "Lưu" : "Sửa ảnh"}
+                        </button>
+                        {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2">Huỷ</button>)}
+                    </div>
                 </div>
                 <div className="form-group col-6 text-center editImageGiaiPhap">
                     {editImg && (
@@ -192,7 +190,7 @@ const NewGiaiPhapComponent = React.memo(props => {
                 </div>
             </div>
             <button type="button" className="btn btn-transparent btn-border text-color" onClick={onSubmit}>Lưu lại</button>
-        </React.Fragment>
+        </React.Fragment >
     )
 })
 

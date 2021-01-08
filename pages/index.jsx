@@ -15,7 +15,6 @@ const Home = React.memo(props => {
         [selected, setSeleted] = useState(0),
         [lengthImage, setLengthImage] = useState(0)
 
-    console.log(solutions)
     useEffect(() => {
         setLengthImage(banners.length - 1)
     }, [banners])
@@ -123,7 +122,7 @@ const Home = React.memo(props => {
             </Carousel>
             <div className="thongdiep">
                 <div className="text-center">
-                    <img className="img-thumbnail" src="/thongdiep.png" width="571" height="757" />
+                    <img className="img-thumbnail" src={config?.homepage?.img ? config?.homepage?.img : '/thongdiep.png'} width="571" height="757" />
                     <div className="position-absolute noidungthongdiep text-left" style={{ boxShadow: "0px 4px 64px rgba(0, 0, 0, 0.25)" }}>
                         <div className="mr-auto ml-auto w-auto">
                             <h2 className="textthongdiep">{config?.homepage?.pointMessage}</h2>

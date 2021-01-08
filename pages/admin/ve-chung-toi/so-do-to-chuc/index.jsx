@@ -35,7 +35,6 @@ const SoDoToChucComponent = React.memo(props => {
     }
 
     const onDrop = e => {
-
         const newBoardDirector = boardDirectors,
             oldItem = boardDirectors[startDrop]
         newBoardDirector.splice(startDrop, 1)
@@ -45,7 +44,7 @@ const SoDoToChucComponent = React.memo(props => {
             return boardDirector
         })
         setStartDrop(null)
-        updatePosition(newBoardDirector.map(banner => ({ _id: banner._id, position: banner.position })))
+        updatePosition(newBoardDirector.map(boardDirector => ({ _id: boardDirector._id, position: boardDirector.position })))
     }
 
     const updatePosition = async lstPostition => {

@@ -49,6 +49,7 @@ const DashBoard = React.memo(props => {
                 setIsWait(false)
             }
         } catch (err) {
+            setIsWait(false)
             return Promise.reject(err)
         }
     }
@@ -176,7 +177,7 @@ const DashBoard = React.memo(props => {
                                     data-position={index}
                                     key={banner._id}
                                 >
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>
                                         <img src={banner.img} alt={`banner-${banner._id}`} height={150} />
                                     </td>

@@ -1,20 +1,24 @@
 body {
-    background: transparent !important;
+  background: transparent !important;
 }
 
 .container-should-be-login {
-    height: 100vh;
-    display: flex;
+  height: 100vh;
+  display: flex;
 }
 
-.container-should-be-login>.should-be-login {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-    text-align: center;
+.container-should-be-login > .should-be-login {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
 }
 
 .active-admin {
-    color: white;
-    background-color: #10846F !important;
+  color: white;
+  background-color: #10846f !important;
+}
+
+textarea.form-control {
+  border: 1px solid #10846f !important;
 }

@@ -104,10 +104,10 @@ const VeChungToiComponent = React.memo(props => {
                         </div>
                     </div>
                     <div className="w-100" style={{ paddingBottom: 60 }}>
-                        <div className="bg-light" style={{ boxShadow: "0px 4px 64px rgba(0, 0, 0, 0.25)" }}>
-                            <div className="row p-4">
-                                <div className="col-sm-6">
-                                    <img src={histories[current].img} className="w-100" />
+                        <div className="bg-light" style={{ boxShadow: "0px 4px 64px rgba(0, 0, 0, 0.25)" }} >
+                            <div className="row p-4 mt-auto mb-auto">
+                                <div className="col-sm-6 d-flex align-items-center" style={{ height: 450, width: "auto" }}>
+                                    <img src={histories[current].img} className="img-thumbnail border-0 bg-transparent mr-auto ml-auto" style={{ width: 450, height: 450, objectFit: "scale-down" }} />
                                 </div>
                                 <div className="col-sm-6 p-3 d-flex align-items-center">
                                     <div className="m-4 text-color" style={{ fontSize: 18 }}>

@@ -51,7 +51,7 @@ const DashBoard = props => {
                         <tbody>
                             {customerExperiences.map((solution, index) => (
                                 <tr key={solution._id}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{solution.title}</td>
                                     <td><img src={solution.img} height={100} alt={solution._id} /></td>
                                     <td className="text-center">

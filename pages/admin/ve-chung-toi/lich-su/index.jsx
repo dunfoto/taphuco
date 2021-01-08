@@ -49,7 +49,7 @@ const LichSuComponent = React.memo(props => {
                         <tbody>
                             {histories.map((history, index) => (
                                 <tr key={history._id}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{history.year}</td>
                                     <td><img src={history.img} height={150} width="auto" /></td>
                                     <td className="text-center">

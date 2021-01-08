@@ -50,7 +50,7 @@ const DashBoard = props => {
                         <tbody>
                             {power.map((solution, index) => (
                                 <tr key={solution._id}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{solution.title}</td>
                                     <td className="text-center">
                                         <button className="btn" onClick={() => router.push(`/admin/nguon-luc/${solution._id}`)}>

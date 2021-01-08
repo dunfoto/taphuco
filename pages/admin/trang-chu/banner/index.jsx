@@ -105,6 +105,7 @@ const AddBannerComponent = React.memo(props => {
                 setContent(initContent)
             }
         } catch (err) {
+            setIsWait(false)
             return Promise.reject(err)
         }
     }

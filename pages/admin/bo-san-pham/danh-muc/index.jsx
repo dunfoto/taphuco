@@ -52,7 +52,7 @@ const DashBoard = props => {
                         <tbody>
                             {categories.map((category, index) => (
                                 <tr key={category._id}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{category.title}</td>
                                     <td>
                                         <img src={category.img} alt={`${category._id}`} height={100} />

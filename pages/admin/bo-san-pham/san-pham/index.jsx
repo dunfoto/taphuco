@@ -52,7 +52,7 @@ const DashBoard = props => {
                         <tbody>
                             {products.map((product, index) => (
                                 <tr key={product._id}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{product.title}</td>
                                     <td>{product.category?.title}</td>
                                     <td>

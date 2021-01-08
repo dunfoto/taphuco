@@ -93,7 +93,7 @@ const SoDoToChucComponent = React.memo(props => {
                                     data-position={index}
                                     key={boardDirector._id}
                                 >
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{boardDirector.name}</td>
                                     <td>{boardDirector.title}</td>
                                     <td>

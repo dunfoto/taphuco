@@ -88,10 +88,11 @@ const Sidebar = React.memo(props => {
                         </div>
                     </Collapse>
 
-
-                    <Link href="/admin/trang-chu">
-                        <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/trang-chu") ? "active-admin" : ""}`}>Trang chủ</a>
-                    </Link>
+                    {Boolean(roles.find(role => role.code.includes("BANNER:GET_LIST"))) && (
+                        <Link href="/admin/trang-chu">
+                            <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/trang-chu") ? "active-admin" : ""}`}>Trang chủ</a>
+                        </Link>
+                    )}
 
 
                     <a href="#" onClick={() => onClickCollapse('boSanPham')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/ung-dung") ? "active-admin" : ""}`}>

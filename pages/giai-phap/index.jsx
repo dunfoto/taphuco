@@ -13,7 +13,7 @@ const GiaiPhapComponent = React.memo(props => {
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12 text-color">
-                                <p>{config?.solution?.description ? config?.solution?.description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"}</p>
+                                <p className="text-color" >{config?.solution?.description ? config?.solution?.description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"}</p>
                             </div>
                         </div>
                     </div>

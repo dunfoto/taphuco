@@ -35,7 +35,7 @@ const UngDungComponent = React.memo(props => {
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12 text-color font-16">
-                                <p>{config.application.description}</p>
+                                <p className="text-color" >{config.application.description}</p>
                             </div>
                             <div className="col-sm-12 text-left">
                                 <p className="text-color font-16">Tìm ứng dụng</p>

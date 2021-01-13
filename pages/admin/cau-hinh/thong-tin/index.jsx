@@ -3,17 +3,18 @@ import { getConfig } from "redux/reducers/config"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { useForm } from "react-hook-form"
-import { v4 } from "uuid"
 import { Spinner } from "react-bootstrap"
 import axios from "utils/axios"
 import SweetAlert from "react-bootstrap-sweetalert"
+import { useRouter } from "next/router"
 
 const CauHinhComponent = React.memo(props => {
     const { footer, getConfig } = props,
         { register, handleSubmit, setValue } = useForm(),
         [isWait, setIsWait] = useState(false),
         [alert, setAlert] = useState(false),
-        [socials, setSocials] = useState([])
+        [socials, setSocials] = useState([]),
+        { push } = useRouter()
 
     useEffect(() => {
         if (footer) {
@@ -26,6 +27,20 @@ const CauHinhComponent = React.memo(props => {
             setValue('email', footer.email)
         }
     }, [footer])
+
+    useEffect(() => {
+        getSocials()
+    }, [])
+
+    const getSocials = async () => {
+        try {
+            const res = await axios.get('/socials/all')
+            console.log(res)
+            setSocials(res.data.data)
+        } catch (err) {
+            return Promise.reject(err)
+        }
+    }
 
     const onSubmit = async data => {
         try {
@@ -42,7 +57,17 @@ const CauHinhComponent = React.memo(props => {
         }
     }
 
-    console.log(socials)
+    const deleteSocial = async id => {
+        try {
+            const res = await axios.delete(`/social/${id}`)
+            if (res.status === 200) {
+                getSocials()
+            }
+        } catch (error) {
+            return Promise.reject(error)
+        }
+    }
+
     return (
         <div className="w-100">
             <h3 className="mt-4">Thông tin liên hệ</h3>
@@ -156,7 +181,7 @@ const CauHinhComponent = React.memo(props => {
                                 <th scope="col">Logo</th>
                                 <th scope="col">Đường dẫn</th>
                                 <th className="text-center" scope="col">
-                                    <button type="button" className="btn" onClick={() => console.log("Demo")} >
+                                    <button type="button" className="btn" onClick={() => push('/admin/cau-hinh/thong-tin/mang-xa-hoi')} >
                                         <i className="fas fa-plus"></i>
                                     </button>
                                 </th>
@@ -164,9 +189,17 @@ const CauHinhComponent = React.memo(props => {
                         </thead>
                         <tbody>
                             {socials.map(social => (
-                                <tr>
-                                    <td>{social.img}</td>
+                                <tr key={social._id}>
+                                    <td><img src={social.img} height={100} /></td>
                                     <td>{social.link}</td>
+                                    <td>
+                                        <button className="btn" onClick={() => push(`/admin/cau-hinh/thong-tin/mang-xa-hoi/${social._id}`)}>
+                                            <i className="fas fa-edit"></i>
+                                        </button>
+                                        <button className="btn" onClick={() => deleteSocial(category._id)}>
+                                            <i className="fas fa-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

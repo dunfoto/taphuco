@@ -12,6 +12,7 @@ import history from './history'
 import boardDirector from "./boardDirector"
 import permission from "./permission"
 import admin from "./admin"
+import contact from "./contact"
 
 export default combineReducers({
     auth,
@@ -25,5 +26,6 @@ export default combineReducers({
     history,
     boardDirector,
     permission,
-    admin
+    admin,
+    contact
 })

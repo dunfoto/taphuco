@@ -95,14 +95,16 @@ const Sidebar = React.memo(props => {
                     )}
 
 
-                    <a href="#" onClick={() => onClickCollapse('boSanPham')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/ung-dung") ? "active-admin" : ""}`}>
-                        <div className="d-flex">
-                            <div className="w-75">Ứng dụng</div>
-                            <div className="w-25 text-right">
-                                {collapse.includes("boSanPham") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                    {Boolean(roles.find(role => role.code.includes("CATEGORY:GET_LIST"))) && Boolean(roles.find(role => role.code.includes("PRODUCT:GET_LIST"))) && (
+                        <a href="#" onClick={() => onClickCollapse('boSanPham')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/ung-dung") ? "active-admin" : ""}`}>
+                            <div className="d-flex">
+                                <div className="w-75">Ứng dụng</div>
+                                <div className="w-25 text-right">
+                                    {collapse.includes("boSanPham") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    )}
                     <Collapse isOpened={collapse.includes('boSanPham')}>
                         {Boolean(roles.find(role => role.code.includes("CATEGORY:GET_LIST"))) && (
                             <div className="pl-4">
@@ -126,14 +128,16 @@ const Sidebar = React.memo(props => {
                     )}
 
 
-                    <a href="#" onClick={() => onClickCollapse('traiNghiemKhachHang')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/trai-nghiem-khach-hang") ? "active-admin" : ""}`}>
-                        <div className="d-flex">
-                            <div className="w-75">Trải nghiệm khách hàng</div>
-                            <div className="w-25 text-right">
-                                {collapse.includes("traiNghiemKhachHang") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                    {Boolean(roles.find(role => role.code.includes("CUSTOMER_EXPERIENCE:GET_LIST"))) && Boolean(roles.find(role => role.code.includes("CLIENT:GET_LIST"))) && (
+                        <a href="#" onClick={() => onClickCollapse('traiNghiemKhachHang')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/trai-nghiem-khach-hang") ? "active-admin" : ""}`}>
+                            <div className="d-flex">
+                                <div className="w-75">Trải nghiệm khách hàng</div>
+                                <div className="w-25 text-right">
+                                    {collapse.includes("traiNghiemKhachHang") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    )}
                     <Collapse isOpened={collapse.includes('traiNghiemKhachHang')}>
                         {Boolean(roles.find(role => role.code.includes("CUSTOMER_EXPERIENCE:GET_LIST"))) && (
                             <div className="pl-4">
@@ -159,14 +163,16 @@ const Sidebar = React.memo(props => {
                     )}
 
 
-                    <a href="#" onClick={() => onClickCollapse('veChungToi')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/ve-chung-toi") ? "active-admin" : ""}`}>
-                        <div className="d-flex">
-                            <div className="w-75">Về chúng tôi</div>
-                            <div className="w-25 text-right">
-                                {collapse.includes("veChungToi") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                    {Boolean(roles.find(role => role.code.includes("HISTORY:GET_LIST"))) && Boolean(roles.find(role => role.code.includes("BOARD_DIRECTOR:GET_LIST"))) && (
+                        <a href="#" onClick={() => onClickCollapse('veChungToi')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/ve-chung-toi") ? "active-admin" : ""}`}>
+                            <div className="d-flex">
+                                <div className="w-75">Về chúng tôi</div>
+                                <div className="w-25 text-right">
+                                    {collapse.includes("veChungToi") ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    )}
                     <Collapse isOpened={collapse.includes('veChungToi')}>
                         {Boolean(roles.find(role => role.code.includes("HISTORY:GET_LIST"))) && (
                             <div className="pl-4">

@@ -7,6 +7,7 @@ import SweetAlert from "react-bootstrap-sweetalert"
 import InputRange from 'react-input-range'
 import { useRouter } from "next/router"
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const initContent = {
     title: "",
@@ -35,6 +36,10 @@ const AddBannerComponent = React.memo(props => {
     useEffect(() => {
         getDetail()
     }, [id])
+
+    useEffect(() => {
+        !checkPermission("BANNER:UPDATE") && router.push('/admin/404')
+    }, [])
 
     const getDetail = async () => {
         try {

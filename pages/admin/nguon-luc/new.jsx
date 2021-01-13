@@ -5,6 +5,7 @@ import axios from 'utils/axios'
 import fileUpload from "fuctbase64"
 import Cropper from 'react-cropper'
 import Select from "react-select"
+import checkPermission from "common/checkValidPermission"
 
 const NewGiaiPhapComponent = React.memo(props => {
     const editorRef = useRef(),
@@ -20,6 +21,10 @@ const NewGiaiPhapComponent = React.memo(props => {
     useEffect(() => {
         getLstCategory()
     }, [getLstCategory])
+
+    useEffect(() => {
+        !checkPermission("POWER:CREATE") && router.push('/admin/404')
+    }, [])
 
     const getLstCategory = async () => {
         try {

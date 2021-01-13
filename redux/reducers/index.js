@@ -10,6 +10,8 @@ import customerExperience from "./customerExperience"
 import power from "./power"
 import history from './history'
 import boardDirector from "./boardDirector"
+import permission from "./permission"
+import admin from "./admin"
 
 export default combineReducers({
     auth,
@@ -21,5 +23,7 @@ export default combineReducers({
     customerExperience,
     power,
     history,
-    boardDirector
+    boardDirector,
+    permission,
+    admin
 })

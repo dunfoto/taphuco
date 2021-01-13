@@ -9,4 +9,11 @@ client.interceptors.request.use(config => {
     config.headers['Access-Control-Allow-Origin'] = "*"
     return config
 })
+
+client.interceptors.response.use(response => {
+    if (response.status === 401) {
+        window.location.replace('/admin/login')
+    }
+    return response
+})
 export default client

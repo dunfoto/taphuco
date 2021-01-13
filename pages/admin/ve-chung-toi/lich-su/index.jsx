@@ -4,6 +4,7 @@ import { getHistories, updatePagination } from "../../../../redux/reducers/histo
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const LichSuComponent = React.memo(props => {
     const { histories, pagination, getHistories, updatePagination } = props,
@@ -12,6 +13,10 @@ const LichSuComponent = React.memo(props => {
 
     useEffect(() => {
         getHistories()
+    }, [])
+
+    useEffect(() => {
+        !checkPermission("HISTORY:GET_LIST") && router.push('/admin/404')
     }, [])
 
     const deleteHistory = async id => {

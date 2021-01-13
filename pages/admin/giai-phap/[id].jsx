@@ -5,6 +5,7 @@ import axios from 'utils/axios'
 import Cropper from 'react-cropper'
 import fileUpload from "fuctbase64"
 import _ from "lodash"
+import checkPermission from "common/checkValidPermission"
 
 const NewGiaiPhapComponent = React.memo(props => {
     const editorRef = useRef(),
@@ -20,6 +21,10 @@ const NewGiaiPhapComponent = React.memo(props => {
 
     useEffect(() => {
         getDetailSolution()
+    }, [])
+
+    useEffect(() => {
+        !checkPermission("CATEGORY:UPDATE") && router.push('/admin/404')
     }, [])
 
     const getDetailSolution = async () => {

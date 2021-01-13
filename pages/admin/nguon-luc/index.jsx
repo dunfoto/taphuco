@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { getPower, updatePagination } from "redux/reducers/power"
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const DashBoard = props => {
     const router = useRouter(),
@@ -13,6 +14,10 @@ const DashBoard = props => {
     useEffect(() => {
         getPower()
     }, [getPower, page, limit])
+
+    useEffect(() => {
+        !checkPermission("POWER:GET_LIST") && router.push('/admin/404')
+    }, [])
 
     const deletePower = async id => {
         try {

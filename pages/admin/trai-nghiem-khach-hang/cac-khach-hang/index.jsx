@@ -5,6 +5,7 @@ import { convertBase64 } from "common/base64"
 import SweetAlert from "react-bootstrap-sweetalert"
 import { Spinner } from "react-bootstrap"
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const CacKhachHangComponent = React.memo(props => {
     const [show, setShow] = useState(null),
@@ -15,6 +16,10 @@ const CacKhachHangComponent = React.memo(props => {
 
     useEffect(() => {
         getClients()
+    }, [])
+
+    useEffect(() => {
+        !checkPermission("CLIENT:CREATE") && router.push('/admin/404')
     }, [])
 
     const getClients = async () => {

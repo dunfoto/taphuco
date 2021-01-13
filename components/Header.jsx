@@ -22,7 +22,7 @@ const Header = props => {
         router.push(url)
     }
 
-    if (route === "/_error") return <div></div>
+    if (route === "/404") return <div></div>
 
     return (
         <React.Fragment>
@@ -37,7 +37,7 @@ const Header = props => {
                             <ul className="navbar-nav ml-auto">
                                 <Link href="/ung-dung">
                                     <Nav.Link as="a" href="#" className={`text-white text-header ${asPath.includes("/ung-dung") ? "active-header" : ""}`} style={{ marginRight: 0, paddingRight: 0 }}>
-                                        BỘ SẢN PHẨM
+                                        ỨNG DỤNG
                                     </Nav.Link>
                                 </Link>
                                 <NavDropdown
@@ -89,7 +89,7 @@ const Header = props => {
                                     <li className="list-group-item list-group-item-action border-0 bg-transparent font-weight-bolder">
                                         <Accordion>
                                             <Accordion.Toggle as={Nav.Item} variant="link" eventKey="0">
-                                                BỘ SẢN PHẨM
+                                                Ứng dụng
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="0">
                                                 <ul className="list-group">

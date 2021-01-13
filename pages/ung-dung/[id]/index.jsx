@@ -18,7 +18,7 @@ const GiaiPhapComponent = React.memo(props => {
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12">
-                                <p>{category.description}</p>
+                                <p className="text-color">{category.description}</p>
                             </div>
                         </div>
                     </div>

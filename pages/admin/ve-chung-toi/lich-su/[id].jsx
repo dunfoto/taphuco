@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import fileUpload from "fuctbase64"
 import Cropper from 'react-cropper'
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const NewLichSuComponent = React.memo(props => {
     const router = useRouter(),
@@ -16,6 +17,10 @@ const NewLichSuComponent = React.memo(props => {
 
     useEffect(() => {
         getDetailLichSu()
+    }, [])
+
+    useEffect(() => {
+        !checkPermission("HISTORY:UPDATE") && router.push('/admin/404')
     }, [])
 
     const getDetailLichSu = async () => {

@@ -4,6 +4,7 @@ import { getBoardDirectors, updatePagination } from "../../../../redux/reducers/
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const SoDoToChucComponent = React.memo(props => {
     const { boardDirectors, pagination, getBoardDirectors, updatePagination } = props,
@@ -14,6 +15,10 @@ const SoDoToChucComponent = React.memo(props => {
     useEffect(() => {
         getBoardDirectors()
     }, [page, limit])
+
+    useEffect(() => {
+        !checkPermission("BOARD_DIRECTOR:GET_LIST") && router.push('/admin/404')
+    }, [])
 
     const deleteBoardDirector = async id => {
         try {

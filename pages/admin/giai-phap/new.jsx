@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import SunEditor from 'suneditor-react'
 import { useRouter } from 'next/router'
 import axios from 'utils/axios'
 import Cropper from 'react-cropper'
 import fileUpload from "fuctbase64"
+import checkPermission from "common/checkValidPermission"
 
 const NewGiaiPhapComponent = React.memo(props => {
     const editorRef = useRef(),
@@ -14,6 +15,10 @@ const NewGiaiPhapComponent = React.memo(props => {
         [originalImg, setOriginalImg] = useState(null),
         cropper = useRef(),
         router = useRouter()
+
+    useEffect(() => {
+        !checkPermission("SOLUTION:CREATE") && router.push('/admin/404')
+    }, [])
 
     const handleImageUpload = (targetImgElement, index, state, imageInfo, remainingFilesCount) => {
         console.log(targetImgElement, index, state, imageInfo, remainingFilesCount)

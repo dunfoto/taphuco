@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import fileUpload from "fuctbase64"
 import Cropper from 'react-cropper'
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const DanhMucComponent = React.memo(props => {
     const { register, handleSubmit, setValue } = useForm(),
@@ -16,6 +17,10 @@ const DanhMucComponent = React.memo(props => {
 
     useEffect(() => {
         getDetailCategory()
+    }, [])
+
+    useEffect(() => {
+        !checkPermission("CATEGORY:UPDATE") && router.push('/admin/404')
     }, [])
 
     const getDetailCategory = async () => {
@@ -37,7 +42,7 @@ const DanhMucComponent = React.memo(props => {
             }
             const res = await axios.put(`/category/${id}`, data)
             if (res.status === 200) {
-                router.push("/admin/bo-san-pham/danh-muc")
+                router.push("/admin/ung-dung/danh-muc")
             }
         } catch (err) {
             return Promise.reject(err)
@@ -59,7 +64,7 @@ const DanhMucComponent = React.memo(props => {
 
     return (
         <React.Fragment>
-            <i onClick={() => router.push("/admin/bo-san-pham/danh-muc")} className="far fa-arrow-alt-circle-left fa-2x"></i>
+            <i onClick={() => router.push("/admin/ung-dung/danh-muc")} className="far fa-arrow-alt-circle-left fa-2x"></i>
             <h3>Sửa danh mục</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group w-50">

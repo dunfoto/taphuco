@@ -4,6 +4,7 @@ import axios from "utils/axios"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { getCategories, updatePagination } from "redux/reducers/category"
+import checkPermission from "common/checkValidPermission"
 
 const DashBoard = props => {
     const router = useRouter(),
@@ -14,6 +15,10 @@ const DashBoard = props => {
     useEffect(() => {
         getCategories()
     }, [getCategories, page, limit])
+
+    useEffect(() => {
+        !checkPermission("CATEGORY:GET_LIST") && router.push('/admin/404')
+    }, [])
 
     const deleteCategory = async id => {
         try {
@@ -76,7 +81,7 @@ const DashBoard = props => {
                                 <th scope="col">Tên danh mục</th>
                                 <th scope="col">Hình ảnh</th>
                                 <th scope="col">
-                                    <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc/new`)}>
+                                    <button className="btn" onClick={() => router.push(`/admin/ung-dung/danh-muc/new`)}>
                                         <i className="fas fa-plus"></i>
                                     </button>
                                 </th>
@@ -98,7 +103,7 @@ const DashBoard = props => {
                                         <img src={category.img} alt={`${category._id}`} height={100} />
                                     </td>
                                     <td>
-                                        <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/danh-muc/${category._id}`)}>
+                                        <button className="btn" onClick={() => router.push(`/admin/ung-dung/danh-muc/${category._id}`)}>
                                             <i className="fas fa-edit"></i>
                                         </button>
                                         <button className="btn" onClick={() => deleteCategory(category._id)}>

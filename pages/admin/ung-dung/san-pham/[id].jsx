@@ -5,6 +5,7 @@ import { v4 } from "uuid"
 import { convertBase64 } from "common/base64"
 import { useRouter } from 'next/router'
 import Cropper from 'react-cropper'
+import checkPermission from "common/checkValidPermission"
 
 const NewProductComponent = React.memo(props => {
     const [title, setTitle] = useState(''),
@@ -23,6 +24,10 @@ const NewProductComponent = React.memo(props => {
 
     useEffect(() => {
         getLstCategories()
+    }, [])
+
+    useEffect(() => {
+        !checkPermission("PRODUCT:UPDATE") && router.push('/admin/404')
     }, [])
 
     useEffect(() => {
@@ -167,7 +172,7 @@ const NewProductComponent = React.memo(props => {
             },
                 res = await axios.put(`/product/${id}`, data)
             if (res.status === 200) {
-                router.push('/admin/bo-san-pham/san-pham')
+                router.push('/admin/ung-dung/san-pham')
             }
         } catch (err) {
             return Promise.reject(err)
@@ -176,7 +181,7 @@ const NewProductComponent = React.memo(props => {
 
     return (
         <React.Fragment>
-            <i onClick={() => router.push("/admin/bo-san-pham/san-pham")} className="far fa-arrow-alt-circle-left fa-2x"></i>
+            <i onClick={() => router.push("/admin/ung-dung/san-pham")} className="far fa-arrow-alt-circle-left fa-2x"></i>
             <h3>Sửa sản phẩm</h3>
             <div className="row">
                 <div className="col-12 row">

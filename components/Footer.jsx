@@ -56,7 +56,7 @@ const FooterComponent = React.memo(props => {
                     <div className="col-md-3 col-sm-12"></div>
                 </div>
                 <div className="row mr-auto ml-auto d-flex align-items-center information pb-4 px-4 mb-4 m">
-                    <div className="col-sm-3 text-center my-3">
+                    <div className="col-sm-3 text-left my-3">
                         <p className="lienheheader">{config?.footer?.openTitle}</p>
                         <p className="lienhecontent">{config?.footer?.fromTo}</p>
                         <p className="lienhecontent">{config?.footer?.workingTime}</p>
@@ -66,7 +66,7 @@ const FooterComponent = React.memo(props => {
                         <p className="lienhecontent">{config?.footer?.address.split(",")[0]}</p>
                         <p className="lienhecontent">{config?.footer?.address.split(",")[1]}, {config?.footer?.address.split(",")[2]}</p>
                     </div>
-                    <div className="col-sm-3 text-center my-3">
+                    <div className="col-sm-3 text-right my-3">
                         <p className="lienhecontent">SĐT: {config?.footer?.phone}</p>
                         <p className="lienhecontent">Email: {config?.footer?.email}</p>
                     </div>

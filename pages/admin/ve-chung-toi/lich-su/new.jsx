@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import fileUpload from "fuctbase64"
 import Cropper from 'react-cropper'
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const NewLichSuComponent = React.memo(props => {
     const router = useRouter(),
@@ -12,6 +13,10 @@ const NewLichSuComponent = React.memo(props => {
         [edit, setEdit] = useState(false),
         [img, setImg] = useState(null),
         [original, setOriginal] = useState(null)
+
+    useEffect(() => {
+        !checkPermission("HISTORY:CREATE") && router.push('/admin/404')
+    }, [])
 
     const onSubmit = async data => {
         try {

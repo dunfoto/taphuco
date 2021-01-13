@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { getCustomerExperiences, updatePagination } from "redux/reducers/customerExperience"
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const DashBoard = props => {
     const router = useRouter(),
@@ -13,6 +14,10 @@ const DashBoard = props => {
     useEffect(() => {
         getCustomerExperiences()
     }, [getCustomerExperiences, page, limit])
+
+    useEffect(() => {
+        !checkPermission("CUSTOMER_EXPERIENCE:GET_LIST") && router.push('/admin/404')
+    }, [])
 
     const deleteSolution = async id => {
         try {

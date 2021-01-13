@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import fileUpload from "fuctbase64"
 import Cropper from 'react-cropper'
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const NewSoDoToChucComponent = React.memo(props => {
     const router = useRouter(),
@@ -13,6 +14,10 @@ const NewSoDoToChucComponent = React.memo(props => {
         [img, setImg] = useState(null),
         [original, setOriginal] = useState(null)
 
+    useEffect(() => {
+        !checkPermission("BOARD_DIRECTOR:CREATE") && router.push('/admin/404')
+    }, [])
+    
     const onSubmit = async data => {
         try {
             const res = await axios.post('/board-director', data)

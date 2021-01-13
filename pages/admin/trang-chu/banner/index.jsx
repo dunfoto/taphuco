@@ -1,5 +1,5 @@
 import "style/hotSpots.scss"
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { v4 } from "uuid"
 import Cropper from 'react-cropper'
 import { Spinner } from "react-bootstrap"
@@ -8,6 +8,7 @@ import InputRange from 'react-input-range'
 import { useRouter } from "next/router"
 import axios from "utils/axios"
 import fileUpload from "fuctbase64"
+import checkPermission from "common/checkValidPermission"
 
 const initContent = {
     title: "",
@@ -32,6 +33,11 @@ const AddBannerComponent = React.memo(props => {
         [isWait, setIsWait] = useState(false),
         [alert, setAlert] = useState(false)
 
+
+    useEffect(() => {
+        !checkPermission("BANNER:CREATE") && router.push('/admin/404')
+    }, [])
+    
     const addNode = () => {
         const temp = [...nodes, { _id: v4(), left: 50, bottom: 50, openDefault: false }]
         setNodes(temp)

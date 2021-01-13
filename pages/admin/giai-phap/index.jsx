@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { getSolutions, updatePagination } from "redux/reducers/solution"
 import axios from "utils/axios"
+import checkPermission from "common/checkValidPermission"
 
 const DashBoard = props => {
     const router = useRouter(),
@@ -13,6 +14,10 @@ const DashBoard = props => {
     useEffect(() => {
         getSolutions()
     }, [getSolutions, page, limit])
+
+    useEffect(() => {
+        !checkPermission("SOLUTION:GET_LIST") && router.push('/admin/404')
+    }, [])
 
     const deleteSolution = async id => {
         try {

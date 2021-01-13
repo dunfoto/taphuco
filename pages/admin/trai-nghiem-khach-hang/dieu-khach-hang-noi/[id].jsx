@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import axios from 'utils/axios'
 import Cropper from 'react-cropper'
 import fileUpload from "fuctbase64"
+import checkPermission from "common/checkValidPermission"
 
 const NewGiaiPhapComponent = React.memo(props => {
     const editorRef = useRef(),
@@ -18,6 +19,10 @@ const NewGiaiPhapComponent = React.memo(props => {
 
     useEffect(() => {
         getDetailSolution()
+    }, [])
+
+    useEffect(() => {
+        !checkPermission("CUSTOMER_EXPERIENCE:UPDATE") && router.push('/admin/404')
     }, [])
 
     const getDetailSolution = async () => {
@@ -129,33 +134,31 @@ const NewGiaiPhapComponent = React.memo(props => {
             </div>
             <div className="col-12  row">
                 <div className="form-group col-6 text-center">
-                    {img ? (
-                        <React.Fragment>
-                            <img src={img} onClick={() => setEditImg(!editImg)} height={250} alt={`trai-nghiem-khach-hang-${id}`} />
-                            <div className="w-100">
-                                <button
-                                    type="button"
-                                    onClick={() => saveImageEdit()}
-                                    className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2"
-                                >
-                                    {editImg ? "Lưu" : "Sửa ảnh"}
-                                </button>
-                                {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2">Huỷ</button>)}
-                            </div>
-                        </React.Fragment>
-                    ) : (
-                            <div className="custom-file form-group col-12">
-                                <input
-                                    id="icon"
-                                    name="icon"
-                                    className="custom-file-input"
-                                    accept=".jpeg, .png"
-                                    type="file"
-                                    onChange={onChangeImg}
-                                />
-                                <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
-                            </div>
-                        )}
+                    <div className="custom-file form-group col-12">
+                        <input
+                            id="icon"
+                            name="icon"
+                            className="custom-file-input"
+                            accept=".jpeg, .png"
+                            type="file"
+                            onChange={onChangeImg}
+                        />
+                        <label className="custom-file-label" htmlFor="icon">Chọn hình ảnh</label>
+                    </div>
+                </div>
+                <div className="form-group col-6 text-center">
+                    <img src={img} onClick={() => setEditImg(!editImg)} height={250} alt={`trai-nghiem-khach-hang-${id}`} />
+                    <div className="w-100">
+                        <button
+                            type="button"
+                            onClick={() => saveImageEdit()}
+                            className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2"
+                        >
+                            {editImg ? "Lưu" : "Sửa ảnh"}
+                        </button>
+                        {editImg && (<button type="button" onClick={() => setEditImg(false)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color my-2">Huỷ</button>)}
+                    </div>
+
                 </div>
                 <div className="form-group col-6 text-center editImageGiaiPhap">
                     {editImg && (

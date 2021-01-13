@@ -4,6 +4,7 @@ import axios from "utils/axios"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { getProducts, updatePagination } from "redux/reducers/product"
+import checkPermission from "common/checkValidPermission"
 
 const DashBoard = props => {
     const { products, getProducts, pagination, updatePagination } = props,
@@ -13,6 +14,10 @@ const DashBoard = props => {
     useEffect(() => {
         getProducts()
     }, [getProducts, page, limit])
+
+    useEffect(() => {
+        !checkPermission("PRODUCT:GET_LIST") && router.push('/admin/404')
+    }, [])
 
     const deleteProduct = async id => {
         try {
@@ -43,7 +48,7 @@ const DashBoard = props => {
                                 <th scope="col">Danh mục</th>
                                 <th scope="col">Hình ảnh</th>
                                 <th scope="col">
-                                    <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/san-pham/new`)}>
+                                    <button className="btn" onClick={() => router.push(`/admin/ung-dung/san-pham/new`)}>
                                         <i className="fas fa-plus"></i>
                                     </button>
                                 </th>
@@ -59,7 +64,7 @@ const DashBoard = props => {
                                         <img src={product.imgs[0]} alt={`${product._id}`} height={100} />
                                     </td>
                                     <td>
-                                        <button className="btn" onClick={() => router.push(`/admin/bo-san-pham/san-pham/${product._id}`)}>
+                                        <button className="btn" onClick={() => router.push(`/admin/ung-dung/san-pham/${product._id}`)}>
                                             <i className="fas fa-edit"></i>
                                         </button>
                                         <button className="btn" onClick={() => deleteProduct(product._id)}>

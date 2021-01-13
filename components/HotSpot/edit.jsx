@@ -83,7 +83,7 @@ const HotSpots = React.memo(props => {
                                                         <button onClick={() => setShow(null)} className="btn p-0 m-0 text-white">&times;</button>
                                                     </div>
                                                     <h5>Cotton</h5>
-                                                    <p className="text-white">dùng bộ sản phẩm hoá chất cho ra:</p>
+                                                    <p className="text-white">dùng Ứng dụng hoá chất cho ra:</p>
                                                 </div>
                                                 <div className="content p-4 py-2">
                                                     <p className="title">Màu sắc</p>

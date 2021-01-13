@@ -17,7 +17,7 @@ const AdminLayout = props => {
             if (!router.asPath.includes('/admin/dang-nhap')) {
                 router.push(router.asPath)
             } else {
-                router.push('/admin/trang-chu')
+                router.push('/admin/cau-hinh/trang-chu')
             }
         }
     }, [token])
@@ -29,9 +29,9 @@ const AdminLayout = props => {
     return (
         <Waiter>
             <div className={`d-flex ${toggled ? "" : "toggled"}`} id="wrapper" style={{ fontSize: 14 }}>
-                {!router.asPath.includes("/dang-nhap") && (
+                {!(router.asPath.includes("/dang-nhap") || router.asPath.includes('/404')) ? (
                     <Sidebar toggled={toggled} onToggled={onToggled} />
-                )}
+                ) : <div></div>}
                 <div className="w-100 p-4" style={{ height: "100vh", overflowY: "auto" }}>{props.children}</div>
             </div>
         </Waiter>

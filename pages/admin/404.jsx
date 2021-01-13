@@ -1,4 +1,4 @@
-import '../style/404.css'
+import '../../style/404.css'
 import Link from "next/link"
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -22,7 +22,7 @@ const ErrorComponent = props => {
                 <span className="four"><span className="screen-reader-text">4</span></span>
             </section>
             <div className="link-container">
-                <Link href={'/'}>
+                <Link href="/admin/cau-hinh/trang-chu">
                     <a href="#" className="more-link">Visit the home page</a>
                 </Link>
             </div>

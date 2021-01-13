@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import fileUpload from "fuctbase64"
 import Cropper from 'react-cropper'
+import checkPermission from "common/checkValidPermission"
 import axios from "utils/axios"
 
 const DanhMucComponent = React.memo(props => {
@@ -12,11 +13,15 @@ const DanhMucComponent = React.memo(props => {
         [editImg, setEditImg] = useState(false),
         router = useRouter()
 
+    useEffect(() => {
+        !checkPermission("CATEGORY:CREATE") && router.push('/admin/404')
+    }, [])
+
     const onSubmit = async data => {
         try {
             const res = await axios.post('/category', data)
             if (res.status === 200) {
-                router.push("/admin/bo-san-pham/danh-muc")
+                router.push("/admin/ung-dung/danh-muc")
             }
         } catch (err) {
             return Promise.reject(err)
@@ -37,7 +42,7 @@ const DanhMucComponent = React.memo(props => {
 
     return (
         <React.Fragment>
-            <i onClick={() => router.push("/admin/bo-san-pham/danh-muc")} className="far fa-arrow-alt-circle-left fa-2x"></i>
+            <i onClick={() => router.push("/admin/ung-dung/danh-muc")} className="far fa-arrow-alt-circle-left fa-2x"></i>
             <h3>Tạo danh mục</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group w-50">

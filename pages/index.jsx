@@ -133,7 +133,7 @@ const Home = React.memo(props => {
                             </ul>
                         </div>
                     </div>
-                    <div className="overlay" style={{ left: "75%", top: "30%", width: 150 }}>
+                    <div className="overlay" style={{ left: "73%", top: "27%", width: 150 }}>
                         <img src="/accessory_image_footer.svg" />
                         <img src="/accessory_image_footer.svg" />
                         <img src="/accessory_image_footer.svg" />
@@ -190,13 +190,15 @@ const Home = React.memo(props => {
                 <h2 className="textthongdiep">Giải pháp</h2>
                 <div className="row">
                     {solutions.map(solution => (
-                        <div key={solution._id} className="col-md-3 col-sm-4 col-xs-12 my-4 py-2">
-                            <div className="card bg-transparent">
-                                <img src={solution.img} className="card-img-top" />
-                                <div className="card-body pb-3 pt-3 text-center">
-                                    <p className="card-text text-giai-phap">{solution.showTitle}</p>
+                        <div key={solution._id} className="col-md-3 col-sm-4 col-xs-12 my-4 py-2" style={{ cursor: "pointer" }}>
+                            <Link href={`/giai-phap/${encodeURI(solution.title)}`}>
+                                <div className="card bg-transparent">
+                                    <img src={solution.img} className="card-img-top" />
+                                    <div className="card-body pb-3 pt-3 text-center">
+                                        <p className="card-text text-giai-phap">{solution.showTitle}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     ))}
                 </div>

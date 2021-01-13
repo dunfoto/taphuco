@@ -1,104 +1,104 @@
 .context {
-    position: relative !important;
-    width: 100%;
+  position: relative !important;
+  width: 100%;
 }
 
 .context img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .context .btn {
-    position: absolute !important;
-    bottom: 50%;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    -ms-transform: translate(-50%, 50%);
-    background-color: none;
-    color: black;
-    font-size: 16px;
-    padding: 12px 24px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+  position: absolute !important;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  -ms-transform: translate(-50%, 50%);
+  background-color: none;
+  color: black;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .context .btn:hover {
-    background-color: none;
+  background-color: none;
 }
 
 .loader-6 {
-    height: 35px;
-    width: 35px;
-    margin-bottom: 5px;
+  height: 35px;
+  width: 35px;
+  margin-bottom: 5px;
 }
 
 .loader-6 span {
-    display: block;
-    padding-top: -2px;
-    margin: auto;
-    height: 35px;
-    width: 35px;
-    background: white;
-    border-radius: 50%;
-    color: #10846F;
-    font-size: 22px;
-    font-weight: bold;
-    border: 2px solid #10846F;
+  display: block;
+  padding-top: -2px;
+  margin: auto;
+  height: 35px;
+  width: 35px;
+  background: white;
+  border-radius: 50%;
+  color: #10846f;
+  font-size: 22px;
+  font-weight: bold;
+  border: 2px solid #10846f;
 }
 
-.content>.btn {
-    border: 1px solid #10846F;
-    box-sizing: border-box;
-    color: #10846F;
+.content > .btn {
+  border: 1px solid #10846f !important;
+  box-sizing: border-box;
+  color: #10846f;
+  margin-bottom: 20px;
 }
 
-.card-body>.content>p.title {
-    color: #10846F;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 18px;
-    margin-bottom: 0px;
+.card-body > .content > p.title {
+  color: #10846f;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+  margin-bottom: 0px;
 }
 
-.card-body>.content>p.sub-content {
-    color: #10846F;
-    margin-bottom: 15px;
+.card-body > .content > p.sub-content {
+  color: #10846f;
+  margin-bottom: 15px;
 }
 
 .hotspot-homepage {
-    width: 100%;
+  width: 100%;
 }
 
 .react-tiny-popover-container {
-    z-index: 9000 !important;
+  z-index: 9000 !important;
 }
 
-
 @media screen and (max-width: 768px) {
-    .card-body>.content>p.title {
-        color: #10846F;
-        font-style: bold;
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 16px;
-        margin-bottom: 0px;
-    }
+  .card-body > .content > p.title {
+    color: #10846f;
+    font-style: bold;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 0px;
+  }
 
-    .card-body>.content>p.sub-content {
-        color: #10846F;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 13px;
-        line-height: 21px;
-        margin-bottom: 10px;
-    }
+  .card-body > .content > p.sub-content {
+    color: #10846f;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 21px;
+    margin-bottom: 10px;
+  }
 
-    .content>.btn {
-        border: 1px solid #10846F;
-        box-sizing: border-box;
-        color: #10846F;
-        font-size: 13px;
-    }
+  .content > .btn {
+    border: 1px solid #10846f;
+    box-sizing: border-box;
+    color: #10846f;
+    font-size: 13px;
+  }
 }

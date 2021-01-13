@@ -19,6 +19,7 @@ export default reducer;
 export const getConfig = () => async dispatch => {
     try {
         const res = await axios.get("/config")
+        console.log(res)
         dispatch({
             type: GET_CONFIG,
             config: res.data.data

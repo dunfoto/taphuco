@@ -77,9 +77,11 @@ const App = ({ Component, pageProps, router, categories }) => {
             {checkHeader() && (
                 <Header categories={categories} router={router} />
             )}
-            <ScrollTop
-                smooth
-            />
+            {!checkLayout() && (
+                <ScrollTop
+                    smooth
+                />
+            )}
             {checkLayout() ? (
                 <AdminLayout toggled={sidebar} onToggled={setSideBar}>
                     <Component {...pageProps} />

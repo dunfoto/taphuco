@@ -5,6 +5,7 @@ import { getConfig } from "redux/reducers/config"
 import { useRouter } from 'next/router'
 import axios from "utils/axios"
 import { getBanners, updatePagination } from "redux/reducers/banner"
+import checkPermission from "common/checkValidPermission"
 
 const DashBoard = React.memo(props => {
     const router = useRouter(),
@@ -16,6 +17,10 @@ const DashBoard = React.memo(props => {
         getConfig()
         getBanners()
     }, [limit, page])
+
+    useEffect(() => {
+        !checkPermission("BANNER:GET_LIST") && router.push('/admin/404')
+    }, [])
 
     const removeBanner = async id => {
         try {
@@ -138,4 +143,5 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     getBanners,
     updatePagination
 }, dispatch)
+
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoard)

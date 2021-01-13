@@ -151,9 +151,11 @@ const Sidebar = React.memo(props => {
                     </Collapse>
 
 
-                    <Link href="/admin/nguon-luc">
-                        <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/nguon-luc") ? "active-admin" : ""}`}>Nguồn lực</a>
-                    </Link>
+                    {Boolean(roles.find(role => role.code.includes("POWER:GET_LIST"))) && (
+                        <Link href="/admin/nguon-luc">
+                            <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/nguon-luc") ? "active-admin" : ""}`}>Nguồn lực</a>
+                        </Link>
+                    )}
 
 
                     <a href="#" onClick={() => onClickCollapse('veChungToi')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/ve-chung-toi") ? "active-admin" : ""}`}>

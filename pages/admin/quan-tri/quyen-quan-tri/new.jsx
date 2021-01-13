@@ -43,7 +43,15 @@ const NewQuyenQuantriComponent = React.memo(props => {
     }
 
     const onSubmit = async data => {
-        console.log(data)
+        try {
+            data.roles = data.roles.map(role => role.value)
+            const res = await axios.post(`/permission`, data)
+            if (res.status === 200) {
+                push('/admin/quan-tri/quyen-quan-tri')
+            }
+        } catch (err) {
+            return Promise.reject(err)
+        }
     }
 
     return (

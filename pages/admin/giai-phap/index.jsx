@@ -94,7 +94,7 @@ const DashBoard = props => {
                                     key={solution._id}
                                 >
                                     <td>{index + 1}</td>
-                                    <td>{solution.title}</td>
+                                    <td>{solution.showTitle}</td>
                                     <td><img src={solution.img} height={100} alt={solution._id} /></td>
                                     <td className="text-center">
                                         <button className="btn" onClick={() => router.push(`/admin/giai-phap/${solution._id}`)}>

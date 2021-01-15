@@ -57,7 +57,7 @@ const GiaiPhapComponent = React.memo(props => {
                     ))}
                 </div>
             </div>
-            <div className="container__trainghiemkhachhang text-center" style={{ marginTop: 0 }}>
+            {/* <div className="container__trainghiemkhachhang text-center" style={{ marginTop: 0 }}>
                 <div className="content row mr-auto ml-auto" style={{ backgroundColor: "transparent", backgroundImage: `url(/trainghiemkhachhang-border.png)`, backgroundSize: "100% 100%" }}>
                     <h2 className="textthongdiep col-12">Trải nghiệm khách hàng</h2>
                     <div className="col-12">
@@ -79,7 +79,7 @@ const GiaiPhapComponent = React.memo(props => {
                         </Carousel>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </React.Fragment >
     )
 })

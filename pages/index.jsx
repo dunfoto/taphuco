@@ -174,23 +174,11 @@ const Home = React.memo(props => {
                             {references.map(ref => (
                                 <Carousel.Item key={ref._id}>
                                     <p className="text-color">{getStringInHtml(ref.content).slice(0, 300)}</p>
-                                    <Link href={`/trai-nghiem-khach-hang/${encodeURI(ref.title)}`}>
+                                    <Link href={`/trai-nghiem-khach-hang`}>
                                         <button className="btn btn-transparent border rounded-0 mt-2 pl-4 pr-4 my-4 btn-border text-color">Xem thêm</button>
                                     </Link>
                                 </Carousel.Item>
                             ))}
-                            {/* <Carousel.Item>
-                                <p className="text-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                                <small className="text-color">John Doe, Product Manager of ABC company</small>
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <p className="text-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                                <small className="text-color">John Doe, Product Manager of ABC company</small>
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <p className="text-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                                <small className="text-color">John Doe, Product Manager of ABC company</small>
-                            </Carousel.Item> */}
                         </Carousel>
                     </div>
                 </div>

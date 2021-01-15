@@ -12,7 +12,7 @@ const GiaiPhapComponent = React.memo(props => {
         <React.Fragment>
             <div className="container__ungdung" style={{ backgroundImage: `url(/detail-trai-nghiem-khach-hang.png)`, backgroundSize: "cover" }}>
                 <div className="container">
-                    <div className="card-search bg-light text-center" style={{ backgroundColor: "#FFF" }}>
+                    <div className="card-search card-search__khong-nghieng bg-light text-center" style={{ backgroundColor: "#FFF" }}>
                         <h2 className="textthongdiep__khong-nghieng">{category.title}</h2>
                     </div>
                 </div>

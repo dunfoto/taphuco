@@ -36,7 +36,7 @@ const DetailUngDungComponent = React.memo(props => {
         <React.Fragment>
             <div className="container__ungdung bg-transparent" style={{ paddingTop: 100 }}>
                 <div className="container">
-                    <div className="card-search text-center">
+                    <div className="card-search card-search__khong-nghieng text-center">
                         <h2 className="textthongdiep__khong-nghieng">{solution.title}</h2>
                         <br className="my-4 py-4" />
                     </div>

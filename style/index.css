@@ -225,10 +225,16 @@ a:hover {
   transform: skewY(-6deg);
 }
 
+.card-search__khong-nghieng {
+  width: 100% !important;
+  padding: 50px 0px !important;
+}
+
 .textthongdiep__khong-nghieng {
-  font-size: 45px;
+  font-size: 40px;
+  width: 100% !important;
   color: #10846f !important;
-  font-family: "Dancing Script", cursive;
+  font-weight: 600 !important;
   font-style: bold;
   line-height: 150%;
 }

@@ -1,9 +1,9 @@
+import 'react-multi-carousel/lib/styles.css'
 import "../../../style/ung-dung.css"
 import React from "react"
 import { useRouter } from 'next/router'
 import Carousel from 'react-multi-carousel'
 import Link from "next/link"
-import 'react-multi-carousel/lib/styles.css'
 import axios from "axios"
 
 const responsive = {
@@ -34,11 +34,11 @@ const DetailUngDungComponent = React.memo(props => {
             <div className="container__ungdung" style={{ backgroundImage: "url('/page__trai-nghiem-khach-hang.png')", backgroundSize: 'cover' }}>
                 <div className="container">
                     <div className="card-search bg-light text-center">
-                        <h2 className="textthongdiep">Ứng dụng có độ lặp cao</h2>
+                        <h2 className="textthongdiep">{product.showTitle ? product.showTitle : "Ứng dụng có độ lặp cao"}</h2>
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12 text-color">
-                                <p>Nhóm màu màu hoạt tính giúp tạo nên những mẻ nhuộm với độ lặp cao, đồ bền ánh sáng tốt cho các tông màu nhạt</p>
+                                <p>{product.showDescription ? product.showDescription : "Nhóm màu màu hoạt tính giúp tạo nên những mẻ nhuộm với độ lặp cao, đồ bền ánh sáng tốt cho các tông màu nhạt"}</p>
                             </div>
                         </div>
                     </div>
@@ -48,10 +48,11 @@ const DetailUngDungComponent = React.memo(props => {
                 <div className="container-xl">
                     <div className="row w-100 d-sm-flex align-items-center">
                         <div className="col-sm-6 d-flex justify-content-end">
-                            <img src={product.imgs[product.imgs.length - 1]} alt="Avatar" className="image w-75" style={{ objectFit: "scale-down", width: "75% !important" }} />
+                            <img src={product.imgs[product.imgs.length - 1]} alt="Avatar" className="image w-75" style={{ objectFit: "cover", width: "75% !important" }} />
                         </div>
                         <div className="col-sm-6 align-item-center">
-                            <h2 className="title__ung-dung">{product.title}</h2>
+                            <h2 className="title__ung-dung" style={{ marginBottom: 0 }}>{product.title}</h2>
+                            <p className="text-color" style={{ marginBottom: 30 }}>{product.description}</p>
                             <div className="row w-100">
                                 <div className="col-sm-6">
                                     <h3 className="sub-title__ung-dung">Tiền xử lý:</h3>

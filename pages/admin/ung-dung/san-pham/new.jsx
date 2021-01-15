@@ -8,7 +8,10 @@ import Cropper from 'react-cropper'
 import checkPermission from "common/checkValidPermission"
 
 const NewProductComponent = React.memo(props => {
-    const [title, setTitle] = useState(''),
+    const [showTitle, setShowTitle] = useState(''),
+        [showDescription, setShowDescription] = useState(''),
+        [title, setTitle] = useState(''),
+        [description, setDescription] = useState(''),
         [imgs, setImgs] = useState([]),
         [originalImgs, setOriginalImgs] = useState([]),
         [editImg, setEditImg] = useState(null),
@@ -60,6 +63,18 @@ const NewProductComponent = React.memo(props => {
         switch (e.target.getAttribute("data-type")) {
             case 'title':
                 setTitle(e.target.value)
+                break
+
+            case 'description':
+                setDescription(e.target.value)
+                break
+
+            case 'showTitle':
+                setShowTitle(e.target.value)
+                break
+
+            case 'showDescription':
+                setShowDescription(e.target.value)
                 break
 
             case 'prepare':
@@ -141,7 +156,10 @@ const NewProductComponent = React.memo(props => {
         try {
             const data = {
                 title,
+                description,
                 imgs,
+                showTitle,
+                showDescription,
                 prepare: prepare.map(t => t.value),
                 afterDye: afterDye.map(t => t.value),
                 complete: complete.map(t => t.value),
@@ -156,11 +174,40 @@ const NewProductComponent = React.memo(props => {
         }
     }
 
+    const removeImage = ic => {
+        setImgs(imgs.filter((_, index) => Boolean(ic !== index)))
+    }
+
     return (
         <React.Fragment>
             <i onClick={() => router.push("/admin/ung-dung/san-pham")} className="far fa-arrow-alt-circle-left fa-2x"></i>
             <h3>Tạo sản phẩm</h3>
             <div className="row">
+                <div className="col-12 row">
+                    <div className="form-group col-6">
+                        <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
+                        <input
+                            type="string"
+                            id="showTitle"
+                            data-type="showTitle"
+                            className="form-control"
+                            value={showTitle}
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div className="form-group col-6">
+                        <label htmlFor="showDescription" className="form-label">Mô tả hiển thị</label>
+                        <textarea
+                            type="string"
+                            id="showDescription"
+                            data-type="showDescription"
+                            className="form-control"
+                            value={showDescription}
+                            onChange={onChange}
+                            rows={3}
+                        />
+                    </div>
+                </div>
                 <div className="col-12 row">
                     <div className="form-group col-6">
                         <label htmlFor="title" className="form-label">Tiêu đề</label>
@@ -171,6 +218,18 @@ const NewProductComponent = React.memo(props => {
                             className="form-control"
                             value={title}
                             onChange={onChange}
+                        />
+                    </div>
+                    <div className="form-group col-6">
+                        <label htmlFor="description" className="form-label">Mô tả</label>
+                        <textarea
+                            type="string"
+                            id="description"
+                            data-type="description"
+                            className="form-control"
+                            value={description}
+                            onChange={onChange}
+                            rows={2}
                         />
                     </div>
                 </div>
@@ -281,6 +340,7 @@ const NewProductComponent = React.memo(props => {
                             <React.Fragment>
                                 <button type="button" onClick={() => cropImage(editImg)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color mt-4">Lưu hình ảnh</button>
                                 <button type="button" onClick={() => setEditImg(null)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color mt-4">Huỷ sửa hình ảnh</button>
+                                <button type="button" onClick={() => removeImage(editImg)} className="btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color mt-4">Xoá hình ảnh</button>
                             </React.Fragment>
                         )}
 

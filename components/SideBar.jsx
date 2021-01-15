@@ -87,6 +87,9 @@ const Sidebar = React.memo(props => {
                             </Link>
                         </div>
                     </Collapse>
+                    <Link href="/admin/lien-he">
+                        <a href="#" className={`list-group-item list-group-item-action bg-light ${router.asPath.includes("/admin/lien-he") ? "active-admin" : ""}`}>Liên hệ</a>
+                    </Link>
 
                     {Boolean(roles.find(role => role.code.includes("BANNER:GET_LIST"))) && (
                         <Link href="/admin/trang-chu">

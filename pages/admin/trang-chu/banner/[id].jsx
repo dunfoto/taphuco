@@ -110,7 +110,6 @@ const AddBannerComponent = React.memo(props => {
     const onSubmitBanner = async () => {
         setIsWait(true)
         try {
-            console.log(nodes)
             const newNodes = nodes.map(node => {
                 delete node._id
                 return node

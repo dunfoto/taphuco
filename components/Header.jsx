@@ -37,7 +37,7 @@ const Header = props => {
                             <ul className="navbar-nav ml-auto">
                                 <Link href="/ung-dung">
                                     <Nav.Link as="a" href="#" className={`text-white text-header ${asPath.includes("/ung-dung") ? "active-header" : ""}`} style={{ marginRight: 0, paddingRight: 0 }}>
-                                        ỨNG DỤNG
+                                        BỘ SẢN PHẨM
                                     </Nav.Link>
                                 </Link>
                                 <NavDropdown
@@ -89,7 +89,7 @@ const Header = props => {
                                     <li className="list-group-item list-group-item-action border-0 bg-transparent font-weight-bolder">
                                         <Accordion>
                                             <Accordion.Toggle as={Nav.Item} variant="link" eventKey="0">
-                                                Ứng dụng
+                                                BỘ SẢN PHẨM
                                             </Accordion.Toggle>
                                             <Accordion.Collapse eventKey="0">
                                                 <ul className="list-group">
@@ -115,7 +115,7 @@ const Header = props => {
                         open={open}
                         pullRight={true}
                         onSetOpen={() => setOpen(true)}
-                        styles={{ sidebar: { position: "fixed", background: "white", width: "100%", zIndex: 9000 } }}
+                        styles={{ sidebar: { position: "fixed", background: "white", width: "100%", zIndex: 9900 } }}
                     >
                         <nav className="navbar navbar-expand-lg navbar-light bg-transparent fixed-top nav-bar-top">
                             <div className="container">

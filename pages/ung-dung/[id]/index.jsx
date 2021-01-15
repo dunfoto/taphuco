@@ -7,7 +7,6 @@ const GiaiPhapComponent = React.memo(props => {
     const { category, products } = props,
         { query: { id }, push } = useRouter()
 
-    console.log(products)
     if (!category) return push('/404')
     return (
         <React.Fragment>

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { getSolutions, updatePagination } from "redux/reducers/solution"
@@ -9,7 +9,8 @@ import checkPermission from "common/checkValidPermission"
 const DashBoard = props => {
     const router = useRouter(),
         { solutions, getSolutions, pagination, updatePagination } = props,
-        { limit, total, page } = pagination
+        { limit, total, page } = pagination,
+        [startDrop, setStartDrop] = useState(null)
 
     useEffect(() => {
         getSolutions()
@@ -35,6 +36,35 @@ const DashBoard = props => {
         updatePagination(newPagination)
     }
 
+    const updatePosition = async lstPostition => {
+        try {
+            const res = await axios.put("/solutions/position", lstPostition)
+            if (res.status === 200) {
+                getSolutions()
+            }
+        } catch (err) {
+            return Promise.reject(err)
+        }
+    }
+
+    const onDragStart = e => {
+        setStartDrop(Number(e.currentTarget.dataset.position))
+    }
+
+    const onDragOver = e => {
+        e.preventDefault()
+    }
+
+    const onDrop = e => {
+        const newSolution = solutions,
+            a = newSolution[startDrop]
+        newSolution[startDrop] = newSolution[Number(e.currentTarget.dataset.position)]
+        newSolution[Number(e.currentTarget.dataset.position)] = a
+        const lstSolutions = solutions.map((solution, index) => ({ _id: solution._id, showTitie: solution.showTitle, position: page * limit + index }))
+        setStartDrop(null)
+        updatePosition(lstSolutions)
+    }
+
     return (
         <React.Fragment>
             <div className="w-100">
@@ -55,7 +85,14 @@ const DashBoard = props => {
                         </thead>
                         <tbody>
                             {solutions.map((solution, index) => (
-                                <tr key={solution._id}>
+                                <tr
+                                    draggable={true}
+                                    onDragStart={onDragStart}
+                                    onDragOver={onDragOver}
+                                    onDrop={onDrop}
+                                    data-position={index}
+                                    key={solution._id}
+                                >
                                     <td>{index + 1}</td>
                                     <td>{solution.title}</td>
                                     <td><img src={solution.img} height={100} alt={solution._id} /></td>

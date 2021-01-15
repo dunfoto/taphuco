@@ -8,9 +8,10 @@ import Link from "next/link"
 import axios from "axios"
 import { connect } from 'react-redux'
 import { GET_CONFIG } from "redux/reducers/config"
+import { getStringInHtml } from "common/html"
 
 const Home = React.memo(props => {
-    const { banners, categories, config, dispatch, solutions } = props,
+    const { banners, categories, config, dispatch, solutions, references } = props,
         [show, setShow] = useState([]),
         [selected, setSeleted] = useState(0),
         [lengthImage, setLengthImage] = useState(0)
@@ -170,7 +171,15 @@ const Home = React.memo(props => {
                             slide={false}
                             style={{ position: 'relative' }}
                         >
-                            <Carousel.Item>
+                            {references.map(ref => (
+                                <Carousel.Item key={ref._id}>
+                                    <p className="text-color">{getStringInHtml(ref.content).slice(0, 300)}</p>
+                                    <Link href={`/trai-nghiem-khach-hang/${encodeURI(ref.title)}`}>
+                                        <button className="btn btn-transparent border rounded-0 mt-2 pl-4 pr-4 my-4 btn-border text-color">Xem thêm</button>
+                                    </Link>
+                                </Carousel.Item>
+                            ))}
+                            {/* <Carousel.Item>
                                 <p className="text-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                                 <small className="text-color">John Doe, Product Manager of ABC company</small>
                             </Carousel.Item>
@@ -181,7 +190,7 @@ const Home = React.memo(props => {
                             <Carousel.Item>
                                 <p className="text-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                                 <small className="text-color">John Doe, Product Manager of ABC company</small>
-                            </Carousel.Item>
+                            </Carousel.Item> */}
                         </Carousel>
                     </div>
                 </div>
@@ -208,12 +217,17 @@ const Home = React.memo(props => {
 })
 
 Home.getInitialProps = async (ctx) => {
-    const banners = (await axios.get(`${process.env.API}/banners/all`)).data.data,
-        categories = (await axios.get(`${process.env.API}/categories/all`)).data.data,
-        config = (await axios.get(`${process.env.API}/config`)).data.data,
-        solutions = (await axios.get(`${process.env.API}/solutions/all`)).data.data
+    try {
+        const banners = (await axios.get(`${process.env.API}/banners/all`)).data.data,
+            categories = (await axios.get(`${process.env.API}/categories/all`)).data.data,
+            config = (await axios.get(`${process.env.API}/config`)).data.data,
+            solutions = (await axios.get(`${process.env.API}/solutions/all`)).data.data,
+            references = (await axios.get(`${process.env.API}/customer-experiences/reference`)).data.data
 
-    return { banners, categories, config, solutions }
+        return { banners, categories, config, solutions, references }
+    } catch (err) {
+        return { banners: [], categories: [], solutions: [], references: [] }
+    }
 }
 
 export default connect()(Home)

@@ -33,7 +33,7 @@ const DetailUngDungComponent = React.memo(props => {
             <div className="container__ungdung bg-transparent">
                 <div className="container">
                     <div className="card-search text-center">
-                        <h2 className="textthongdiep">{power.title}</h2>
+                        <h2 className="textthongdiep__khong-nghieng">{power.title}</h2>
                         <br className="my-4 py-4" />
                     </div>
                     <div className="col-sm-12">

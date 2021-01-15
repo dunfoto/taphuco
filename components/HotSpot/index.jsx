@@ -24,8 +24,6 @@ const HotSpots = React.memo(props => {
         }
     }, [nodes])
 
-    console.log(show)
-
     const checkPlacement = (bottom, left) => {
         if (bottom >= 50) {
             if (left >= 50) {

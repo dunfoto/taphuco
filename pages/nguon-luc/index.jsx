@@ -7,7 +7,6 @@ import { useRouter } from "next/router"
 const GiaiPhapComponent = React.memo(props => {
     const { categories, powers, config: { power } } = props,
         router = useRouter()
-    console.log(power)
     return (
         <React.Fragment>
             <div className="container__ungdung" style={{ backgroundImage: `url(${power?.img ? power?.img : 'detail-trai-nghiem-khach-hang.png'})`, backgroundSize: "cover" }}>
@@ -30,7 +29,7 @@ const GiaiPhapComponent = React.memo(props => {
                             {index % 2 === 0 ? (
                                 <React.Fragment>
                                     <div className="col-sm-6 pr-4 d-flex align-items-center">
-                                        <img src={p.img} className="card-img-top" height={250} style={{ maxWidth: 390, objectFit: 'scale-down' }} />
+                                        <img src={p.img} className="card-img-top" height={402} width={610} style={{ objectFit: 'scale-down' }} />
                                     </div>
                                     <div className="col-sm-6 pl-4 align-items-center" style={{ marginBottom: "auto", marginTop: "auto" }}>
                                         <h5 className="card-title text-dark textnguonluc mb-4 pb-4 text-color">{p.title}</h5>
@@ -50,7 +49,7 @@ const GiaiPhapComponent = React.memo(props => {
                                             </Link>
                                         </div>
                                         <div className="col-sm-6 pr-4 d-flex align-items-center">
-                                            <img src={p.img} className="card-img-top" height={250} style={{ maxWidth: 390, objectFit: 'scale-down' }} />
+                                            <img src={p.img} className="card-img-top" height={402} width={610} style={{ objectFit: 'scale-down' }} />
                                         </div>
                                     </React.Fragment>
                                 )}

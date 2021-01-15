@@ -35,7 +35,6 @@ const CauHinhComponent = React.memo(props => {
     const getSocials = async () => {
         try {
             const res = await axios.get('/socials/all')
-            console.log(res)
             setSocials(res.data.data)
         } catch (err) {
             return Promise.reject(err)

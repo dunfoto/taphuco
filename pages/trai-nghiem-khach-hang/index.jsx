@@ -9,7 +9,7 @@ const GiaiPhapComponent = React.memo(props => {
     const { clients, customerExperiences, references, config } = props,
         { push } = useRouter()
     if (!clients || !customerExperiences || !references) return push('/404')
-    console.log(config)
+
     return (
         <React.Fragment>
             <div className="container__ungdung" style={{ backgroundImage: `url(${config.customerExperience?.img ? config.customerExperience?.img : '/page__trai-nghiem-khach-hang.png'})`, backgroundSize: "cover" }}>

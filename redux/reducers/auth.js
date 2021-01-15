@@ -29,7 +29,6 @@ export default reducer;
 export const login = (data, cb) => async dispatch => {
     try {
         const res = await axios.post("/login/admin", data)
-        console.log(res.data.token)
         await dispatch({
             type: GET_AUTHENTICATION,
             token: res.data.token,

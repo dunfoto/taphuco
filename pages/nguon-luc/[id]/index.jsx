@@ -7,13 +7,13 @@ import { getStringInHtml } from "common/html"
 const GiaiPhapComponent = React.memo(props => {
     const router = useRouter(),
         { category, powers } = props
-    console.log("DUNG", powers)
+
     return (
         <React.Fragment>
             <div className="container__ungdung" style={{ backgroundImage: `url(/detail-trai-nghiem-khach-hang.png)`, backgroundSize: "cover" }}>
                 <div className="container">
                     <div className="card-search bg-light text-center" style={{ backgroundColor: "#FFF" }}>
-                        <h2 className="textthongdiep">{category.title}</h2>
+                        <h2 className="textthongdiep__khong-nghieng">{category.title}</h2>
                     </div>
                 </div>
             </div >

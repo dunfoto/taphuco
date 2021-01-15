@@ -18,8 +18,6 @@ const EditQuanTriVienComponent = React.memo(props => {
             const res = await axios.get('/permissions/all')
             setPermissions(res.data.data.map(per => ({ value: per._id, label: per.name })))
             const resAdmin = await axios.get(`/admin/${id}`)
-            console.log(res.data.data)
-            console.log(resAdmin.data.data.permission._id)
             setValue('email', resAdmin.data.data.email)
             const findPer = res.data.data.find(temp => temp._id == resAdmin.data.data.permission._id)
             setValue('permission', { value: findPer._id, label: findPer.name })

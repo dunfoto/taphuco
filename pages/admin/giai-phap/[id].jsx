@@ -70,7 +70,6 @@ const NewGiaiPhapComponent = React.memo(props => {
                 img
             },
                 res = await axios.put(`/solution/${id}`, data)
-            console.log(data)
             if (res.status === 200) {
                 router.push('/admin/giai-phap')
             }

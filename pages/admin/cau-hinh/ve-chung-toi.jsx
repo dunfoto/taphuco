@@ -14,7 +14,6 @@ const VeChungToiComponent = React.memo(props => {
         [alert, setAlert] = useState(false)
 
     useEffect(() => {
-        console.log(aboutUs)
         if (aboutUs) {
             setValue('title', aboutUs.title)
             setValue('description', aboutUs.description)

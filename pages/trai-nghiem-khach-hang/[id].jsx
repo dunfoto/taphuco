@@ -10,14 +10,14 @@ import { getStringInHtml } from "common/html"
 const DetailUngDungComponent = React.memo(props => {
     const { customerExperience, references } = props,
         { push } = useRouter()
-    console.log(references)
+
     if (!customerExperience) return push('/404')
     return (
         <React.Fragment>
             <div className="container__ungdung bg-transparent" style={{ paddingTop: 100 }}>
                 <div className="container">
                     <div className="card-search text-center">
-                        <h2 className="textthongdiep">{customerExperience.title}</h2>
+                        <h2 className="textthongdiep__khong-nghieng">{customerExperience.title}</h2>
                         <br className="my-4 py-4" />
                     </div>
                     <div className="col-sm-12">

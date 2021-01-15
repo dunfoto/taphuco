@@ -14,8 +14,6 @@ const QuanTriComponent = React.memo(props => {
         getAdmins()
     }, [])
 
-    console.log(admins)
-
     const removeAdmin = async id => {
         try {
             const res = await axios.delete(`/admin/${id}`)

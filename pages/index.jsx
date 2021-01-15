@@ -204,7 +204,7 @@ const Home = React.memo(props => {
                                 <div className="card bg-transparent">
                                     <img src={solution.img} className="card-img-top" />
                                     <div className="card-body pb-3 pt-3 text-center">
-                                        <p className="card-text text-giai-phap">{solution.showTitle}</p>
+                                        <p className="card-text text-giai-phap text-giai-phap-new">{solution.showTitle}</p>
                                     </div>
                                 </div>
                             </Link>

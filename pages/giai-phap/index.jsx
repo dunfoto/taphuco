@@ -28,7 +28,7 @@ const GiaiPhapComponent = React.memo(props => {
                                     <div className="container__home mr-auto ml-auto" style={{ cursor: "pointer" }}>
                                         <img src={solution.img} className="image" />
                                         <div className="card-body pb-4 pt-0 text-center">
-                                            <p className="card-text text-giai-phap">{solution.showTitle}</p>
+                                            <p className="card-text text-giai-phap text-giai-phap-new">{solution.showTitle}</p>
                                         </div>
                                     </div>
                                 </div>

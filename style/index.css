@@ -504,6 +504,14 @@ p.card-text {
   line-height: 150%;
 }
 
+.text-giai-phap-new {
+  color: #10846f !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  padding: 10px;
+  line-height: 47px;
+}
+
 .text-trai-nghiem {
   color: #10846f !important;
   font-size: 20px;

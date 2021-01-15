@@ -72,7 +72,7 @@ const DetailUngDungComponent = React.memo(props => {
                             <div className="card__giai-phap card" style={{ background: "transparent" }}>
                                 <img src={ref.img} className="card-img-top" />
                                 <div className="card-body pb-3 pt-3 text-center">
-                                    <p className="card-text text-giai-phap">{ref.showTitle}</p>
+                                    <p className="card-text text-giai-phap text-giai-phap-new">{ref.showTitle}</p>
                                 </div>
                             </div>
                         </Link>

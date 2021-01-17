@@ -861,4 +861,9 @@ input.form-control {
   .container__img {
     width: 100%;
   }
+
+  .container__image-footer{
+      margin-left: auto;
+      margin-right: auto;
+  }
 }

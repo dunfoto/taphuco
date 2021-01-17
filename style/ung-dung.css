@@ -16,6 +16,8 @@
     height: 100%;
     max-width: 300px;
     max-height: 300px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .ntainer__ungdung-ref>.card__ref>.image {
@@ -25,8 +27,8 @@
 }
 
 .card-search {
-    padding: 50px 30px;
-    width: 80%;
+    padding: 80px 60px 50px;
+    width: 75%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -56,12 +58,21 @@
     color: #10846F;
 }
 
+.react-multi-carousel-list>.react-multi-carousel-track {
+    display: flex;
+    justify-content: center !important;
+}
+
 .react-multiple-carousel__arrow--left,
 .react-multiple-carousel__arrow--right {
     background: transparent !important;
     color: #10846F;
 }
-
+.react-multiple-carousel__arrow--left,
+.react-multiple-carousel__arrow--right::hover{
+    background-color: gray !important;
+    color: white;
+}
 .react-multiple-carousel__arrow--left::before {
     color: #10846F;
     content: "\3008";
@@ -115,7 +126,8 @@
 @media only screen and (max-width: 768px) {
     .container__ungdung-ref {
         padding: 150px;
-        padding-top: 150px !important;
+        padding-top: 100px !important;
+        padding-bottom: 50px !important;
         padding-left: 20px !important;
         padding-right: 20px !important;
         background-color: #FFDDEA;
@@ -155,4 +167,10 @@
     .img-nguonluc {
         width: 90% !important;
     }
+
+    .react-multi-carousel-list>.react-multi-carousel-track>.react-multi-carousel-item{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
 }

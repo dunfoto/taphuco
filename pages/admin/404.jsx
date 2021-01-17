@@ -6,7 +6,7 @@ const ErrorComponent = props => {
     const { asPath, push } = useRouter()
     useEffect(() => {
         if (asPath === "/admin") {
-            push('/admin/trang-chu')
+            push('/admin/cau-hinh/trang-chu')
         }
     }, [asPath])
 

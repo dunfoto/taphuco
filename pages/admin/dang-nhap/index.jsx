@@ -13,7 +13,7 @@ const LoginComponent = React.memo(props => {
     const onSubmit = async data => {
         login(data, (err, result) => {
             if (err) throw err
-            router.push("/admin/trang-chu")
+            router.push("/admin/cau-hinh/trang-chu")
         })
     }
 

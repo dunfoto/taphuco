@@ -19,6 +19,7 @@ const NewProductComponent = React.memo(props => {
         [prepare, setPrepare] = useState([]),
         [afterDye, setAfterDye] = useState([]),
         [complete, setComplete] = useState([]),
+        [auxiliariesForPrint, setAuxiliariesForPrint] = useState([]),
         [category, setCategory] = useState(null),
         [lstCategories, setLstCategories] = useState([]),
         router = useRouter()
@@ -112,6 +113,16 @@ const NewProductComponent = React.memo(props => {
                     return p
                 }))
                 break
+            case 'auxiliariesForPrint':
+                setAuxiliariesForPrint(auxiliariesForPrint.map(p => {
+                    if (p._id === e.target.getAttribute('data-id')) {
+                        return {
+                            ...p,
+                            value: e.target.value
+                        }
+                    }
+                    return p
+                }))
             default:
                 break
         }
@@ -129,6 +140,10 @@ const NewProductComponent = React.memo(props => {
 
             case 'complete':
                 setComplete(complete.filter(p => p._id !== e.target.getAttribute('data-remove')))
+                break
+
+            case 'auxiliariesForPrint':
+                setAuxiliariesForPrint(auxiliariesForPrint.filter(p => p._id !== e.target.getAttribute('data-remove')))
                 break
         }
     }
@@ -149,6 +164,11 @@ const NewProductComponent = React.memo(props => {
                 const newComplete = [...complete, { _id: v4(), value: '' }]
                 setComplete(newComplete)
                 break
+                
+            case 'auxiliariesForPrint':
+                const newAuxiliariesForPrint = [...auxiliariesForPrint, { _id: v4(), value: '' }]
+                setAuxiliariesForPrint(newAuxiliariesForPrint)
+                break
         }
     }
 
@@ -163,6 +183,7 @@ const NewProductComponent = React.memo(props => {
                 prepare: prepare.map(t => t.value),
                 afterDye: afterDye.map(t => t.value),
                 complete: complete.map(t => t.value),
+                auxiliariesForPrint: auxiliariesForPrint.map(t => t.value),
                 category: category?.value
             },
                 res = await axios.post('/product', data)
@@ -185,31 +206,6 @@ const NewProductComponent = React.memo(props => {
             <div className="row">
                 <div className="col-12 row">
                     <div className="form-group col-6">
-                        <label htmlFor="showTitle" className="form-label">Tiêu đề hiển thị</label>
-                        <input
-                            type="string"
-                            id="showTitle"
-                            data-type="showTitle"
-                            className="form-control"
-                            value={showTitle}
-                            onChange={onChange}
-                        />
-                    </div>
-                    <div className="form-group col-6">
-                        <label htmlFor="showDescription" className="form-label">Mô tả hiển thị</label>
-                        <textarea
-                            type="string"
-                            id="showDescription"
-                            data-type="showDescription"
-                            className="form-control"
-                            value={showDescription}
-                            onChange={onChange}
-                            rows={3}
-                        />
-                    </div>
-                </div>
-                <div className="col-12 row">
-                    <div className="form-group col-6">
                         <label htmlFor="title" className="form-label">Tiêu đề</label>
                         <input
                             type="string"
@@ -229,7 +225,7 @@ const NewProductComponent = React.memo(props => {
                             className="form-control"
                             value={description}
                             onChange={onChange}
-                            rows={2}
+                            rows={4}
                         />
                     </div>
                 </div>
@@ -304,6 +300,29 @@ const NewProductComponent = React.memo(props => {
                             <div className="d-flex">
                                 <button type="button" className="col-10 btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color w-100" data-important-info="complete" onClick={append}><i className="fas fa-plus-circle"></i></button>
                             </div>
+                        </div>
+                    </div>
+                    <div className="form-group col-6">
+                        <label htmlFor="auxiliariesForPrint" className="form-label">Chất trợ đi kèm quá trình in</label>
+                        {auxiliariesForPrint.map((p, index) => (
+                            <div key={p._id} className="d-flex my-2">
+                                <input
+                                    key={p._id}
+                                    data-id={p._id}
+                                    data-type="auxiliariesForPrint"
+                                    type="string"
+                                    id={`auxiliariesForPrint-${p._id}`}
+                                    className="form-control col-10"
+                                    value={p.value}
+                                    onChange={onChange}
+                                />
+                                <div className="d-flex justify-content-start align-items-center col-2">
+                                    <i className="fas fa-times-circle" data-important-info="auxiliariesForPrint" data-remove={p._id} onClick={onRemove} style={{ cursor: "pointer" }}></i>
+                                </div>
+                            </div>
+                        ))}
+                        <div className="d-flex">
+                            <button type="button" className="col-10 btn btn-transparent border rounded-0 pl-4 pr-4 btn-border text-color w-100" data-important-info="auxiliariesForPrint" onClick={append}><i className="fas fa-plus-circle"></i></button>
                         </div>
                     </div>
                 </div>

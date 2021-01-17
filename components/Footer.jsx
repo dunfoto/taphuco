@@ -116,7 +116,7 @@ const FooterComponent = React.memo(props => {
                     </div>
                 </div>
             </div>
-            <div className="copyright w-100 text-center pt-3">
+            <div className="copyright w-100 text-center">
                 <p className="lienheheader text-color" style={{ fontWeight: "normal" }}>Copyright © 2003–2020 Tan Phu Cuong Chemical.</p>
             </div>
         </div>

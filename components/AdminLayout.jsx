@@ -29,7 +29,7 @@ const AdminLayout = props => {
     return (
         <Waiter>
             <div className={`d-flex ${toggled ? "" : "toggled"}`} id="wrapper" style={{ fontSize: 14 }}>
-                {!(router.asPath.includes("/dang-nhap") || router.asPath.includes('/404')) ? (
+                {!(router.asPath.includes("/dang-nhap") || router.asPath.includes('/404')) || router.asPath === '/admin' ? (
                     <Sidebar toggled={toggled} onToggled={onToggled} />
                 ) : <div></div>}
                 <div className="w-100 p-4" style={{ height: "100vh", overflowY: "auto" }}>{props.children}</div>

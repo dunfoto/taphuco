@@ -22,7 +22,7 @@ const Header = props => {
         router.push(url)
     }
 
-    if (route === "/404") return <div></div>
+    if (route === "/404" || route === "/admin") return <div></div>
 
     return (
         <React.Fragment>

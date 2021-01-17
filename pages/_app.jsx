@@ -40,7 +40,7 @@ const App = ({ Component, pageProps, router, categories }) => {
     }
 
     const checkHeader = () => {
-        if (router.pathname.startsWith("/admin/") || router.route == "/_error") {
+        if (router.pathname.startsWith("/admin/") || router.route == "/_error" || router.route === "/admin") {
             return false
         }
         return true
@@ -89,7 +89,7 @@ const App = ({ Component, pageProps, router, categories }) => {
             ) : (
                     <HomeLayout>
                         <Component {...pageProps} />
-                        {router.route !== '/_error' && (<Footer />)}
+                        {router.route !== '/_error' || router.route === "/admin" && (<Footer />)}
                     </HomeLayout>
                 )}
         </PersistGate>

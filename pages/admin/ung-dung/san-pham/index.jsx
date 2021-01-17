@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
 import axios from "utils/axios"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"

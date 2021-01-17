@@ -40,7 +40,10 @@ const Sidebar = React.memo(props => {
     return (
         <React.Fragment>
             <div className="bg-light border-right" id="sidebar-wrapper">
-                <div className="sidebar-heading">Tân Phú Cường</div>
+                <div className="sidebar-heading mt-2">
+                    <img src="/assets/img/logo.svg" style={{ width: "100%" }} />
+                    <hr />
+                </div>
                 <div className="list-group list-group-flush">
                     <a href="#" onClick={() => onClickCollapse('cauHinh')} className={`list-group-item list-group-item-action pr-2 bg-light ${router.asPath.includes("/admin/cau-hinh") ? "active-admin" : ""}`}>
                         <div className="d-flex">

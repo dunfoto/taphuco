@@ -33,7 +33,7 @@ const makeStore = ({ isServer }) => {
         const store = createStore(
             persistedReducer,
             {},
-            bindMiddleware([thunkMiddleware])
+            bindMiddleware([thunkMiddleware, logger])
         );
 
         store.__persistor = persistStore(store);

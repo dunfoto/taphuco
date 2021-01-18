@@ -264,7 +264,7 @@ a:hover {
 }
 
 .container__home.container__img {
-  width: 100% !important;
+  width: 100%;
 }
 
 .container__img:hover {

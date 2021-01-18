@@ -28,17 +28,17 @@ const UngDungComponent = React.memo(props => {
     }
     return (
         <React.Fragment>
-            <div className="container__ungdung">
+            <div className="container__ungdung" style={{ paddingTop: 100, paddingBottom: 100 }}>
                 <div className="container">
                     <div className="card-search bg-light text-center">
-                        <h2 className="textthongdiep">{config.application.title}</h2>
+                        <h2 className="textthongdiep" style={{ marginBottom: 0 }}>{config.application.title}</h2>
                         <br className="my-4 py-4" />
                         <div className="row">
                             <div className="col-sm-12 text-color font-16">
                                 <p className="text-color" >{config.application.description}</p>
                             </div>
                             <div className="col-sm-12 text-left">
-                                <p className="text-color font-16">Tìm ứng dụng</p>
+                                <p className="text-color font-16 mb-0">Tìm ứng dụng</p>
                                 <div className="input-group">
                                     <input type="text" onChange={onChangeSearch} className="form-control input-ungdung" placeholder="Tìm ứng dụng" />
                                     <div className="input-group-prepend input-ungdung bg-light">
@@ -52,28 +52,14 @@ const UngDungComponent = React.memo(props => {
                     </div>
                 </div>
             </div >
-            <div className="row justify-content-center bg-light" style={{ marginLeft: 0, marginRight: 0, paddingTop: 90, paddingBottom: 90, paddingLeft: "1.5rem", paddingRight: "1.5rem" }}>
-                {searchs.length === 0 ? (
-                    categories.map(category => (
-                        <div key={category._id} className="col-md-4 col-sm-6 col-xs-12 my-4 py-2 d-flex align-items-center">
-                            <div className="card card__category mr-auto ml-auto">
-                                <div className="container__img">
-                                    <img src={category.img} alt="Avatar" className="image" />
-                                    <Link href={`/ung-dung/${encodeURI(category.title)}`}>
-                                        <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
-                                            <h4 className="textimage">{category.title}</h4>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                        searchs.map(category => (
-                            <div key={category._id} className="col-md-4 col-sm-6 col-xs-12 my-4 py-2 d-flex align-items-center">
-                                <div className="card card__category mr-auto ml-auto">
-                                    <div className="container__img">
-                                        <img src={category.img} alt="Avatar" className="image" />
+            <div className="justify-content-center bg-light" style={{ marginLeft: 0, marginRight: 0, paddingTop: 90, paddingBottom: 90, paddingLeft: "1.5rem", paddingRight: "1.5rem" }}>
+                <div className="container-lg row mr-auto ml-auto">
+                    {searchs.length === 0 ? (
+                        categories.map(category => (
+                            <div key={category._id} className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 px-0 my-4">
+                                <div className="card card__category">
+                                    <div className="container__img container__home " style={{ width: 250, height: 250 }}>
+                                        <img src={category.img} alt={category._id} className="image" style={{ width: 250, height: 250 }} />
                                         <Link href={`/ung-dung/${encodeURI(category.title)}`}>
                                             <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
                                                 <h4 className="textimage">{category.title}</h4>
@@ -82,8 +68,48 @@ const UngDungComponent = React.memo(props => {
                                     </div>
                                 </div>
                             </div>
+                            // <div key={category._id} className="col-md-4 col-sm-6 col-xs-12 my-4 py-2 d-flex align-items-center">
+                            //     <div className="card card__category mr-auto ml-auto">
+                            //         <div className="container__img">
+                            //             <img src={category.img} alt="Avatar" className="image" />
+                            //             <Link href={`/ung-dung/${encodeURI(category.title)}`}>
+                            //                 <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                            //                     <h4 className="textimage">{category.title}</h4>
+                            //                 </div>
+                            //             </Link>
+                            //         </div>
+                            //     </div>
+                            // </div>
                         ))
-                    )}
+                    ) : (
+                            searchs.map(category => (
+                                <div key={category._id} className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 my-4">
+                                    <div className="card card__category">
+                                        <div className="container__img container__home " style={{ width: 250, height: 250 }}>
+                                            <img src={category.img} alt={category._id} className="image" style={{ width: 250, height: 250 }} />
+                                            <Link href={`/ung-dung/${encodeURI(category.title)}`}>
+                                                <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                                    <h4 className="textimage">{category.title}</h4>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                                // <div key={category._id} className="col-md-4 col-sm-6 col-xs-12 my-4 py-2 d-flex align-items-center">
+                                //     <div className="card card__category mr-auto ml-auto">
+                                //         <div className="container__img">
+                                //             <img src={category.img} alt="Avatar" className="image" />
+                                //             <Link href={`/ung-dung/${encodeURI(category.title)}`}>
+                                //                 <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
+                                //                     <h4 className="textimage">{category.title}</h4>
+                                //                 </div>
+                                //             </Link>
+                                //         </div>
+                                //     </div>
+                                // </div>
+                            ))
+                        )}
+                </div>
             </div>
         </React.Fragment>
     )

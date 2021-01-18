@@ -147,8 +147,8 @@ const Home = React.memo(props => {
                     {categories.map(category => (
                         <div key={category._id} className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12 my-4">
                             <div className="card card__category">
-                                <div className="container__img container__home ">
-                                    <img src={category.img} alt={category._id} className="image" />
+                                <div className="container__img container__home " style={{ width: 250, height: 250 }}>
+                                    <img src={category.img} alt={category._id} className="image" style={{ width: 250, height: 250 }} />
                                     <Link href={`/ung-dung/${encodeURI(category.title)}`}>
                                         <div className="middle d-flex align-items-center" style={{ cursor: "pointer" }}>
                                             <h4 className="textimage">{category.title}</h4>

@@ -56,6 +56,7 @@ const App = ({ Component, pageProps, router, categories }) => {
         return title
     }
 
+    console.log(router.route)
     return (
         <PersistGate
             dispatch={store.dispatch}
@@ -89,7 +90,7 @@ const App = ({ Component, pageProps, router, categories }) => {
             ) : (
                     <HomeLayout>
                         <Component {...pageProps} />
-                        {router.route !== '/_error' || router.route === "/admin" && (<Footer />)}
+                        {(router.route !== '/_error' || router.route !== "/admin") && (<Footer />)}
                     </HomeLayout>
                 )}
         </PersistGate>

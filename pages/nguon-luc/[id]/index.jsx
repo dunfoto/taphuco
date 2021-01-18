@@ -25,9 +25,9 @@ const GiaiPhapComponent = React.memo(props => {
                                 <div className="card-body">
                                     <h5 className="card-title text-dark textthongdiep">{power.title}</h5>
                                 </div>
-                                <img src={power.img} className="card-img-top" height={250} style={{ maxWidth: 390, objectFit: 'scale-down' }} />
+                                <img src={power.img} className="card-img-top" height={250} style={{ maxWidth: 390, objectFit: 'cover' }} />
                                 <div className="card-body pt-2">
-                                    <p className="card-text text-giai-phap my-2 py-2">{getStringInHtml(power.content).slice(0, 200)}</p>
+                                    <p className="card-text text-nguon-luc my-2 py-2 px-0 text-wrap">{getStringInHtml(power.content).slice(0, 200)}</p>
                                     <Link href={`${router.asPath}/${encodeURI(power.title)}`}>
                                         <button className="btn btn-transparent border rounded-0 mt-2 pl-4 pr-4 btn-border text-color">Xem thêm</button>
                                     </Link>

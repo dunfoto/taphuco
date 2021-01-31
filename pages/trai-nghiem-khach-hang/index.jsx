@@ -5,7 +5,7 @@ import { getStringInHtml } from "common/html"
 import axios from "axios"
 import { useRouter } from "next/router"
 
-const GiaiPhapComponent = React.memo(props => {
+const DieuKhachHangNoiComponent = React.memo(props => {
     const { clients, customerExperiences, references, config } = props,
         { push } = useRouter()
     if (!clients || !customerExperiences || !references) return push('/404')
@@ -57,34 +57,11 @@ const GiaiPhapComponent = React.memo(props => {
                     ))}
                 </div>
             </div>
-            {/* <div className="container__trainghiemkhachhang text-center" style={{ marginTop: 0 }}>
-                <div className="content row mr-auto ml-auto" style={{ backgroundColor: "transparent", backgroundImage: `url(/trainghiemkhachhang-border.png)`, backgroundSize: "100% 100%" }}>
-                    <h2 className="textthongdiep col-12">Trải nghiệm khách hàng</h2>
-                    <div className="col-12">
-                        <Carousel
-                            controls={false}
-                            interval={3000}
-                            pause="hover"
-                            slide={false}
-                            style={{ position: 'relative' }}
-                        >
-                            {references.map(ref => (
-                                <Carousel.Item key={ref._id}>
-                                    <p className="text-color">{getStringInHtml(ref.content).slice(0, 300)}</p>
-                                    <Link href={`/trai-nghiem-khach-hang/${encodeURI(ref.title)}`}>
-                                        <button className="btn btn-transparent border rounded-0 mt-2 pl-4 pr-4 my-4 btn-border text-color">Xem thêm</button>
-                                    </Link>
-                                </Carousel.Item>
-                            ))}
-                        </Carousel>
-                    </div>
-                </div>
-            </div> */}
         </React.Fragment >
     )
 })
 
-GiaiPhapComponent.getInitialProps = async ctx => {
+DieuKhachHangNoiComponent.getInitialProps = async ctx => {
     try {
         const clients = (await axios.get(`${process.env.API}/clients`)).data.data,
             customerExperiences = (await axios.get(`${process.env.API}/customer-experiences?limit=4`)).data.data,
@@ -96,4 +73,4 @@ GiaiPhapComponent.getInitialProps = async ctx => {
     }
 }
 
-export default GiaiPhapComponent
+export default DieuKhachHangNoiComponent

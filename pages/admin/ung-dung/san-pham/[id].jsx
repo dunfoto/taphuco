@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import Cropper from 'react-cropper'
 import checkPermission from "common/checkValidPermission"
 
-const NewProductComponent = React.memo(props => {
+const EditProductComponent = React.memo(props => {
     const [title, setTitle] = useState(''),
         [description, setDescription] = useState(''),
         [imgs, setImgs] = useState([]),
@@ -411,4 +411,4 @@ const NewProductComponent = React.memo(props => {
     )
 })
 
-export default NewProductComponent
+export default EditProductComponent

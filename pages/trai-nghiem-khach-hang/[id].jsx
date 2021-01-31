@@ -7,7 +7,7 @@ import Link from "next/link"
 import axios from 'axios'
 import { getStringInHtml } from "common/html"
 
-const DetailUngDungComponent = React.memo(props => {
+const DetailDieuKhachHangNoiComponent = React.memo(props => {
     const { customerExperience, references } = props,
         { push } = useRouter()
 
@@ -64,7 +64,7 @@ const DetailUngDungComponent = React.memo(props => {
     )
 })
 
-DetailUngDungComponent.getInitialProps = async ctx => {
+DetailDieuKhachHangNoiComponent.getInitialProps = async ctx => {
     try {
         const { query: { id } } = ctx,
             customerExperience = (await axios.get(`${process.env.API}/customer-experience/${encodeURI(id)}`)).data.data,
@@ -75,4 +75,4 @@ DetailUngDungComponent.getInitialProps = async ctx => {
     }
 }
 
-export default DetailUngDungComponent
+export default DetailDieuKhachHangNoiComponent

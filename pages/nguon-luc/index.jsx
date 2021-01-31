@@ -4,7 +4,7 @@ import axios from "axios"
 import { getStringInHtml } from "common/html"
 import { useRouter } from "next/router"
 
-const GiaiPhapComponent = React.memo(props => {
+const NguonLucComponent = React.memo(props => {
     const { categories, powers, config: { power } } = props,
         router = useRouter()
     return (
@@ -78,7 +78,7 @@ const GiaiPhapComponent = React.memo(props => {
     )
 })
 
-GiaiPhapComponent.getInitialProps = async ctx => {
+NguonLucComponent.getInitialProps = async ctx => {
     try {
         const categories = (await axios.get(`${process.env.API}/categories/all`)).data.data,
             powers = (await axios.get(`${process.env.API}/powers/random`)).data.data,
@@ -89,4 +89,4 @@ GiaiPhapComponent.getInitialProps = async ctx => {
     }
 }
 
-export default GiaiPhapComponent
+export default NguonLucComponent

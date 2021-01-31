@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import axios from "axios"
 import { getStringInHtml } from "common/html"
 
-const GiaiPhapComponent = React.memo(props => {
+const NguonLucComponent = React.memo(props => {
     const router = useRouter(),
         { category, powers } = props
 
@@ -41,7 +41,7 @@ const GiaiPhapComponent = React.memo(props => {
     )
 })
 
-GiaiPhapComponent.getInitialProps = async ctx => {
+NguonLucComponent.getInitialProps = async ctx => {
     try {
         const { query: { id } } = ctx,
             category = (await axios.get(`${process.env.API}/category/${encodeURI(id)}`)).data.data,
@@ -51,4 +51,4 @@ GiaiPhapComponent.getInitialProps = async ctx => {
         return {}
     }
 }
-export default GiaiPhapComponent
+export default NguonLucComponent

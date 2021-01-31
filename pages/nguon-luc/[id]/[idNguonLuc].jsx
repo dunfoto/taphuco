@@ -25,7 +25,7 @@ const responsive = {
     }
 };
 
-const DetailUngDungComponent = React.memo(props => {
+const DetaiNguonLucComponent = React.memo(props => {
     const { query: { id } } = useRouter(),
         { power, powers } = props
     return (
@@ -79,7 +79,7 @@ const DetailUngDungComponent = React.memo(props => {
     )
 })
 
-DetailUngDungComponent.getInitialProps = async ctx => {
+DetaiNguonLucComponent.getInitialProps = async ctx => {
     try {
         const { query: { id, idNguonLuc } } = ctx,
             power = (await axios.get(`${process.env.API}/power/${encodeURI(id)}/${encodeURI(idNguonLuc)}`)).data.data,
@@ -90,4 +90,4 @@ DetailUngDungComponent.getInitialProps = async ctx => {
     }
 }
 
-export default DetailUngDungComponent
+export default DetaiNguonLucComponent
